@@ -1,0 +1,23 @@
+<div class="p-2">
+    <p class="mb-2 fw-bold">Hide rarities</p>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="commonCheckbox" [(ngModel)]="rarityFilter.common" (change)="update()">
+        <label class="form-check-label" for="commonCheckbox">Common</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="uncommonCheckbox" [(ngModel)]="rarityFilter.uncommon" (change)="update()">
+        <label class="form-check-label" for="uncommonCheckbox">Uncommon</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="rareCheckbox" [(ngModel)]="rarityFilter.rare" (change)="update()">
+        <label class="form-check-label" for="rareCheckbox">Rare</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="mythicCheckbox" [(ngModel)]="rarityFilter.mythic" (change)="update()">
+        <label class="form-check-label" for="mythicCheckbox">Mythic</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="specialCheckbox" [(ngModel)]="rarityFilter.special" (change)="update()">
+        <label class="form-check-label" for="specialCheckbox">Special</label>
+    </div>
+</div>

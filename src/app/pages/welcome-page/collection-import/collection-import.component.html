@@ -1,0 +1,25 @@
+<div class="import">
+
+    @if (progress === 100) {
+        <div class="file-uploaded">
+
+            <p class="file-name">{{ file.name }}</p>
+            <button class="btn btn-light reset" (click)="clearFile()">Clear</button>
+        </div>
+        <img [src]="imageURL" height="400" />
+    } @else if (progress > 0 && progress < 100) {
+        <div class="load-container">
+            <p class="progress-desc">Progress: {{ progress }}%</p>
+            <mat-progress-bar class="progress" mode="indeterminate" [value]="progress"></mat-progress-bar>
+        </div>
+    } @else {
+        <div class="file-container">
+            <div class="upload">
+                <i class="bi bi-upload upload-icon" style="font-size: 3rem;"></i>
+                <p class="upload-description">Upload your collection (.csv)</p>
+            </div>
+            <input type="file" accept=".csv" (change)="getFile($event)" class="file" />
+        </div>
+    }
+        
+</div>

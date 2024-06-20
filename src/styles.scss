@@ -1,0 +1,59 @@
+/* Bootstrap functions to modify variables */
+@import "../node_modules/bootstrap/scss/_functions.scss";
+
+/* Custom variables from variables.scss */
+@import 'variables';
+
+/* Bootstrap */
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+/* Bootstrap Icons */
+@import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+
+html, body { 
+    height: 100%; 
+}
+
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    label {
+        font-size: 0.8rem; 
+    }
+
+    p {
+        font-size: 0.8rem; 
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    label {
+        font-size: 1.0rem; 
+    }
+
+    p {
+        font-size: 1.0rem; 
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    
+}

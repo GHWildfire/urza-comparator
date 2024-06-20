@@ -1,0 +1,82 @@
+@import "../../../variables.scss";
+
+.card-container {
+    width: 100%;
+    height: 100%;
+}
+
+.mtg-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.back-image {
+    position: absolute; 
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.spinner-background {
+    width: 100%;
+    height: 100%;
+    position: absolute; 
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+}
+
+.spinner {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: calc(50% - 25px);
+    left: calc(50% - 25px);
+}
+
+.price-tag {
+    background-color: $primary;
+    position: absolute;
+    width: 100px;
+    bottom: -4px;
+    left: calc(50% - 50px);
+    margin: 0;
+    padding: 5px;
+    font-size: 0.7em;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.quantity-border {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    border-style: solid;
+    font-style: bold;
+    border-color: $primary;
+    color: white;
+    font-size: 0.7em;
+}
+
+.quantity-number {
+    position: absolute;
+    background-color: $primary;
+    padding: 2px 6px 0px 4px;
+    bottom: 0;
+    border-radius: 0 10px 0 0;
+}
+
+.quantity-number-foil {
+    position: absolute;
+    background-color: $primary;
+    padding: 0px 6px 2px 4px;
+    border-radius: 0 0 10px 0;
+}

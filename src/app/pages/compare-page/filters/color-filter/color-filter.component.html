@@ -1,0 +1,31 @@
+<div class="p-2">
+    <p class="mb-2 fw-bold">{{ title() }}</p>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" [id]="'whiteCheckbox' + contains()" [(ngModel)]="colorFilter.white" (change)="update()">
+        <label class="form-check-label" [htmlFor]="'whiteCheckbox' + contains()">White</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" [id]="'blueCheckbox' + contains()" [(ngModel)]="colorFilter.blue" (change)="update()">
+        <label class="form-check-label" [htmlFor]="'blueCheckbox' + contains()">Blue</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" [id]="'blackCheckbox' + contains()" [(ngModel)]="colorFilter.black" (change)="update()">
+        <label class="form-check-label" [htmlFor]="'blackCheckbox' + contains()">Black</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" [id]="'redCheckbox' + contains()" [(ngModel)]="colorFilter.red" (change)="update()">
+        <label class="form-check-label" [htmlFor]="'redCheckbox' + contains()">Red</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" [id]="'greenCheckbox' + contains()" [(ngModel)]="colorFilter.green" (change)="update()">
+        <label class="form-check-label" [htmlFor]="'greenCheckbox' + contains()">Green</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" [id]="'multicolorCheckbox' + contains()" [(ngModel)]="colorFilter.multicolor" (change)="update()">
+        <label class="form-check-label" [htmlFor]="'multicolorCheckbox' + contains()">Multicolor</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" [id]="'colorlessCheckbox' + contains()" [(ngModel)]="colorFilter.colorless" (change)="update()">
+        <label class="form-check-label" [htmlFor]="'colorlessCheckbox' + contains()">Colorless</label>
+    </div>
+</div>

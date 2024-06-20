@@ -1,0 +1,17 @@
+<div id="welcome">
+    <h1 id="title" class="text-primary">Urza Comparator</h1>
+    <p id="description">- An Urza Gatherer collection comparator -</p>
+    <h4 id="tutorial">Start by importing two collections</h4>
+    <div id="imports" class="row">
+        <app-collection-import class="import col" id="Importer 1"/>
+        <app-collection-import class="import col" id="Importer 2"/>
+    </div>
+    <button 
+        id="button" 
+        (click)="startComparing()" 
+        [disabled]="disableCompare" 
+        class="btn btn-primary"
+    >
+        Compare my collections
+    </button>
+</div>

@@ -1,0 +1,18 @@
+.app-content {
+    width: 100%;
+    padding-top: 56px;
+    height: 100vh;
+}
+
+#collections {
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    background-color: lightgray;
+}
+
+#router-render {
+    width: 100%;
+    margin-top: 100px;
+    height: calc(100% - 100px);
+}
