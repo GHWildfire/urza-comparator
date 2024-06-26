@@ -1,18 +1,6 @@
 <div id="main">
     <div class="row m-0">
 
-        <div class="p-2 mb-2">
-            <p class="mb-2 fw-bold">Name must contain</p>
-            <input 
-                type="text" 
-                id="nameFilter" autocomplete="off" 
-                [(ngModel)]="name"
-                (input)="update()" 
-                placeholder="Name..." 
-                class="form-control"
-            >
-        </div>
-
         <app-color-filter class="p-0 mb-2" title="Mana cost contains" [contains]="true" />
 
         <app-color-filter class="p-0 mb-2" title="Mana cost doesn't contain" [contains]="false" />

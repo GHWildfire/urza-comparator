@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RarityFilter } from './rarity-filter.model';
-import { ComparePageService } from '../../compare-page.service';
 import { FormsModule } from '@angular/forms';
+import { CollectionsService } from '../../../../services/collections.service';
 
 @Component({
   selector: 'app-rarity-filter',
@@ -13,10 +13,10 @@ import { FormsModule } from '@angular/forms';
 export class RarityFilterComponent {
   rarityFilter: RarityFilter = new RarityFilter
 
-  constructor(private compareService: ComparePageService) {}
+  constructor(private collectionService: CollectionsService) {}
 
   update() {
-    this.compareService.updateRarities(this.rarityFilter)
+    this.collectionService.updateRarities(this.rarityFilter)
   }
 
   reset() {

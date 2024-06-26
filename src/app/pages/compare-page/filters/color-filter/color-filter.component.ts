@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ColorFilter } from './color-filter.model';
-import { ComparePageService } from '../../compare-page.service';
+import { CollectionsService } from '../../../../services/collections.service';
 
 @Component({
   selector: 'app-color-filter',
@@ -15,10 +15,10 @@ export class ColorFilterComponent {
   title = input.required<string>()
   colorFilter: ColorFilter = new ColorFilter
 
-  constructor(private compareService: ComparePageService) {}
+  constructor(private collectionService: CollectionsService) {}
 
   update() {
-    this.compareService.updateColors(this.colorFilter, this.contains())
+    this.collectionService.updateColors(this.colorFilter, this.contains())
   }
 
   reset() {

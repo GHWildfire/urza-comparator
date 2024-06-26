@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WelcomePageService } from '../welcome-page.service';
+import { ScryfallAPIService } from '../../../services/scryfall-api.service';
 import { ScryfallCollection } from '../../../data-models/scryfall-collection.model';
 import { CommonModule  } from '@angular/common';
 
@@ -13,13 +13,13 @@ import { CommonModule  } from '@angular/common';
 export class ScryfallImportComponent implements OnInit {
   scryfallCollection?: ScryfallCollection
 
-  constructor(private collectionService: WelcomePageService) {
+  constructor(private collectionService: ScryfallAPIService) {
     collectionService.scryfallLoaded.subscribe(collection => {
       this.scryfallCollection = collection
     })
   }
 
   ngOnInit(): void {
-    this.scryfallCollection = this.collectionService.loadScryfallCollection()
+    //this.scryfallCollection = this.collectionService.loadScryfallCollection()
   }
 }

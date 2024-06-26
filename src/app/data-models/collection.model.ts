@@ -1,4 +1,4 @@
-import { UrzaCard } from "../data-models/urza-card.model"
+import { UrzaCard } from "./urza-card.model"
 
 export class Collection {
     constructor(

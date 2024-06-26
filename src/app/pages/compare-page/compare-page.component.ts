@@ -1,26 +1,79 @@
-import { Component, OnInit } from '@angular/core';
-import { CollectionComponent } from "../../collection/collection.component";
-import { Collection } from '../../collection/collection.model';
-import { FiltersComponent } from "./filters/filters.component";
-import { ComparePageService } from './compare-page.service';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild, effect } from '@angular/core';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CardComponent } from './card/card.component';
+import { FormsModule } from '@angular/forms';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog'
+import { CollectionsService } from '../../services/collections.service';
+import { UrzaCard } from '../../data-models/urza-card.model';
+import { compareOptions, orderOptions, colors } from "./compare-page.constants";
+import { FiltersComponent } from './filters/filters.component';
 
 @Component({
     selector: 'app-compare-page',
     standalone: true,
     templateUrl: './compare-page.component.html',
     styleUrl: './compare-page.component.css',
-    imports: [CollectionComponent, FiltersComponent]
+    imports: [ScrollingModule, FormsModule, CardComponent]
 })
-export class ComparePageComponent implements OnInit {
-  collection: Collection = new Collection([])
+export class ComparePageComponent {
+  // Selects options
+  compareOptions = compareOptions
+  orderOptions = orderOptions
 
-  constructor(private compareService: ComparePageService) {}
-  
-  ngOnInit(): void {
-    this.compareService.resultingCollectionUpdated.subscribe(updatedCollection => {
-      this.collection = updatedCollection
+  // Parameters
+  compareOptionSelected = compareOptions[0].value
+  orderOptionSelected = orderOptions[0].value
+  nbCards = this.collectionService.nbCards
+  name: string = ""
+
+  // Grid
+  grid: UrzaCard[][] = []
+
+  @ViewChild('viewport')
+  viewport: ElementRef | undefined
+
+  constructor(
+    private ref: ChangeDetectorRef, 
+    private dialogRef: MatDialog,
+    private collectionService: CollectionsService
+  ) {
+    effect(() => {
+      this.adaptCardGrid()
     })
+  }
 
-    this.compareService.update()
+  ngOnInit(): void {
+    this.collectionService.gridUpdated.subscribe(newGrid => {
+      this.grid = newGrid
+      this.nbCards = this.collectionService.nbCards
+    })
+  }
+
+  @HostListener('window:resize', ['$event.target.innerWidth'])
+  onResize() {
+    this.adaptCardGrid()
+  }
+
+  adaptCardGrid() {
+    this.collectionService.adaptViewportSize(this.viewport !== undefined 
+      ? this.viewport.nativeElement.offsetWidth : 0)
+    this.collectionService.adaptCardGrid()
+    this.ref.detectChanges();
+  }
+
+  openFilters() {
+    this.dialogRef.open(FiltersComponent)
+  }
+
+  onNameFilterChange() {
+    this.collectionService.updateName(this.name);
+  }
+
+  onCompareOptionsChange(newValue: number) {
+    this.collectionService.updateCompareOptionSelected(newValue)
+  }
+
+  onOrderOptionsChange(newValue: string) {
+    this.collectionService.updateOrderOptionSelected(newValue)
   }
 }

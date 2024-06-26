@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { UrzaCard } from '../../data-models/urza-card.model';
+import { UrzaCard } from '../../../data-models/urza-card.model';
 
 @Component({
   selector: 'app-card',

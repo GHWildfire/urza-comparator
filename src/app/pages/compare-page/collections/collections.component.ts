@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CollectionDetailsComponent } from './collection-details/collection-details.component';
-import { ComparePageService } from '../pages/compare-page/compare-page.service';
+import { CollectionsService } from '../../../services/collections.service';
 
 @Component({
     selector: 'app-collections',
@@ -12,10 +12,10 @@ import { ComparePageService } from '../pages/compare-page/compare-page.service';
 export class CollectionsComponent {
   rightToLeft: boolean = true
 
-  constructor(private compareService: ComparePageService) {}
+  constructor(private collectionService: CollectionsService) {}
   
   swap() {
     this.rightToLeft = !this.rightToLeft
-    this.compareService.swap()
+    this.collectionService.swap()
   }
 }

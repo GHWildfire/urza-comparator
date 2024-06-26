@@ -1,7 +1,8 @@
 import { Component, OnInit, input } from '@angular/core';
-import { WelcomePageService } from '../welcome-page.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { Collection } from '../../../collection/collection.model';
+import { CSVCollection } from '../../../data-models/csv-collection.model';
+import { CollectionsService } from '../../../services/collections.service';
+import { CSVService } from '../../../services/csv.service';
 
 @Component({
   selector: 'app-collection-import',
@@ -11,34 +12,33 @@ import { Collection } from '../../../collection/collection.model';
   styleUrl: './collection-import.component.scss'
 })
 export class CollectionImportComponent implements OnInit {
-  id = input.required<string>()
+  isLeft = input.required<boolean>()
   file: any
   imageURL: string = ""
   progress = 0
 
-  constructor(private cardsService: WelcomePageService) {}
+  constructor(
+    private collectionsService: CollectionsService,
+    private csvService: CSVService
+  ) {}
 
   ngOnInit(): void {
-    this.cardsService.collectionLoading.subscribe(loading => {
-      if (this.id() === loading.importerId) {
+    this.csvService.csvLoading.subscribe(loading => {
+      if (this.isLeft() === loading.isLeft) {
         this.progress = loading.progress
       }
     })
 
-    let collection = this.id() === "Importer 1" ? this.cardsService.collection1 : this.cardsService.collection2
-    if (collection) {
-      this.file = collection.file
-      this.progress = 100
-    }
+    this.collectionsService.clearImportedCollection(this.isLeft())
   }
 
   clearFile() {
     this.file = undefined
     this.progress = 0
-    this.cardsService.clearImportedCollection(this.id())
+    this.collectionsService.clearImportedCollection(this.isLeft())
   }
 
-  getFile(event: any) {
+  loadCSV(event: any) {
     const reader = new FileReader();
     this.file = event.target.files[0]
     reader.onload = async () => {
@@ -55,7 +55,8 @@ export class CollectionImportComponent implements OnInit {
         }
 
         const headers = lines[1].split(separator)
-        this.cardsService.loadUrzaCards(this.file, separator, headers, lines.slice(2), this.id())
+        const csvCollection = new CSVCollection(this.file, separator, headers, lines.slice(2), this.isLeft())
+        this.csvService.csvToCollection(csvCollection)
       }
     }
 

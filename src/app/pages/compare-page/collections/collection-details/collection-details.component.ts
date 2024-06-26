@@ -1,6 +1,6 @@
 import { Component, OnInit, input } from '@angular/core';
-import { Collection } from '../../collection/collection.model';
-import { ComparePageService } from '../../pages/compare-page/compare-page.service';
+import { Collection } from '../../../../data-models/collection.model';
+import { CollectionsService } from '../../../../services/collections.service';
 
 @Component({
   selector: 'app-collection-details',
@@ -11,12 +11,12 @@ import { ComparePageService } from '../../pages/compare-page/compare-page.servic
 })
 export class CollectionDetailsComponent implements OnInit {
   collection? : Collection
-  id = input.required<string>()
+  isLeft = input.required<boolean>()
 
-  constructor(private compareService: ComparePageService) {}
+  constructor(private collectionService: CollectionsService) {}
 
   ngOnInit(): void {
-    this.compareService.getCollection(this.id()).then(collection => {
+    this.collectionService.getCollection(this.isLeft()).then(collection => {
       this.collection = collection
     })
   }

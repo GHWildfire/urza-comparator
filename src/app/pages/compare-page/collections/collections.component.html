@@ -1,10 +1,10 @@
 <div id="main">
     <div id="row" class="row">
         <div class="collection col">
-            <app-collection-details id="Details 1" />
+            <app-collection-details [isLeft]="true" />
         </div>
         <div class="collection col">
-            <app-collection-details id="Details 2" />
+            <app-collection-details [isLeft]="false" />
         </div>
         <button id="swap" class="btn btn-primary" (click)="swap()">
             @if (rightToLeft) {

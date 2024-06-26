@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import Dexie from 'dexie'
-import { Collection } from './app/collection/collection.model'
+import { Collection } from '../data-models/collection.model'
 
 @Injectable({
   providedIn: 'root'

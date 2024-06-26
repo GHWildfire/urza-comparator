@@ -3,8 +3,8 @@
     <p id="description">- An Urza Gatherer collection comparator -</p>
     <h4 id="tutorial">Start by importing two collections</h4>
     <div id="imports" class="row">
-        <app-collection-import class="import col" id="Importer 1"/>
-        <app-collection-import class="import col" id="Importer 2"/>
+        <app-collection-import class="import col" [isLeft]="true"/>
+        <app-collection-import class="import col" [isLeft]="false"/>
     </div>
     <button 
         id="button" 
