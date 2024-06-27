@@ -4,20 +4,42 @@ import { Collection } from "../data-models/collection.model"
 import { ScryfallBulk, ScryfallBulkData } from "../data-models/scryfall-bulk.model"
 import { Observable, map, switchMap } from "rxjs"
 import { ScryfallCard, ScryfallCardFace, ScryfallCardImage, ScryfallCardPrice, ScryfallCollection } from "../data-models/scryfall-collection.model"
+import { DexieDBService } from "./dexie-db.service"
 
 @Injectable({ providedIn: 'root' })
 export class ScryfallAPIService {
-    private scryFallURL = "https://api.scryfall.com"
-    private scryfallBulkDataType = "default_cards"
-
+    private scryFallURL: string = "https://api.scryfall.com"
+    private scryfallBulkDataType: string = "default_cards"
     private scryfallCollection?: ScryfallCollection
+    private scryfallMinRefreshFrequency: number = 1000 * 60 * 10 // 10 minutes
+
     scryfallLoaded = new EventEmitter<ScryfallCollection>()
+    collectionLinking = new EventEmitter<{ progress: number, isLeft: boolean }>()
     collectionLinked = new EventEmitter<{ collection: Collection, isLeft: boolean }>()
 
     cards: ScryfallCard[] = []
 
-    constructor(private http: HttpClient) {
-        this.loadScryfallCollection()
+    constructor(
+        private http: HttpClient,
+        private db: DexieDBService
+    ) {
+        this.initScryfallCollection()
+    }
+
+    async initScryfallCollection() {
+        const scryfalls = await this.db.scryfalls.toArray()
+        if (scryfalls.length == 1) {
+            const scryfall = scryfalls[0]
+            const currentTime = new Date().getTime()
+            if (currentTime - scryfall.timestamp > this.scryfallMinRefreshFrequency) {
+                this.loadScryfallCollection()
+            } else {
+                this.scryfallCollection = scryfall
+                this.scryfallLoaded.emit(scryfall)
+            }
+        } else {
+            this.loadScryfallCollection()
+        }
     }
 
     loadScryfallCollection() {
@@ -68,7 +90,9 @@ export class ScryfallAPIService {
                             cards.push(new ScryfallCard(cardData.id, cardData.tcgplayer_id, cardData.cardmarket_id, images, prices, faces, cardData.released_at));
                         });
     
-                        return new ScryfallCollection(cards);
+                        const scryfall = new ScryfallCollection(cards, new Date().getTime());
+                        this.db.saveScryfall(scryfall)
+                        return scryfall
                     })
                 );
             })
@@ -98,10 +122,10 @@ export class ScryfallAPIService {
     }
 
     async linkScryfallData(collection: Collection, isLeft: boolean) {
-        if (!this.scryfallCollection) {
+        if (!this.scryfallCollection || collection.cardsLinked) {
             return
         }
-
+        
         const batchSize = 10
         const cards = this.scryfallCollection!.cards
         let index = 0
@@ -124,12 +148,15 @@ export class ScryfallAPIService {
             }
 
             if (index % batchSize === 0) {
+                this.collectionLinking.emit({ progress: index, isLeft: isLeft })
                 await new Promise(f => setTimeout(f, 0));
             }
 
             index = index + 1
         }
 
+        collection.cardsLinked = true
+        this.collectionLinking.emit({ progress: index, isLeft: isLeft })
         this.collectionLinked.emit({ collection: collection, isLeft: isLeft })
     }
 }

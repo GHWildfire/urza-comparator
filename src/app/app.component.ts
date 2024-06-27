@@ -22,21 +22,14 @@ import { CollectionsComponent } from './pages/compare-page/collections/collectio
         CollectionsComponent
     ]
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
     currentRoute = signal<string>("")
-    collection: Collection = new Collection([])
+    collection: Collection = new Collection([], false)
 
-    constructor(private collectionService: ScryfallAPIService, private router: Router) {
-        /*collectionService.collectionLoaded.subscribe((collection: Collection) => {
-            this.collection = collection
-        })*/
+    constructor(private router: Router) {
         this.router.events.subscribe(() => {
             this.currentRoute.set(this.router.url);
         })
-    }
-
-    ngOnInit(): void {
-        //this.collectionService.loadScryfallCollection()
     }
 
 

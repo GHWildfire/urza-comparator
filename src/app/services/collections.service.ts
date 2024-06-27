@@ -7,7 +7,6 @@ import { RarityFilter } from "../pages/compare-page/filters/rarity-filter/rarity
 import { DexieDBService } from "./dexie-db.service";
 import { ScryfallAPIService } from "./scryfall-api.service";
 import { CSVService } from "./csv.service";
-import { CSVCollection } from "../data-models/csv-collection.model";
 
 @Injectable({ providedIn: 'root' })
 export class CollectionsService {
@@ -19,7 +18,7 @@ export class CollectionsService {
     collection2FromCSV?: Collection
     collectionLinked1?: Collection
     collectionLinked2?: Collection
-    collection: Collection = new Collection([])
+    collection: Collection = new Collection([], false)
 
     // Variables
     rightToLeft: boolean = true
@@ -74,38 +73,18 @@ export class CollectionsService {
             }
 
             if (this.collectionLinked1 && this.collectionLinked2) {
-                this.saveCollections()
+                this.dexieDB.saveCollections(this.collection1, this.collection2)
             }
         })
     }
 
     // -------- Database --------
 
-    async saveCollections() {
-        if (!this.collection1 || !this.collection2) {
-            return
-        }
-
-        await this.dexieDB.collections.clear();
-        this.dexieDB.collections.put(this.collection1, 0)
-        this.dexieDB.collections.put(this.collection2, 1)
-    }
-
-    async loadCollections() {
-        const collections = await this.dexieDB.collections.toArray()
-        if (collections.length == 2) {
-            this.collection1 = collections[0]
-            this.collection2 = collections[1]
-
-            this.updateResultingCollection()
-        }
-    }
-
     // -------- Collections header --------
 
     swap() {
         this.rightToLeft = !this.rightToLeft
-        this.updateResultingCollection()
+        this.mergeCollections()
     }
 
     // -------- Main filters --------
@@ -122,7 +101,7 @@ export class CollectionsService {
 
     updateOrderOptionSelected(orderOptionSelected: string) {
         this.orderOptionSelected = orderOptionSelected
-        this.adaptCardGrid()
+        this.mergeCollections()
     }
 
     // -------- Advanced filters --------
@@ -145,27 +124,25 @@ export class CollectionsService {
 
     async getCollection(isLeft: boolean) {
         if (this.collection1 === undefined || this.collection2 === undefined) {
-            await this.loadCollections()
-
-            // Check for images
+            const collections = await this.dexieDB.collections.toArray()
+            if (collections.length == 2) {
+                this.collection1 = collections[0]
+                this.collection2 = collections[1]
+    
+                this.mergeCollections()
+            }
         }
 
-        this.updateResultingCollection()
-
-        if (isLeft) {
-            return this.collection1
-        } else {
-            return this.collection2
-        }
+        return isLeft ? this.collection1 : this.collection2
     }
 
-    updateResultingCollection() {
+    mergeCollections() {
         if (this.collection1 === undefined || this.collection2 === undefined) {
             return
         }
 
-        let resultingCollection = new Collection(this.rightToLeft ? this.collection2.cards : this.collection1.cards)
-        let checkedCollection = new Collection(this.rightToLeft ? this.collection1.cards : this.collection2.cards)
+        let resultingCollection = new Collection(this.rightToLeft ? this.collection2.cards : this.collection1.cards, false)
+        let checkedCollection = new Collection(this.rightToLeft ? this.collection1.cards : this.collection2.cards, false)
 
         this.collection.cards = resultingCollection.cards.filter(card => {
             return !checkedCollection?.cards.some(card2 => card.id === card2.id)
@@ -225,12 +202,14 @@ export class CollectionsService {
     lockCollections() {
         this.collection1 = this.collection1FromCSV
         this.collection2 = this.collection2FromCSV
-        this.saveCollections()
+        this.dexieDB.saveCollections(this.collection1, this.collection2)
 
         if (this.collection1 && this.collection2) {
             this.scryfallAPIService.linkScryfallData(this.collection1, true)
             this.scryfallAPIService.linkScryfallData(this.collection2, false)
         }
+
+        this.mergeCollections()
     }
 
     // -------- Filtering helpers --------

@@ -24,7 +24,7 @@ export class CSVService {
             }
         }
         
-        const newCollection: Collection = new Collection(cards, csvCollection.file)
+        const newCollection: Collection = new Collection(cards, false, csvCollection.file)
 
         this.csvLoading.emit({ progress: 100, isLeft: csvCollection.isLeft })
         this.csvLoaded.emit({ collection: newCollection, isLeft: csvCollection.isLeft })

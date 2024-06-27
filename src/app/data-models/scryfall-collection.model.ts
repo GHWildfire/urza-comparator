@@ -1,6 +1,7 @@
 export class ScryfallCollection {
     constructor(
         public cards: ScryfallCard[],
+        public timestamp: number
     ) {}
 }
 

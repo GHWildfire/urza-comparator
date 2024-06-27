@@ -2,5 +2,16 @@
     @if (collection) {
         <p class="m-0 fw-bold">{{ collection.file?.name }}</p>
         <p>{{ collection.cards.length }} cards</p>
+        <div id="progress">
+            @if (collection.cardsLinked) {
+                <i class="bi bi-check-square-fill" style="font-size: 30px; color: green;"></i>
+            } @else {
+                <p>{{ progressDisplay }}</p>
+            }
+        </div>
+    } @else {
+        <div id="spinner-container">
+            <div class="spinner spinner-border text-primary" role="status"></div>
+        </div>
     }
 </div>
