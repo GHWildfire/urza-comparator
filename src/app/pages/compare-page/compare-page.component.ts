@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild, effect } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { CardComponent } from './card/card.component';
+import { CardPreviewComponent } from './card-preview/card-preview.component';
 import { FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { CollectionsService } from '../../services/collections.service';
@@ -13,7 +13,7 @@ import { FiltersComponent } from './filters/filters.component';
     standalone: true,
     templateUrl: './compare-page.component.html',
     styleUrl: './compare-page.component.css',
-    imports: [ScrollingModule, FormsModule, CardComponent]
+    imports: [ScrollingModule, FormsModule, CardPreviewComponent]
 })
 export class ComparePageComponent {
   // Selects options

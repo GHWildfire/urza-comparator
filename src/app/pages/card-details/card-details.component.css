@@ -1,0 +1,14 @@
+#card-container {
+    height: 100%;
+    padding: 20px;
+}
+
+#image-col {
+    text-align: center;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 5%/4%;
+}

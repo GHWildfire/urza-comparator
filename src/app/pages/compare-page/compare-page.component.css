@@ -33,11 +33,10 @@
     display: none;
 }
 
-.item {
+.row {
     height: 234px;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 .card-row {

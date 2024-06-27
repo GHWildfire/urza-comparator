@@ -10,22 +10,22 @@ export const orderOptionDirections = {
 };
 
 export const orderOptions = [
-    { value: 'number-' + orderOptionDirections.asc, display: 'Par numéro' },
-    { value: 'name-' + orderOptionDirections.asc, display: 'Par nom' },
-    { value: 'convertedManaCost-' + orderOptionDirections.desc, display: 'Par coût de mana (desc.)' },
-    { value: 'convertedManaCost-' + orderOptionDirections.asc, display: 'Par coût de mana (asc.)' },
-    { value: 'type-' + orderOptionDirections.desc, display: 'Par type (desc.)' },
-    { value: 'type-' + orderOptionDirections.asc, display: 'Par type (asc.)' },
-    { value: 'color-' + orderOptionDirections.desc, display: 'Par couleur (desc.)' },
-    { value: 'color-' + orderOptionDirections.asc, display: 'Par couleur (asc.)' },
-    { value: 'prices.eur-' + orderOptionDirections.desc, display: 'Par prix (desc.)' },
-    { value: 'prices.eur-' + orderOptionDirections.asc, display: 'Par prix (asc.)' },
-    { value: 'set-' + orderOptionDirections.asc, display: 'Par édition' },
-    { value: 'releaseDate-' + orderOptionDirections.desc, display: 'Par date de sortie (desc.)' },
-    { value: 'releaseDate-' + orderOptionDirections.asc, display: 'Par date de sortie (asc.)' },
-    { value: 'count-' + orderOptionDirections.desc, display: 'Par quantité (desc.)' },
-    { value: 'count-' + orderOptionDirections.asc, display: 'Par quantité (asc.)' }
-  ];
+    { value: 'number-' + orderOptionDirections.asc, display: 'By number' },
+    { value: 'name-' + orderOptionDirections.asc, display: 'By name' },
+    { value: 'convertedManaCost-' + orderOptionDirections.desc, display: 'By mana cost (desc.)' },
+    { value: 'convertedManaCost-' + orderOptionDirections.asc, display: 'By mana cost (asc.)' },
+    { value: 'type-' + orderOptionDirections.desc, display: 'By type (desc.)' },
+    { value: 'type-' + orderOptionDirections.asc, display: 'By type (asc.)' },
+    { value: 'color-' + orderOptionDirections.desc, display: 'By color (desc.)' },
+    { value: 'color-' + orderOptionDirections.asc, display: 'By color (asc.)' },
+    { value: 'prices.eur-' + orderOptionDirections.desc, display: 'By price (desc.)' },
+    { value: 'prices.eur-' + orderOptionDirections.asc, display: 'By price (asc.)' },
+    { value: 'set-' + orderOptionDirections.asc, display: 'By edition' },
+    { value: 'releaseDate-' + orderOptionDirections.desc, display: 'By release date (desc.)' },
+    { value: 'releaseDate-' + orderOptionDirections.asc, display: 'By release date (asc.)' },
+    { value: 'count-' + orderOptionDirections.desc, display: 'By quantity (desc.)' },
+    { value: 'count-' + orderOptionDirections.asc, display: 'By quantity (asc.)' }
+];
 
 export const colors = [
     "White", 

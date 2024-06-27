@@ -8,7 +8,7 @@ import { ScryfallAPIService } from '../../../../services/scryfall-api.service';
   standalone: true,
   imports: [],
   templateUrl: './collection-details.component.html',
-  styleUrl: './collection-details.component.css'
+  styleUrl: './collection-details.component.scss'
 })
 export class CollectionDetailsComponent implements OnInit {
   collection?: Collection

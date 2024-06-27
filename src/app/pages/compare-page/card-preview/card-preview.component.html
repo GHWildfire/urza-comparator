@@ -1,4 +1,4 @@
-<div class="card-container" #rotatable>
+<div class="card-container" (click)="open()" #rotatable>
     @if (card().imageUri && card().imageUri !== "loading") {
         <div class="mtg-card p-0">
             <div class="quantity-border">

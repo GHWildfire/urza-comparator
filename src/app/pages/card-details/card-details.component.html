@@ -1,0 +1,17 @@
+<div id="card-container">
+    @if (card) {
+        <div class="row">
+            <div id="image-col" class="col-xl-3">
+                @if (card.imageUri && card.imageUri !== "loading") {
+                    <img class="card-image" [src]="card.imageUri">
+                }
+            </div>
+            <div class="col-xl-9">
+                <p>{{ card.name }}</p>
+                <p>{{ card.count }}</p>
+                <p>{{ card.foilCount }}</p>
+                <p>{{ card.prices?.eur }}</p>
+            </div>
+        </div>
+    }
+</div>
