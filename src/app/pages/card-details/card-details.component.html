@@ -1,16 +1,33 @@
 <div id="card-container">
     @if (card) {
-        <div class="row">
-            <div id="image-col" class="col-xl-3">
+        <div class="header row p-0">
+            <button (click)="return()" id="back-button" class="btn btn-primary">
+                <i class="bi bi-arrow-left" style="font-size: 1rem; color: white;"></i>
+            </button>
+            <p id="card-name">
+                {{ card.name }}
+            </p>
+        </div>
+        <div class="body row">
+            <div id="image-col" class="col-xl-4">
                 @if (card.imageUri && card.imageUri !== "loading") {
                     <img class="card-image" [src]="card.imageUri">
                 }
             </div>
-            <div class="col-xl-9">
-                <p>{{ card.name }}</p>
-                <p>{{ card.count }}</p>
-                <p>{{ card.foilCount }}</p>
-                <p>{{ card.prices?.eur }}</p>
+            <div class="col-xl-4">
+                <app-card-row key="Count" [value]="card.count.toString()" />
+                <app-card-row key="Foils" [value]="card.foilCount.toString()" />
+                <app-card-row key="Average price" [value]="cardDetailsService.averagePrice(card)" />
+                <app-card-row key="Average foil price" [value]="cardDetailsService.averagePriceFoil(card)" />
+                <app-card-row key="Collection value" [value]="cardDetailsService.collectionValue(card)" />
+                <app-card-row key="Number" [value]="card.number.toString()" />
+                <app-card-row key="Urza Gatherer ID" [value]="card.id.toString()" />
+                <app-card-row key="Color" [value]="card.color.toString()" />
+                <app-card-row key="Artist" [value]="card.author.toString()" />
+                <app-card-row key="Rarity" [value]="card.rarity.toString()" />
+                <app-card-row key="Mana cost" [value]="card.manaCost.toString()" />
+                <app-card-row key="Converted mana cost" [value]="card.convertedManaCost.toString()" />
+                <app-card-row key="Type" [value]="card.type" />
             </div>
         </div>
     }

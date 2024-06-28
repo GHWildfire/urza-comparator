@@ -5,10 +5,37 @@
 
 #image-col {
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .card-image {
     width: 100%;
-    height: 100%;
+    max-width: 400px;
     border-radius: 5%/4%;
+}
+
+.header {
+    height: 40px;
+    margin: 0 0 20px 0;
+    display: flex;
+    align-items: center;
+}
+
+.body {
+    height: calc(100% - 60px);
+}
+
+#back-button {
+    width: auto;
+    height: 40px;
+}
+
+#card-name {
+    width: calc(100% - 60px);
+    text-align: start;
+    margin: 0;
+    margin-left: 10px;
+    font-size: large;
+    white-space: nowrap;
+    overflow: hidden;
 }

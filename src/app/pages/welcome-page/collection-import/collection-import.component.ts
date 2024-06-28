@@ -42,7 +42,8 @@ export class CollectionImportComponent implements OnInit {
     const reader = new FileReader();
     this.file = event.target.files[0]
     reader.onload = async () => {
-      const fileContent: string = reader.result as string
+      let fileContent: string = reader.result as string
+      fileContent = fileContent.replaceAll('"', '')
       const lines: string[] = fileContent.split(/[\r\n]+/g)
 
       if (lines.length > 2) {
