@@ -21,7 +21,6 @@ export class CardDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.card = history.state.card
-    console.log(this.card?.scryfallData)
   }
 
   return() {

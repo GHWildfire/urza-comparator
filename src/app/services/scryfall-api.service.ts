@@ -109,10 +109,6 @@ export class ScryfallAPIService {
                     card.imageUri = matchingCard.faces[0].normal
                 }
 
-                if (card.name.includes("Zhulodok")) {
-                    console.log(card)
-                }
-
                 // Link scryfall data to card
                 card.scryfallData = matchingCard
             }

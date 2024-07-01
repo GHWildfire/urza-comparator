@@ -8,8 +8,8 @@ import { GraphsPageComponent } from './pages/graphs-page/graphs-page.component';
 
 export const routes: Routes = [
     { path: '', component: WelcomePageComponent },
-    { path: 'compare', component: ComparePageComponent, canActivate: [collectionsImported] },
-    { path: 'graphs', component: GraphsPageComponent, canActivate: [collectionsImported] },
+    { path: 'compare', component: ComparePageComponent, /*canActivate: [collectionsImported]*/ },
+    { path: 'graphs', component: GraphsPageComponent, /*canActivate: [collectionsImported]*/ },
     { path: 'cards', component: CardDetailsComponent, children: [
         { path: ':id', component: CardDetailsComponent },
     ] },

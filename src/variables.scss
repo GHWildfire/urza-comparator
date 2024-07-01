@@ -1,2 +1,7 @@
 $primary: #ce7500;
-$secondary: #ff0000;
+$secondary: #000000;
+
+:root {
+    --primary: #{ $primary };
+    --secondary: #{ $secondary };
+}

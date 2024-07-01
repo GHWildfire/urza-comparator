@@ -196,7 +196,7 @@ export class CollectionsService {
     }
 
     areCollectionsImported() {
-        return this.collection1 && this.collection2
+        return this.collection1 !== undefined && this.collection2 !== undefined
     }
 
     lockCollections() {

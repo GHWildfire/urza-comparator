@@ -11,6 +11,7 @@ export class CSVService {
     
     async csvToCollection(csvCollection: CSVCollection) {
         let cards: UrzaCard[] = []
+
         csvCollection.headers = csvCollection.headers.map((header) => {
             return header.replaceAll(" ", "").toLowerCase()
         })
@@ -23,7 +24,7 @@ export class CSVService {
                 await new Promise(f => setTimeout(f, 0));
             }
         }
-        
+
         const newCollection: Collection = new Collection(cards, false, csvCollection.file)
 
         this.csvLoading.emit({ progress: 100, isLeft: csvCollection.isLeft })

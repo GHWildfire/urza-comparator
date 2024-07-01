@@ -1,0 +1,10 @@
+#container {
+    
+}
+
+#chart-collection-container {
+    width: 80%;
+    margin: auto;
+    max-width: 1000px;
+    padding: 20px;
+}
