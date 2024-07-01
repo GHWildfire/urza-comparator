@@ -31,7 +31,7 @@ export class CardPreviewComponent {
   get priceTag() {
     let result = "No price found"
 
-    const prices = this.card().prices
+    const prices = this.card().scryfallData?.prices
     if (!prices) {
       return result
     }

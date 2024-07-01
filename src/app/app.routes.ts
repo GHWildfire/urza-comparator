@@ -3,10 +3,13 @@ import { WelcomePageComponent } from './pages/welcome-page/welcome-page.componen
 import { ComparePageComponent } from './pages/compare-page/compare-page.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { CardDetailsComponent } from './pages/card-details/card-details.component';
+import { collectionsImported } from './permission-guard';
+import { GraphsPageComponent } from './pages/graphs-page/graphs-page.component';
 
 export const routes: Routes = [
     { path: '', component: WelcomePageComponent },
-    { path: 'compare', component: ComparePageComponent },
+    { path: 'compare', component: ComparePageComponent, canActivate: [collectionsImported] },
+    { path: 'graphs', component: GraphsPageComponent, canActivate: [collectionsImported] },
     { path: 'cards', component: CardDetailsComponent, children: [
         { path: ':id', component: CardDetailsComponent },
     ] },

@@ -3,7 +3,7 @@ import { EventEmitter, Injectable } from "@angular/core"
 import { Collection } from "../data-models/collection.model"
 import { ScryfallBulk, ScryfallBulkData } from "../data-models/scryfall-bulk.model"
 import { Observable, map, switchMap } from "rxjs"
-import { ScryfallCard, ScryfallCardFace, ScryfallCardImage, ScryfallCardPrice, ScryfallCollection } from "../data-models/scryfall-collection.model"
+import { ScryfallCard, ScryfallCollection, createScryfallCard } from "../data-models/scryfall-collection.model"
 import { DexieDBService } from "./dexie-db.service"
 
 @Injectable({ providedIn: 'root' })
@@ -55,44 +55,10 @@ export class ScryfallAPIService {
                 const downloadUri = bulk.getDownloadUri(this.scryfallBulkDataType);
                 return this.http.get<any>(downloadUri).pipe(
                     map(responseData => {
-                        const cards: ScryfallCard[] = [];
-                        responseData.forEach((cardData: any) => {
-                            let faces: ScryfallCardFace[] = []
-                            if (cardData.card_faces) {
-                                faces = cardData.card_faces.map((faceData: any) => new ScryfallCardFace(
-                                    new ScryfallCardImage(
-                                        faceData.image_uris?.small,
-                                        faceData.image_uris?.normal,
-                                        faceData.image_uris?.large,
-                                        faceData.image_uris?.png,
-                                        faceData.image_uris?.art_crop,
-                                        faceData.image_uris?.border_crop,
-                                    )
-                                ))
-                            }
-    
-                            const images = new ScryfallCardImage(
-                                cardData.image_uris?.small,
-                                cardData.image_uris?.normal,
-                                cardData.image_uris?.large,
-                                cardData.image_uris?.png,
-                                cardData.image_uris?.art_crop,
-                                cardData.image_uris?.border_crop,
-                            );
-    
-                            const prices = new ScryfallCardPrice(
-                                cardData.prices?.eur,
-                                cardData.prices?.eur_foil,
-                                cardData.prices?.usd,
-                                cardData.prices?.usd_foil,
-                            );
-                            
-                            cards.push(new ScryfallCard(cardData.id, cardData.tcgplayer_id, cardData.cardmarket_id, images, prices, faces, cardData.released_at));
-                        });
-    
+                        const cards = responseData.map((cardData: any) => createScryfallCard(cardData));
                         const scryfall = new ScryfallCollection(cards, new Date().getTime());
-                        this.db.saveScryfall(scryfall)
-                        return scryfall
+                        this.db.saveScryfall(scryfall);
+                        return scryfall;
                     })
                 );
             })
@@ -140,15 +106,15 @@ export class ScryfallAPIService {
                     card.imageUri = matchingCard.image_uris.normal
                 } else if (matchingCard.faces.length > 0) {
                     // Multiple faces cards
-                    card.imageUri = matchingCard.faces[0].image_uris.normal
+                    card.imageUri = matchingCard.faces[0].normal
                 }
 
                 if (card.name.includes("Zhulodok")) {
                     console.log(card)
                 }
 
-                card.prices = matchingCard.prices
-                card.releaseDate = matchingCard.released_at
+                // Link scryfall data to card
+                card.scryfallData = matchingCard
             }
 
             if (index % batchSize === 0) {

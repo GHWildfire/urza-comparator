@@ -1,7 +1,29 @@
 <nav class="navbar navbar-expand-lg bg-dark fixed-top" data-bs-theme="dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Urza Comparator</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+      <!-- Title -->
+      <a id="title" class="navbar-brand hover" (click)="home()">Urza Comparator</a>
+
+      <!-- Links -->
+       @if (displayLinks) {
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+  
+            <!-- Compare page -->
+            <li class="nav-item">
+              <a class="nav-link active hover" (click)="compare()">Compare</a>
+            </li>
+
+            <!-- Graphs page -->
+            <li class="nav-item">
+              <a class="nav-link active hover" (click)="graphs()">Graphs</a>
+            </li>
+  
+          </ul>
+  
+        </div>
+       }
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>

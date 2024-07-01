@@ -1,4 +1,4 @@
-import { ScryfallCardPrice } from "./scryfall-collection.model"
+import { ScryfallCard, ScryfallCardPrice } from "./scryfall-collection.model"
 
 export class UrzaCard {
     name: string = ""
@@ -31,8 +31,7 @@ export class UrzaCard {
     scryfallId: number = 0
 
     imageUri: string = "loading"
-    releaseDate: string = ""
-    prices?: ScryfallCardPrice
+    scryfallData?: ScryfallCard
 
     constructor(headers: string[], values: string[]) {
         let index = 0
