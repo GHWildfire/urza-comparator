@@ -7,6 +7,7 @@ import { RarityFilter } from "../pages/compare-page/filters/rarity-filter/rarity
 import { DexieDBService } from "./dexie-db.service";
 import { ScryfallAPIService } from "./scryfall-api.service";
 import { CSVService } from "./csv.service";
+import { CardsService } from "./cards.service";
 
 @Injectable({ providedIn: 'root' })
 export class CollectionsService {
@@ -44,6 +45,7 @@ export class CollectionsService {
     constructor(
         private dexieDB: DexieDBService,
         private scryfallAPIService: ScryfallAPIService,
+        private cardsService: CardsService,
         csvService: CSVService
     ) {
         csvService.csvLoaded.subscribe((result) => {
@@ -77,8 +79,6 @@ export class CollectionsService {
             }
         })
     }
-
-    // -------- Database --------
 
     // -------- Collections header --------
 
@@ -272,34 +272,40 @@ export class CollectionsService {
     // -------- Sorting helper --------
 
     private sortCards(cards: UrzaCard[]): UrzaCard[] {
-      const [property, order] = this.orderOptionSelected.split('-')
-  
-      return cards.sort((cardA, cardB) => {
-        if (property === 'color') {
-          // Si ce sont des couleurs Magic
-          const indexA = colors.indexOf(cardA.color);
-          const indexB = colors.indexOf(cardB.color);
-  
-          return order === orderOptionDirections.asc ? indexA - indexB : indexB - indexA;
-        } else {
-          let valueA = this.getPropertyValue(cardA, property)
-          let valueB = this.getPropertyValue(cardB, property)
+        const [property, order] = this.orderOptionSelected.split('-')
     
-          // Si ce sont des nombres
-          if (!isNaN(Number(valueA)) && !isNaN(Number(valueB))) {
-            valueA = Number(valueA);
-            valueB = Number(valueB);
-            return order === orderOptionDirections.asc ? valueA - valueB : valueB - valueA;
-          }
-    
-          // Si ce sont des strings
-          if (typeof valueA === 'string' && typeof valueB === 'string') {
-            return order === orderOptionDirections.asc ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
-          }
-  
-          return 0
-        }
-      })
+        return cards.sort((cardA, cardB) => {
+            if (property === 'color') {
+                // By Magic color
+                const indexA = colors.indexOf(cardA.color);
+                const indexB = colors.indexOf(cardB.color);
+        
+                return order === orderOptionDirections.asc ? indexA - indexB : indexB - indexA;
+            } else if (property === 'price') {
+                // By price
+                const priceA = this.cardsService.orderingPrice(cardA)
+                const priceB = this.cardsService.orderingPrice(cardB)
+                return order === orderOptionDirections.asc ? priceA - priceB : priceB - priceA;
+            } else {
+                // Otherwise
+                let valueA = this.getPropertyValue(cardA, property)
+                let valueB = this.getPropertyValue(cardB, property)
+            
+                // Numbers
+                if (!isNaN(Number(valueA)) && !isNaN(Number(valueB))) {
+                    valueA = Number(valueA);
+                    valueB = Number(valueB);
+                    return order === orderOptionDirections.asc ? valueA - valueB : valueB - valueA;
+                }
+            
+                // Strings
+                if (typeof valueA === 'string' && typeof valueB === 'string') {
+                    return order === orderOptionDirections.asc ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+                }
+        
+                return 0
+            }
+        })
     }
   
     private getPropertyValue(object: any, path: string): any {

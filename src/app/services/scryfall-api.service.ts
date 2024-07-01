@@ -143,6 +143,10 @@ export class ScryfallAPIService {
                     card.imageUri = matchingCard.faces[0].image_uris.normal
                 }
 
+                if (card.name.includes("Zhulodok")) {
+                    console.log(card)
+                }
+
                 card.prices = matchingCard.prices
                 card.releaseDate = matchingCard.released_at
             }

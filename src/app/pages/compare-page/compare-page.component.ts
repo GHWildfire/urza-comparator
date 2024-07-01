@@ -25,6 +25,7 @@ export class ComparePageComponent {
   orderOptionSelected = orderOptions[0].value
   nbCards = this.collectionService.nbCards
   name: string = ""
+  screenWidth: number = 0
 
   // Grid
   grid: UrzaCard[][] = []
@@ -55,8 +56,8 @@ export class ComparePageComponent {
   }
 
   adaptCardGrid() {
-    this.collectionService.adaptViewportSize(this.viewport !== undefined 
-      ? this.viewport.nativeElement.offsetWidth : 0)
+    this.screenWidth = this.viewport !== undefined ? this.viewport.nativeElement.offsetWidth : 0
+    this.collectionService.adaptViewportSize(this.screenWidth)
     this.collectionService.adaptCardGrid()
     this.ref.detectChanges();
   }

@@ -21,23 +21,25 @@
               class="form-control form-control-sm"
             >
           </div>
-          <div class="col my-auto">
-            <select [(ngModel)]="orderOptionSelected" (ngModelChange)="onOrderOptionsChange($event)" id="orderSelect" class="form-select form-select-sm" aria-label="Default select example">
-              @for (option of orderOptions; track $index) {
-                <option [value]="option.value">{{ option.display }}</option>
-              }
-            </select>
-          </div>
-          <div class="col my-auto">
-            <select [(ngModel)]="compareOptionSelected" (ngModelChange)="onCompareOptionsChange($event)" id="compareSelect" class="form-select form-select-sm" aria-label="Default select example">
-              @for (option of compareOptions; track $index) {
-                <option [value]="option.value">{{ option.display }}</option>
-              }
-            </select>
-          </div>
-          <div class="col my-auto">
-            <button class="btn btn-primary" (click)="openFilters()">Advanced filters</button>
-          </div>
+          @if (screenWidth > 860) {
+            <div class="col my-auto">
+              <select [(ngModel)]="orderOptionSelected" (ngModelChange)="onOrderOptionsChange($event)" id="orderSelect" class="form-select form-select-sm" aria-label="Default select example">
+                @for (option of orderOptions; track $index) {
+                  <option [value]="option.value">{{ option.display }}</option>
+                }
+              </select>
+            </div>
+            <div class="col my-auto">
+              <select [(ngModel)]="compareOptionSelected" (ngModelChange)="onCompareOptionsChange($event)" id="compareSelect" class="form-select form-select-sm" aria-label="Default select example">
+                @for (option of compareOptions; track $index) {
+                  <option [value]="option.value">{{ option.display }}</option>
+                }
+              </select>
+            </div>
+            <div class="col my-auto">
+              <button id="filters-button" class="btn btn-primary" (click)="openFilters()">Advanced filters</button>
+            </div>
+          }
           <div class="col text-end fw-bold my-auto">
             {{ nbCards + " cards found" }}
           </div>

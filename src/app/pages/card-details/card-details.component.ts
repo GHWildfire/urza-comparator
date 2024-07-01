@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UrzaCard } from '../../data-models/urza-card.model';
 import { Location } from '@angular/common';
 import { CardRowComponent } from "./card-row/card-row.component";
-import { CardDetailsService } from '../../services/card-details.service';
+import { CardsService } from '../../services/cards.service';
 
 @Component({
     selector: 'app-card-details',
@@ -16,7 +16,7 @@ export class CardDetailsComponent implements OnInit {
 
   constructor(
     private location: Location,
-    public cardDetailsService: CardDetailsService
+    public cardDetailsService: CardsService
   ) {}
 
   ngOnInit(): void {
