@@ -1,4 +1,4 @@
-import { ScryfallCard, ScryfallCardPrice } from "./scryfall-collection.model"
+import { ScryfallCard } from "./scryfall-collection.model"
 
 export class UrzaCard {
     name: string = ""

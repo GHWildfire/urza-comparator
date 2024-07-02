@@ -92,7 +92,7 @@ export class ScryfallAPIService {
             return
         }
         
-        const batchSize = 100
+        const batchSize = 20
         const cards = this.scryfallCollection.cards
         let index = 0
 
