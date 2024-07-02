@@ -20,7 +20,7 @@ export class DexieDBService extends Dexie {
       scryfalls: '++id, cards, timestamp'
     })
 
-    this.collections = this.table('collections');
+    this.collections = this.table('collections')
     this.scryfalls = this.table('scryfalls')
   }
 
@@ -29,15 +29,15 @@ export class DexieDBService extends Dexie {
       return
     }
 
-    this.isSaving = true;
+    this.isSaving = true
     try {
         await this.transaction('rw', this.collections, async () => {
-            await this.collections.clear();
-            await this.collections.put(collection1, 0);
-            await this.collections.put(collection2, 1);
-        });
+            await this.collections.clear()
+            await this.collections.put(collection1, 0)
+            await this.collections.put(collection2, 1)
+        })
     } finally {
-        this.isSaving = false;
+        this.isSaving = false
     }
   }
 

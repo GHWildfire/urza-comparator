@@ -16,7 +16,7 @@ export class ErrorPageComponent implements OnInit {
       (data: Data) => {
         this.errorMessage = data['message']
       }
-    );
+    )
   }
 
 }

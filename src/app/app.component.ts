@@ -1,12 +1,11 @@
-import { Component, OnInit, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
-import { CollectionImportComponent } from './pages/welcome-page/collection-import/collection-import.component';
-import { ScryfallAPIService } from './services/scryfall-api.service';
-import { Collection } from './data-models/collection.model';
-import { ScryfallImportComponent } from './pages/welcome-page/scryfall-import/scryfall-import.component';
-import { WelcomePageComponent } from "./pages/welcome-page/welcome-page.component";
-import { NavbarComponent } from "./navbar/navbar.component";
-import { CollectionsComponent } from './pages/compare-page/collections/collections.component';
+import { Component, OnInit, signal } from '@angular/core'
+import { Router, RouterOutlet } from '@angular/router'
+import { CollectionImportComponent } from './pages/welcome-page/collection-import/collection-import.component'
+import { Collection } from './data-models/collection.model'
+import { ScryfallImportComponent } from './pages/welcome-page/scryfall-import/scryfall-import.component'
+import { WelcomePageComponent } from "./pages/welcome-page/welcome-page.component"
+import { NavbarComponent } from "./navbar/navbar.component"
+import { CollectionsComponent } from './pages/compare-page/collections/collections.component'
 
 @Component({
     selector: 'app-root',
@@ -28,7 +27,7 @@ export class AppComponent {
 
     constructor(private router: Router) {
         this.router.events.subscribe(() => {
-            this.currentRoute.set(this.router.url);
+            this.currentRoute.set(this.router.url)
         })
     }
 

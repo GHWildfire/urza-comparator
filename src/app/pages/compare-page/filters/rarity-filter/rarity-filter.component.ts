@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { RarityFilter } from './rarity-filter.model';
-import { FormsModule } from '@angular/forms';
-import { CollectionsService } from '../../../../services/collections.service';
+import { Component } from '@angular/core'
+import { RarityFilter } from './rarity-filter.model'
+import { FormsModule } from '@angular/forms'
+import { CollectionsService } from '../../../../services/collections.service'
 
 @Component({
   selector: 'app-rarity-filter',

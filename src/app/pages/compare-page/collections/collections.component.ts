@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { CollectionDetailsComponent } from './collection-details/collection-details.component';
-import { CollectionsService } from '../../../services/collections.service';
+import { Component } from '@angular/core'
+import { CollectionDetailsComponent } from './collection-details/collection-details.component'
+import { CollectionsService } from '../../../services/collections.service'
 
 @Component({
     selector: 'app-collections',

@@ -1,7 +1,7 @@
-import { Component, OnInit, input } from '@angular/core';
-import { UrzaCard } from '../../../data-models/urza-card.model';
-import { Router } from '@angular/router';
-import { CollectionsService } from '../../../services/collections.service';
+import { Component, input } from '@angular/core'
+import { UrzaCard } from '../../../data-models/urza-card.model'
+import { Router } from '@angular/router'
+import { CollectionsService } from '../../../services/collections.service'
 
 @Component({
   selector: 'app-card',

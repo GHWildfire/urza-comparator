@@ -1,7 +1,7 @@
-import { Component, input } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ColorFilter } from './color-filter.model';
-import { CollectionsService } from '../../../../services/collections.service';
+import { Component, input } from '@angular/core'
+import { FormsModule } from '@angular/forms'
+import { ColorFilter } from './color-filter.model'
+import { CollectionsService } from '../../../../services/collections.service'
 
 @Component({
   selector: 'app-color-filter',

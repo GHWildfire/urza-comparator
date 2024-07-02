@@ -149,7 +149,7 @@ function createScryfallCardImage(imageData: any): ScryfallCardImage {
         imageData?.png,
         imageData?.art_crop,
         imageData?.border_crop,
-    );
+    )
 }
 
 function createScryfallCardLegalities(legalitiesData: any): ScryfallCardLegalities {
@@ -176,7 +176,7 @@ function createScryfallCardLegalities(legalitiesData: any): ScryfallCardLegaliti
         legalitiesData?.oldschool,
         legalitiesData?.premodern,
         legalitiesData?.predh,
-    );
+    )
 }
 
 function createScryfallCardPrice(priceData: any): ScryfallCardPrice {
@@ -187,7 +187,7 @@ function createScryfallCardPrice(priceData: any): ScryfallCardPrice {
         priceData?.usd_foil,
         priceData?.usd_etched,
         priceData?.tix,
-    );
+    )
 }
 
 function createScryfallCardRelatedUris(relatedUrisData: any): ScryfallCardRelatedUris {
@@ -196,7 +196,7 @@ function createScryfallCardRelatedUris(relatedUrisData: any): ScryfallCardRelate
         relatedUrisData?.tcgplayer_infinite_articles,
         relatedUrisData?.tcgplayer_infinite_decks,
         relatedUrisData?.edhrec,
-    );
+    )
 }
 
 function createScryfallCardPurchaseUris(purchaseUrisData: any): ScryfallCardPurchaseUris {
@@ -204,19 +204,19 @@ function createScryfallCardPurchaseUris(purchaseUrisData: any): ScryfallCardPurc
         purchaseUrisData?.tcgplayer,
         purchaseUrisData?.cardmarket,
         purchaseUrisData?.cardhoarder,
-    );
+    )
 }
 
 export function createScryfallCard(cardData: any): ScryfallCard {
-    const images = createScryfallCardImage(cardData.image_uris);
-    const legalities = createScryfallCardLegalities(cardData.legalities);
-    const prices = createScryfallCardPrice(cardData.prices);
-    const relatedUris = createScryfallCardRelatedUris(cardData.related_uris);
-    const purchaseUris = createScryfallCardPurchaseUris(cardData.purchase_uris);
+    const images = createScryfallCardImage(cardData.image_uris)
+    const legalities = createScryfallCardLegalities(cardData.legalities)
+    const prices = createScryfallCardPrice(cardData.prices)
+    const relatedUris = createScryfallCardRelatedUris(cardData.related_uris)
+    const purchaseUris = createScryfallCardPurchaseUris(cardData.purchase_uris)
 
-    let faces: ScryfallCardImage[] = [];
+    let faces: ScryfallCardImage[] = []
     if (cardData.card_faces) {
-        faces = cardData.card_faces.map((faceData: any) => createScryfallCardImage(faceData.image_uris));
+        faces = cardData.card_faces.map((faceData: any) => createScryfallCardImage(faceData.image_uris))
     }
 
     return new ScryfallCard(
@@ -285,5 +285,5 @@ export function createScryfallCard(cardData: any): ScryfallCard {
         purchaseUris,
         cardData.tcgplayer_id,
         faces,
-    );
+    )
 }

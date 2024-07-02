@@ -8,7 +8,7 @@ export class Collection {
     ) {}
 
     static fromObject(obj: any): Collection {
-        const cards = obj.cards.map((card: any) => UrzaCard.fromObject(card));
-        return new Collection(cards, obj.cardsLinked, obj.file);
+        const cards = obj.cards.map((card: any) => UrzaCard.fromObject(card))
+        return new Collection(cards, obj.cardsLinked, obj.file)
     }
 }

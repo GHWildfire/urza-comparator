@@ -7,7 +7,7 @@ export const compareOptions = [
 export const orderOptionDirections = {
     desc: "desc",
     asc: "asc"
-};
+}
 
 export const orderOptions = [
     { value: 'price-' + orderOptionDirections.desc, display: 'By price (desc.)' },
@@ -25,7 +25,7 @@ export const orderOptions = [
     { value: 'releaseDate-' + orderOptionDirections.asc, display: 'By release date (asc.)' },
     { value: 'count-' + orderOptionDirections.desc, display: 'By quantity (desc.)' },
     { value: 'count-' + orderOptionDirections.asc, display: 'By quantity (asc.)' }
-];
+]
 
 export const colors = [
     "White", 

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CollectionsService } from '../services/collections.service';
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { CollectionsService } from '../services/collections.service'
 
 @Component({
   selector: 'app-navbar',

@@ -45,9 +45,9 @@ export class UrzaCard {
     }
 
     static fromObject(obj: any): UrzaCard {
-        const card = new UrzaCard([], []);
-        Object.assign(card, obj);
-        return card;
+        const card = new UrzaCard([], [])
+        Object.assign(card, obj)
+        return card
     }
 
     get hasMultipleFaces() {

@@ -1,8 +1,8 @@
-import { Component, OnInit, input } from '@angular/core';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { CSVCollection } from '../../../data-models/csv-collection.model';
-import { CollectionsService } from '../../../services/collections.service';
-import { CSVService } from '../../../services/csv.service';
+import { Component, OnInit, input } from '@angular/core'
+import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { CSVCollection } from '../../../data-models/csv-collection.model'
+import { CollectionsService } from '../../../services/collections.service'
+import { CSVService } from '../../../services/csv.service'
 
 @Component({
   selector: 'app-collection-import',
@@ -39,7 +39,7 @@ export class CollectionImportComponent implements OnInit {
   }
 
   loadCSV(event: any) {
-    const reader = new FileReader();
+    const reader = new FileReader()
     this.file = event.target.files[0]
     reader.onload = async () => {
       let fileContent: string = reader.result as string

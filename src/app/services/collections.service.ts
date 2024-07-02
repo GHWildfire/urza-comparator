@@ -1,12 +1,12 @@
-import { EventEmitter, Injectable, OnInit, signal } from "@angular/core";
-import { UrzaCard } from "../data-models/urza-card.model";
-import { Collection } from "../data-models/collection.model";
-import { compareOptions, orderOptions, colors, orderOptionDirections } from "../pages/compare-page/compare-page.constants";
-import { ColorFilter } from "../pages/compare-page/filters/color-filter/color-filter.model";
-import { RarityFilter } from "../pages/compare-page/filters/rarity-filter/rarity-filter.model";
-import { DexieDBService } from "./dexie-db.service";
-import { ScryfallAPIService } from "./scryfall-api.service";
-import { CSVService } from "./csv.service";
+import { EventEmitter, Injectable } from "@angular/core"
+import { UrzaCard } from "../data-models/urza-card.model"
+import { Collection } from "../data-models/collection.model"
+import { compareOptions, orderOptions, colors, orderOptionDirections } from "../pages/compare-page/compare-page.constants"
+import { ColorFilter } from "../pages/compare-page/filters/color-filter/color-filter.model"
+import { RarityFilter } from "../pages/compare-page/filters/rarity-filter/rarity-filter.model"
+import { DexieDBService } from "./dexie-db.service"
+import { ScryfallAPIService } from "./scryfall-api.service"
+import { CSVService } from "./csv.service"
 
 @Injectable({ providedIn: 'root' })
 export class CollectionsService {
@@ -244,7 +244,7 @@ export class CollectionsService {
 
         const checkColor = (color: string, shouldInclude: boolean) => {
             return shouldInclude ? card.manaCost.includes(color) : !card.manaCost.includes(color)
-        };
+        }
 
         if (filter.white && !checkColor("W", include)) return false
         if (filter.blue && !checkColor("U", include)) return false
@@ -276,15 +276,15 @@ export class CollectionsService {
         return cards.sort((cardA, cardB) => {
             if (property === 'color') {
                 // By Magic color
-                const indexA = colors.indexOf(cardA.color);
-                const indexB = colors.indexOf(cardB.color);
+                const indexA = colors.indexOf(cardA.color)
+                const indexB = colors.indexOf(cardB.color)
         
-                return order === orderOptionDirections.asc ? indexA - indexB : indexB - indexA;
+                return order === orderOptionDirections.asc ? indexA - indexB : indexB - indexA
             } else if (property === 'price') {
                 // By price
                 return order === orderOptionDirections.asc 
                     ? cardA.orderingPrice - cardB.orderingPrice 
-                    : cardB.orderingPrice - cardA.orderingPrice;
+                    : cardB.orderingPrice - cardA.orderingPrice
             } else {
                 // Otherwise
                 let valueA = this.getPropertyValue(cardA, property)
@@ -292,14 +292,14 @@ export class CollectionsService {
             
                 // Numbers
                 if (!isNaN(Number(valueA)) && !isNaN(Number(valueB))) {
-                    valueA = Number(valueA);
-                    valueB = Number(valueB);
-                    return order === orderOptionDirections.asc ? valueA - valueB : valueB - valueA;
+                    valueA = Number(valueA)
+                    valueB = Number(valueB)
+                    return order === orderOptionDirections.asc ? valueA - valueB : valueB - valueA
                 }
             
                 // Strings
                 if (typeof valueA === 'string' && typeof valueB === 'string') {
-                    return order === orderOptionDirections.asc ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+                    return order === orderOptionDirections.asc ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA)
                 }
         
                 return 0
@@ -308,6 +308,6 @@ export class CollectionsService {
     }
   
     private getPropertyValue(object: any, path: string): any {
-      return path.split('.').reduce((o, p) => o && o[p], object);
+      return path.split('.').reduce((o, p) => o && o[p], object)
     }
 }

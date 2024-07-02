@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { UrzaCard } from '../../data-models/urza-card.model';
-import { Location } from '@angular/common';
-import { CardRowComponent } from "./card-row/card-row.component";
+import { Component, OnInit } from '@angular/core'
+import { UrzaCard } from '../../data-models/urza-card.model'
+import { Location } from '@angular/common'
+import { CardRowComponent } from "./card-row/card-row.component"
 
 @Component({
     selector: 'app-card-details',
@@ -11,7 +11,7 @@ import { CardRowComponent } from "./card-row/card-row.component";
     imports: [CardRowComponent]
 })
 export class CardDetailsComponent implements OnInit {
-  card?: UrzaCard;
+  card?: UrzaCard
 
   constructor(private location: Location) {}
 

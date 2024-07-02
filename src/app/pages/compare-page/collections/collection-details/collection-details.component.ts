@@ -1,7 +1,7 @@
-import { Component, OnInit, input } from '@angular/core';
-import { Collection } from '../../../../data-models/collection.model';
-import { CollectionsService } from '../../../../services/collections.service';
-import { ScryfallAPIService } from '../../../../services/scryfall-api.service';
+import { Component, OnInit, input } from '@angular/core'
+import { Collection } from '../../../../data-models/collection.model'
+import { CollectionsService } from '../../../../services/collections.service'
+import { ScryfallAPIService } from '../../../../services/scryfall-api.service'
 
 @Component({
   selector: 'app-collection-details',

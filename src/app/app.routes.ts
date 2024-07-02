@@ -1,10 +1,9 @@
-import { Routes } from '@angular/router';
-import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
-import { ComparePageComponent } from './pages/compare-page/compare-page.component';
-import { ErrorPageComponent } from './pages/error-page/error-page.component';
-import { CardDetailsComponent } from './pages/card-details/card-details.component';
-import { collectionsImported } from './permission-guard';
-import { GraphsPageComponent } from './pages/graphs-page/graphs-page.component';
+import { Routes } from '@angular/router'
+import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component'
+import { ComparePageComponent } from './pages/compare-page/compare-page.component'
+import { ErrorPageComponent } from './pages/error-page/error-page.component'
+import { CardDetailsComponent } from './pages/card-details/card-details.component'
+import { GraphsPageComponent } from './pages/graphs-page/graphs-page.component'
 
 export const routes: Routes = [
     { path: '', component: WelcomePageComponent },

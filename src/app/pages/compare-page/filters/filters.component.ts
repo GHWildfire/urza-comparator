@@ -1,8 +1,8 @@
-import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { ColorFilterComponent } from "./color-filter/color-filter.component";
-import { FormsModule } from '@angular/forms';
-import { RarityFilterComponent } from "./rarity-filter/rarity-filter.component";
-import { CollectionsService } from '../../../services/collections.service';
+import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core'
+import { ColorFilterComponent } from "./color-filter/color-filter.component"
+import { FormsModule } from '@angular/forms'
+import { RarityFilterComponent } from "./rarity-filter/rarity-filter.component"
+import { CollectionsService } from '../../../services/collections.service'
 
 @Component({
     selector: 'app-filters',
@@ -14,7 +14,7 @@ import { CollectionsService } from '../../../services/collections.service';
 export class FiltersComponent {
   name: string = ""
 
-  @ViewChildren(ColorFilterComponent) colorFilters!: QueryList<ColorFilterComponent>;
+  @ViewChildren(ColorFilterComponent) colorFilters!: QueryList<ColorFilterComponent>
   @ViewChild(RarityFilterComponent) rarityFilter!: RarityFilterComponent
 
   constructor(private collectionService: CollectionsService) {}
@@ -24,8 +24,8 @@ export class FiltersComponent {
     this.collectionService.updateName(this.name)
     
     this.colorFilters.forEach((colorFilter) => {
-      colorFilter.reset();
-    });
+      colorFilter.reset()
+    })
 
     this.rarityFilter.reset()
 

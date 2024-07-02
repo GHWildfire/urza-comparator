@@ -1,12 +1,12 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild, effect } from '@angular/core';
-import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
-import { CardPreviewComponent } from './card-preview/card-preview.component';
-import { FormsModule } from '@angular/forms';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog'
-import { CollectionsService } from '../../services/collections.service';
-import { UrzaCard } from '../../data-models/urza-card.model';
-import { compareOptions, orderOptions, colors } from "./compare-page.constants";
-import { FiltersComponent } from './filters/filters.component';
+import { AfterViewInit, ChangeDetectorRef, Component, HostListener, ViewChild, effect } from '@angular/core'
+import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling'
+import { CardPreviewComponent } from './card-preview/card-preview.component'
+import { FormsModule } from '@angular/forms'
+import { MatDialog } from '@angular/material/dialog'
+import { CollectionsService } from '../../services/collections.service'
+import { UrzaCard } from '../../data-models/urza-card.model'
+import { compareOptions, orderOptions, colors } from "./compare-page.constants"
+import { FiltersComponent } from './filters/filters.component'
 
 @Component({
     selector: 'app-compare-page',
@@ -52,8 +52,8 @@ export class ComparePageComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     if (this.cdkViewport) {
       setTimeout(() => {
-        this.cdkViewport?.scrollToIndex(this.collectionService.selectedCardIndex - 1);
-      }, 0);
+        this.cdkViewport?.scrollToIndex(this.collectionService.selectedCardIndex - 1)
+      }, 0)
     }
   }
 
@@ -66,7 +66,7 @@ export class ComparePageComponent implements AfterViewInit {
     this.screenWidth = this.cdkViewport?.elementRef !== undefined ? this.cdkViewport?.elementRef.nativeElement.offsetWidth : 0
     this.collectionService.adaptViewportSize(this.screenWidth)
     this.collectionService.adaptCardGrid()
-    this.ref.detectChanges();
+    this.ref.detectChanges()
   }
 
   openFilters() {
@@ -74,7 +74,7 @@ export class ComparePageComponent implements AfterViewInit {
   }
 
   onNameFilterChange() {
-    this.collectionService.updateName(this.name);
+    this.collectionService.updateName(this.name)
   }
 
   onCompareOptionsChange(newValue: number) {

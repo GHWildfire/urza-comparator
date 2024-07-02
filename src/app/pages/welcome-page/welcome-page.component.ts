@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { CollectionImportComponent } from './collection-import/collection-import.component';
-import { ScryfallAPIService } from '../../services/scryfall-api.service';
-import { Router } from '@angular/router';
-import { CollectionsService } from '../../services/collections.service';
+import { Component, OnInit } from '@angular/core'
+import { CollectionImportComponent } from './collection-import/collection-import.component'
+import { Router } from '@angular/router'
+import { CollectionsService } from '../../services/collections.service'
 
 @Component({
     selector: 'app-welcome-page',

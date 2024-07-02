@@ -12,7 +12,7 @@ export class ScryfallAPIService {
     private scryfallBulkDataType: string = "default_cards"
     private scryfallCollection?: ScryfallCollection
     private scryfallMinRefreshFrequency: number = 1000 * 60 * 10 // 10 minutes
-    private linkingBatchSize: number = 20;
+    private linkingBatchSize: number = 20
 
     scryfallLoaded = new EventEmitter<ScryfallCollection>()
     collectionLinking = new EventEmitter<{ progress: number, isLeft: boolean }>()
@@ -53,17 +53,17 @@ export class ScryfallAPIService {
     getScryfallCollection(): Observable<ScryfallCollection> {
         return this.getBulkData().pipe(
             switchMap((bulk: ScryfallBulk) => {
-                const downloadUri = bulk.getDownloadUri(this.scryfallBulkDataType);
+                const downloadUri = bulk.getDownloadUri(this.scryfallBulkDataType)
                 return this.http.get<any>(downloadUri).pipe(
                     map(responseData => {
-                        const cards = responseData.map((cardData: any) => createScryfallCard(cardData));
-                        const scryfall = new ScryfallCollection(cards, new Date().getTime());
-                        this.db.saveScryfall(scryfall);
-                        return scryfall;
+                        const cards = responseData.map((cardData: any) => createScryfallCard(cardData))
+                        const scryfall = new ScryfallCollection(cards, new Date().getTime())
+                        this.db.saveScryfall(scryfall)
+                        return scryfall
                     })
-                );
+                )
             })
-        );
+        )
     }
    
     getBulkData(): Observable<ScryfallBulk> {
@@ -85,7 +85,7 @@ export class ScryfallAPIService {
                     
                 return new ScryfallBulk(responseData.object, responseData.has_more, datas)
             })
-        );
+        )
     }
 
     async linkScryfallData(collection: Collection, isLeft: boolean) {
@@ -105,10 +105,10 @@ export class ScryfallAPIService {
                 const card = collection.cards[i]
                 card.scryfallData = scryfallCardMap[card.scryfallId]
             }
-        };
+        }
     
         // Link all cards
-        const totalCards = collection.cards.length;
+        const totalCards = collection.cards.length
         for (let i = 0; i < totalCards; i += this.linkingBatchSize) {
             const endIndex = Math.min(i + this.linkingBatchSize, totalCards)
             await linkCardBatch(i, endIndex)

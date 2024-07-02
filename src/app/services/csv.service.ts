@@ -1,42 +1,53 @@
-import { EventEmitter, Injectable } from "@angular/core";
-import { UrzaCard } from "../data-models/urza-card.model";
-import { Collection } from "../data-models/collection.model";
-import { CSVCollection } from "../data-models/csv-collection.model";
+import { EventEmitter, Injectable } from "@angular/core"
+import { UrzaCard } from "../data-models/urza-card.model"
+import { Collection } from "../data-models/collection.model"
+import { CSVCollection } from "../data-models/csv-collection.model"
 
 @Injectable({ providedIn: 'root' })
 export class CSVService {
-
     csvLoading = new EventEmitter<{ progress: number, isLeft: boolean }>()
     csvLoaded = new EventEmitter<{ collection: Collection, isLeft: boolean }>()
+
+    private batchSize: number = 100
     
     async csvToCollection(csvCollection: CSVCollection) {
         let cards: UrzaCard[] = []
+        let cardMap: { [id: string]: UrzaCard } = {}
 
+        // Remove spaces in headers
         csvCollection.headers = csvCollection.headers.map((header) => {
             return header.replaceAll(" ", "").toLowerCase()
         })
 
-        const batchSize = 100
+        // Process each CSV line
         for (let i = 0; i < csvCollection.lines.length; i++) {
-            let card = new UrzaCard(csvCollection.headers, csvCollection.lines[i].split(new RegExp(`${csvCollection.separator}(?!\\s)`)))
 
-            let existingCards = cards.filter((existingCard) => existingCard.scryfallId === card.scryfallId)
-            if (existingCards.length > 0) {
-                // Second face
-                existingCards[0].backCard = card
+            // Construct card
+            let card = new UrzaCard(
+                csvCollection.headers,
+                csvCollection.lines[i].split(new RegExp(`${csvCollection.separator}(?!\\s)`))
+            )
+
+            // Detect backfaces or new cards
+            if (card.scryfallId in cardMap) {
+                cardMap[card.scryfallId].backCard = card
             } else {
-                // New card
                 cards.push(card)
+                cardMap[card.scryfallId] = card
             }
 
-            if (i % batchSize === 0) {
-                this.csvLoading.emit({ progress: Math.round(100 * i / csvCollection.lines.length), isLeft: csvCollection.isLeft })
-                await new Promise(f => setTimeout(f, 0));
+            // Send progress
+            if (i % this.batchSize === 0) {
+                this.csvLoading.emit({
+                    progress: Math.round(100 * i / csvCollection.lines.length),
+                    isLeft: csvCollection.isLeft
+                });
+                await new Promise(f => setTimeout(f, 0))
             }
         }
 
+        // Send result
         const newCollection: Collection = new Collection(cards, false, csvCollection.file)
-
         this.csvLoading.emit({ progress: 100, isLeft: csvCollection.isLeft })
         this.csvLoaded.emit({ collection: newCollection, isLeft: csvCollection.isLeft })
     }
