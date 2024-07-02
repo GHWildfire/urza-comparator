@@ -12,6 +12,7 @@ export class ScryfallAPIService {
     private scryfallBulkDataType: string = "default_cards"
     private scryfallCollection?: ScryfallCollection
     private scryfallMinRefreshFrequency: number = 1000 * 60 * 10 // 10 minutes
+    private linkingBatchSize: number = 20;
 
     scryfallLoaded = new EventEmitter<ScryfallCollection>()
     collectionLinking = new EventEmitter<{ progress: number, isLeft: boolean }>()
@@ -91,24 +92,33 @@ export class ScryfallAPIService {
         if (!this.scryfallCollection || collection.cardsLinked) {
             return
         }
-        
-        const batchSize = 20
-        const cards = this.scryfallCollection.cards
-        let index = 0
-
-        for (const card of collection.cards) {
-            card.scryfallData = cards.find((c: any) => c.id === card.scryfallId)
-
-            if (index % batchSize === 0) {
-                this.collectionLinking.emit({ progress: index, isLeft: isLeft })
-                await new Promise(f => setTimeout(f, 0));
-            }
-
-            index = index + 1
+    
+        // Dictionary for rapid access
+        const scryfallCardMap: { [id: string]: ScryfallCard } = {}
+        for (const card of this.scryfallCollection.cards) {
+            scryfallCardMap[card.id] = card
         }
-
+    
+        // Link batches process
+        const linkCardBatch = async (startIndex: number, endIndex: number) => {
+            for (let i = startIndex; i < endIndex; i++) {
+                const card = collection.cards[i]
+                card.scryfallData = scryfallCardMap[card.scryfallId]
+            }
+        };
+    
+        // Link all cards
+        const totalCards = collection.cards.length;
+        for (let i = 0; i < totalCards; i += this.linkingBatchSize) {
+            const endIndex = Math.min(i + this.linkingBatchSize, totalCards)
+            await linkCardBatch(i, endIndex)
+            this.collectionLinking.emit({ progress: endIndex, isLeft: isLeft })
+            await new Promise(f => setTimeout(f, 0))
+        }
+    
+        // Linking finished signals
         collection.cardsLinked = true
-        this.collectionLinking.emit({ progress: index, isLeft: isLeft })
+        this.collectionLinking.emit({ progress: totalCards, isLeft: isLeft })
         this.collectionLinked.emit({ collection: collection, isLeft: isLeft })
     }
 }
