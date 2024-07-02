@@ -92,26 +92,12 @@ export class ScryfallAPIService {
             return
         }
         
-        const batchSize = 10
-        const cards = this.scryfallCollection!.cards
+        const batchSize = 100
+        const cards = this.scryfallCollection.cards
         let index = 0
 
         for (const card of collection.cards) {
-            const matchingCard = cards.find((c: any) => c.id === card.scryfallId)
-            card.imageUri = ""
-
-            if (matchingCard) {
-                if (matchingCard.image_uris.normal !== undefined) {
-                    // Single image cards
-                    card.imageUri = matchingCard.image_uris.normal
-                } else if (matchingCard.faces.length > 0) {
-                    // Multiple faces cards
-                    card.imageUri = matchingCard.faces[0].normal
-                }
-
-                // Link scryfall data to card
-                card.scryfallData = matchingCard
-            }
+            card.scryfallData = cards.find((c: any) => c.id === card.scryfallId)
 
             if (index % batchSize === 0) {
                 this.collectionLinking.emit({ progress: index, isLeft: isLeft })

@@ -7,8 +7,6 @@ import { RarityFilter } from "../pages/compare-page/filters/rarity-filter/rarity
 import { DexieDBService } from "./dexie-db.service";
 import { ScryfallAPIService } from "./scryfall-api.service";
 import { CSVService } from "./csv.service";
-import { CardsService } from "./cards.service";
-import { filter } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 export class CollectionsService {
@@ -47,7 +45,6 @@ export class CollectionsService {
     constructor(
         private dexieDB: DexieDBService,
         private scryfallAPIService: ScryfallAPIService,
-        private cardsService: CardsService,
         csvService: CSVService
     ) {
         csvService.csvLoaded.subscribe((result) => {
@@ -128,8 +125,8 @@ export class CollectionsService {
         if (this.collection1 === undefined || this.collection2 === undefined) {
             const collections = await this.dexieDB.collections.toArray()
             if (collections.length == 2) {
-                this.collection1 = collections[0]
-                this.collection2 = collections[1]
+                this.collection1 = Collection.fromObject(collections[0])
+                this.collection2 = Collection.fromObject(collections[1])
     
                 this.mergeCollections()
             }
@@ -285,9 +282,9 @@ export class CollectionsService {
                 return order === orderOptionDirections.asc ? indexA - indexB : indexB - indexA;
             } else if (property === 'price') {
                 // By price
-                const priceA = this.cardsService.orderingPrice(cardA)
-                const priceB = this.cardsService.orderingPrice(cardB)
-                return order === orderOptionDirections.asc ? priceA - priceB : priceB - priceA;
+                return order === orderOptionDirections.asc 
+                    ? cardA.orderingPrice - cardB.orderingPrice 
+                    : cardB.orderingPrice - cardA.orderingPrice;
             } else {
                 // Otherwise
                 let valueA = this.getPropertyValue(cardA, property)

@@ -6,4 +6,9 @@ export class Collection {
         public cardsLinked: boolean,
         public file?: File,
     ) {}
+
+    static fromObject(obj: any): Collection {
+        const cards = obj.cards.map((card: any) => UrzaCard.fromObject(card));
+        return new Collection(cards, obj.cardsLinked, obj.file);
+    }
 }

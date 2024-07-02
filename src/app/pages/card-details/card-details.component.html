@@ -17,9 +17,9 @@
             <div class="col-xl-4">
                 <app-card-row key="Count" [value]="card.count.toString()" />
                 <app-card-row key="Foils" [value]="card.foilCount.toString()" />
-                <app-card-row key="Average price" [value]="cardDetailsService.averagePrice(card)" />
-                <app-card-row key="Average foil price" [value]="cardDetailsService.averagePriceFoil(card)" />
-                <app-card-row key="Collection value" [value]="cardDetailsService.collectionValue(card)" />
+                <app-card-row key="Average price" [value]="card.averagePrice" />
+                <app-card-row key="Average foil price" [value]="card.averagePriceFoil" />
+                <app-card-row key="Collection value" [value]="card.collectionValue" />
                 <app-card-row key="Number" [value]="card.number.toString()" />
                 <app-card-row key="Urza Gatherer ID" [value]="card.id.toString()" />
                 <app-card-row key="Color" [value]="card.color.toString()" />

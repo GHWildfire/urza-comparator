@@ -1,5 +1,5 @@
 <div class="card-container" (click)="open()" #rotatable>
-    @if (card().imageUri && card().imageUri !== "loading") {
+    @if (this.card().imageUri && this.card().imageUri !== "loading") {
         <div class="mtg-card p-0">
             <div class="quantity-border">
                 <div class="quantity-number">
@@ -11,9 +11,11 @@
                     </div>
                 }
             </div>
-            <p class="price-tag">{{ priceTag }}</p>
-            <img class="card-image" [src]="card().imageUri">
-            @if(hasMultipleFaces) {
+            <p class="price-tag">{{ 
+                this.card().priceTag 
+            }}</p>
+            <img class="card-image" [src]="this.card().imageUri">
+            @if(this.card().hasMultipleFaces) {
                 <button (click)="swap($event)" id="swap-face-button" class="btn btn-primary">
                     <i id="swap-icon" class="bi bi-arrow-left-right"></i>
                 </button>
@@ -23,7 +25,7 @@
         <div class="mtg-card p-0">
             <img [class] src="Back.png" class="back-image">
     
-            @if (card().imageUri === "loading") {
+            @if (this.card().imageUri === "loading") {
                 <div class="spinner-background"></div>
                 <div class="spinner spinner-border text-light" role="status"></div>
             }
