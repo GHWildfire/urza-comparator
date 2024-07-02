@@ -27,6 +27,7 @@ export class CollectionsService {
     cardSpacing: number = 10
     nbCards: number = 0
     viewportSize: number = 0
+    selectedCardIndex: number = 0
     
     // Filters
     colorFilter: ColorFilter = new ColorFilter

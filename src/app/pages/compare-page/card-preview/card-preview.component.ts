@@ -1,6 +1,7 @@
 import { Component, OnInit, input } from '@angular/core';
 import { UrzaCard } from '../../../data-models/urza-card.model';
 import { Router } from '@angular/router';
+import { CollectionsService } from '../../../services/collections.service';
 
 @Component({
   selector: 'app-card',
@@ -11,12 +12,17 @@ import { Router } from '@angular/router';
 })
 export class CardPreviewComponent {
   card = input.required<UrzaCard>()
+  index = input.required<number>()
   mouseIn: boolean = false
   rotationFactor: number = 15
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private collectionsService: CollectionsService
+  ) {}
 
   open() {
+    this.collectionsService.selectedCardIndex = this.index()
     this.router.navigate(["/cards/" + this.card().id], { 
       state: { 
         card: this.card() 

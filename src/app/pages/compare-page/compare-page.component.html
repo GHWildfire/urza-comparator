@@ -46,12 +46,12 @@
         </div>
         
         <!-- Cards -->
-        <div #viewport class="viewport-container">
-          <cdk-virtual-scroll-viewport [itemSize]="244" class="viewport">
-            <div *cdkVirtualFor="let row of grid" class="row">
+        <div class="viewport-container">
+          <cdk-virtual-scroll-viewport #cdkViewport [itemSize]="244" class="viewport">
+            <div *cdkVirtualFor="let row of grid; let rowIndex = index;" class="row">
               <div class="row card-row">
                 @for (card of row; track $index) {
-                  <app-card [card]="card" class="mtg-card" />
+                  <app-card [card]="card" [index]="rowIndex" class="mtg-card" />
                 }
               </div>
             </div>

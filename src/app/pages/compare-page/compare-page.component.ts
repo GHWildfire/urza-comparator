@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild, effect } from '@angular/core';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild, effect } from '@angular/core';
+import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import { CardPreviewComponent } from './card-preview/card-preview.component';
 import { FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
@@ -15,7 +15,7 @@ import { FiltersComponent } from './filters/filters.component';
     styleUrl: './compare-page.component.css',
     imports: [ScrollingModule, FormsModule, CardPreviewComponent]
 })
-export class ComparePageComponent {
+export class ComparePageComponent implements AfterViewInit {
   // Selects options
   compareOptions = compareOptions
   orderOptions = orderOptions
@@ -30,8 +30,7 @@ export class ComparePageComponent {
   // Grid
   grid: UrzaCard[][] = []
 
-  @ViewChild('viewport')
-  viewport: ElementRef | undefined
+  @ViewChild('cdkViewport') cdkViewport: CdkVirtualScrollViewport | undefined
 
   constructor(
     private ref: ChangeDetectorRef, 
@@ -50,13 +49,21 @@ export class ComparePageComponent {
     })
   }
 
+  ngAfterViewInit(): void {
+    if (this.cdkViewport) {
+      setTimeout(() => {
+        this.cdkViewport?.scrollToIndex(this.collectionService.selectedCardIndex - 1);
+      }, 0);
+    }
+  }
+
   @HostListener('window:resize', ['$event.target.innerWidth'])
   onResize() {
     this.adaptCardGrid()
   }
 
   adaptCardGrid() {
-    this.screenWidth = this.viewport !== undefined ? this.viewport.nativeElement.offsetWidth : 0
+    this.screenWidth = this.cdkViewport?.elementRef !== undefined ? this.cdkViewport?.elementRef.nativeElement.offsetWidth : 0
     this.collectionService.adaptViewportSize(this.screenWidth)
     this.collectionService.adaptCardGrid()
     this.ref.detectChanges();
