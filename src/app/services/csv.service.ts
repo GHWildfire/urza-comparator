@@ -18,7 +18,17 @@ export class CSVService {
 
         const batchSize = 100
         for (let i = 0; i < csvCollection.lines.length; i++) {
-            cards.push(new UrzaCard(csvCollection.headers, csvCollection.lines[i].split(new RegExp(`${csvCollection.separator}(?!\\s)`))))
+            let card = new UrzaCard(csvCollection.headers, csvCollection.lines[i].split(new RegExp(`${csvCollection.separator}(?!\\s)`)))
+
+            let existingCards = cards.filter((existingCard) => existingCard.scryfallId === card.scryfallId)
+            if (existingCards.length > 0) {
+                // Second face
+                existingCards[0].backCard = card
+            } else {
+                // New card
+                cards.push(card)
+            }
+
             if (i % batchSize === 0) {
                 this.csvLoading.emit({ progress: Math.round(100 * i / csvCollection.lines.length), isLeft: csvCollection.isLeft })
                 await new Promise(f => setTimeout(f, 0));

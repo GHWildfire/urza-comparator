@@ -10,6 +10,8 @@ export const orderOptionDirections = {
 };
 
 export const orderOptions = [
+    { value: 'price-' + orderOptionDirections.desc, display: 'By price (desc.)' },
+    { value: 'price-' + orderOptionDirections.asc, display: 'By price (asc.)' },
     { value: 'number-' + orderOptionDirections.asc, display: 'By number' },
     { value: 'name-' + orderOptionDirections.asc, display: 'By name' },
     { value: 'convertedManaCost-' + orderOptionDirections.desc, display: 'By mana cost (desc.)' },
@@ -18,8 +20,6 @@ export const orderOptions = [
     { value: 'type-' + orderOptionDirections.asc, display: 'By type (asc.)' },
     { value: 'color-' + orderOptionDirections.desc, display: 'By color (desc.)' },
     { value: 'color-' + orderOptionDirections.asc, display: 'By color (asc.)' },
-    { value: 'price-' + orderOptionDirections.desc, display: 'By price (desc.)' },
-    { value: 'price-' + orderOptionDirections.asc, display: 'By price (asc.)' },
     { value: 'set-' + orderOptionDirections.asc, display: 'By edition' },
     { value: 'releaseDate-' + orderOptionDirections.desc, display: 'By release date (desc.)' },
     { value: 'releaseDate-' + orderOptionDirections.asc, display: 'By release date (asc.)' },

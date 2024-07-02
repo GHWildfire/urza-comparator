@@ -30,6 +30,24 @@ export class CardPreviewComponent {
     })
   }
 
+  swap(event: Event) {
+    event.stopPropagation()
+
+    if (!this.hasMultipleFaces) {
+      return
+    }
+
+    this.card().facingUp = !this.card().facingUp
+    this.card().imageUri = this.card().facingUp
+      ? this.card().scryfallData!.faces[0].normal
+      : this.card().scryfallData!.faces[1].normal
+  }
+
+  get hasMultipleFaces() {
+    const data = this.card().scryfallData
+    return data && data.faces && data.faces.length > 1 && data.faces[1].normal
+  }
+
   get quantityTag() {
     return this.card().count
   }

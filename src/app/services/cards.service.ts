@@ -17,7 +17,7 @@ export class CardsService {
     orderingPrice(card: UrzaCard): number {
         if (!card.scryfallData?.prices) return 0
         if (card.scryfallData?.prices.eur) return +card.scryfallData?.prices.eur
-        if (!card.scryfallData?.prices.eur && card.scryfallData?.prices.eur_foil) return +card.scryfallData?.prices.eur_foil
+        if (!card.scryfallData?.prices.eur && card.scryfallData?.prices.eur_foil && card.foilCount > 0) return +card.scryfallData?.prices.eur_foil
         return 0
     }
 

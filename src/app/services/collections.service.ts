@@ -8,6 +8,7 @@ import { DexieDBService } from "./dexie-db.service";
 import { ScryfallAPIService } from "./scryfall-api.service";
 import { CSVService } from "./csv.service";
 import { CardsService } from "./cards.service";
+import { filter } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 export class CollectionsService {

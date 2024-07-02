@@ -12,7 +12,7 @@ import { FiltersComponent } from './filters/filters.component';
     selector: 'app-compare-page',
     standalone: true,
     templateUrl: './compare-page.component.html',
-    styleUrl: './compare-page.component.css',
+    styleUrl: './compare-page.component.scss',
     imports: [ScrollingModule, FormsModule, CardPreviewComponent]
 })
 export class ComparePageComponent implements AfterViewInit {

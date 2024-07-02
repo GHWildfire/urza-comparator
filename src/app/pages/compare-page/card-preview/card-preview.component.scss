@@ -51,7 +51,7 @@
     font-size: 0.7em;
     border-radius: 5px;
     text-align: center;
-    color: white;
+    color: $font;
 }
 
 .quantity-border {
@@ -71,7 +71,7 @@
     padding: 2px 6px 0px 4px;
     bottom: 0;
     border-radius: 0 10px 0 0;
-    color: white;
+    color: $font;
 }
 
 .quantity-number-foil {
@@ -79,5 +79,15 @@
     background-color: $primary;
     padding: 0px 6px 2px 4px;
     border-radius: 0 0 10px 0;
-    color: white;
+    color: $font;
+}
+
+#swap-face-button {
+    position: absolute;
+    right: -5px;
+    top: 35px;
+}
+
+#swap-icon {
+    color: $font;
 }

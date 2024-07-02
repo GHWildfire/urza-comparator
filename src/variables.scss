@@ -1,7 +1,9 @@
 $primary: #ce7500;
 $secondary: #000000;
+$font: #ffffff;
 
 :root {
     --primary: #{ $primary };
     --secondary: #{ $secondary };
+    --font: #{ $font };
 }

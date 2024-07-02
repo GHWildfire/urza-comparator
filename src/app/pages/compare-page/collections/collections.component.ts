@@ -6,7 +6,7 @@ import { CollectionsService } from '../../../services/collections.service';
     selector: 'app-collections',
     standalone: true,
     templateUrl: './collections.component.html',
-    styleUrl: './collections.component.css',
+    styleUrl: './collections.component.scss',
     imports: [CollectionDetailsComponent]
 })
 export class CollectionsComponent {

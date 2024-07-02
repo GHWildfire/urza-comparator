@@ -13,6 +13,11 @@
             </div>
             <p class="price-tag">{{ priceTag }}</p>
             <img class="card-image" [src]="card().imageUri">
+            @if(hasMultipleFaces) {
+                <button (click)="swap($event)" id="swap-face-button" class="btn btn-primary">
+                    <i id="swap-icon" class="bi bi-arrow-left-right"></i>
+                </button>
+            }
         </div>
     } @else {
         <div class="mtg-card p-0">

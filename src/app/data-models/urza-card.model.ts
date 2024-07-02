@@ -31,6 +31,8 @@ export class UrzaCard {
     scryfallId: number = 0
 
     imageUri: string = "loading"
+    backCard?: UrzaCard
+    facingUp: boolean = true
     scryfallData?: ScryfallCard
 
     constructor(headers: string[], values: string[]) {
