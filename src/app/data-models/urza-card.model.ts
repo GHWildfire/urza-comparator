@@ -28,7 +28,7 @@ export class UrzaCard {
     language: string = ""
     tcgId: number = 0
     cardMarketId: number = 0
-    scryfallId: number = 0
+    scryfallId: string = ""
 
     backCard?: UrzaCard
     facingUp: boolean = true
@@ -50,9 +50,16 @@ export class UrzaCard {
         return card
     }
 
-    get hasMultipleFaces() {
+    get hasMultipleFaces(): boolean {
       const data = this.scryfallData
-      return data && data.faces && data.faces.length > 1 && data.faces[1].normal
+      return data !== undefined 
+        && data.faces !== undefined
+        && data.faces.length > 1
+        && data.faces[1].normal !== undefined
+    }
+
+    flip(): void {
+        this.facingUp = !this.facingUp
     }
 
     get imageUri() {

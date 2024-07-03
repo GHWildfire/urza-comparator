@@ -1,33 +1,40 @@
 <div id="card-container">
-    @if (card) {
+    @if (transferedCard && selectedCard && frontCard) {
         <div class="header row p-0">
             <button (click)="return()" id="back-button" class="btn btn-primary">
                 <i class="bi bi-arrow-left" style="font-size: 1rem; color: white;"></i>
             </button>
             <p id="card-name">
-                {{ card.name }}
+                {{ selectedCard.name }}
             </p>
         </div>
         <div class="body row">
             <div id="image-col" class="col-xl-4">
-                @if (card.imageUri && card.imageUri !== "loading") {
-                    <img class="card-image" [src]="card.imageUri">
-                }
+                <div id="image-container">
+                    @if (transferedCard.imageUri && transferedCard.imageUri !== "loading") {
+                        <img class="card-image" [src]="transferedCard.imageUri">
+                    }
+                    @if (this.transferedCard.hasMultipleFaces) {
+                        <button (click)="swap()" id="swap-face-button" class="btn btn-primary">
+                            <i id="swap-icon" class="bi bi-arrow-left-right"></i>
+                        </button>
+                    }
+                </div>
             </div>
             <div class="col-xl-4">
-                <app-card-row key="Count" [value]="card.count.toString()" />
-                <app-card-row key="Foils" [value]="card.foilCount.toString()" />
-                <app-card-row key="Average price" [value]="card.averagePrice" />
-                <app-card-row key="Average foil price" [value]="card.averagePriceFoil" />
-                <app-card-row key="Collection value" [value]="card.collectionValue" />
-                <app-card-row key="Number" [value]="card.number.toString()" />
-                <app-card-row key="Urza Gatherer ID" [value]="card.id.toString()" />
-                <app-card-row key="Color" [value]="card.color.toString()" />
-                <app-card-row key="Artist" [value]="card.author.toString()" />
-                <app-card-row key="Rarity" [value]="card.rarity.toString()" />
-                <app-card-row key="Mana cost" [value]="card.manaCost.toString()" />
-                <app-card-row key="Converted mana cost" [value]="card.convertedManaCost.toString()" />
-                <app-card-row key="Type" [value]="card.type" />
+                <app-card-row key="Count" [value]="selectedCard.count.toString()" />
+                <app-card-row key="Foils" [value]="selectedCard.foilCount.toString()" />
+                <app-card-row key="Average price" [value]="frontCard.averagePrice" />
+                <app-card-row key="Average foil price" [value]="frontCard.averagePriceFoil" />
+                <app-card-row key="Collection value" [value]="frontCard.collectionValue" />
+                <app-card-row key="Number" [value]="selectedCard.number.toString()" />
+                <app-card-row key="Urza Gatherer ID" [value]="selectedCard.id.toString()" />
+                <app-card-row key="Color" [value]="selectedCard.color.toString()" />
+                <app-card-row key="Artist" [value]="selectedCard.author.toString()" />
+                <app-card-row key="Rarity" [value]="selectedCard.rarity.toString()" />
+                <app-card-row key="Mana cost" [value]="selectedCard.manaCost.toString()" />
+                <app-card-row key="Converted mana cost" [value]="selectedCard.convertedManaCost.toString()" />
+                <app-card-row key="Type" [value]="selectedCard.type" />
             </div>
         </div>
     }

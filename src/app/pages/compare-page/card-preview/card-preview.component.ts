@@ -32,11 +32,6 @@ export class CardPreviewComponent {
 
   swap(event: Event) {
     event.stopPropagation()
-
-    if (!this.card().hasMultipleFaces) {
-      return
-    }
-
     this.card().facingUp = !this.card().facingUp
   }
 }

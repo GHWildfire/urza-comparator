@@ -29,11 +29,23 @@ export class CSVService {
             )
 
             // Detect backfaces or new cards
-            if (card.scryfallId in cardMap) {
-                cardMap[card.scryfallId].backCard = card
+            const scryfallId = card.scryfallId
+            if (scryfallId in cardMap) {
+                if (card.id < cardMap[scryfallId].id) {
+                    const previousCard = UrzaCard.fromObject(cardMap[scryfallId])
+                    cardMap[scryfallId] = card
+                    cardMap[scryfallId].backCard = previousCard
+                    
+                    const index = cards.findIndex(c => c.scryfallId === scryfallId);
+                    if (index !== -1) {
+                        cards[index] = card;
+                    }
+                } else {
+                    cardMap[scryfallId].backCard = card
+                }
             } else {
                 cards.push(card)
-                cardMap[card.scryfallId] = card
+                cardMap[scryfallId] = card
             }
 
             // Send progress
