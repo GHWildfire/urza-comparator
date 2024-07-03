@@ -47,6 +47,7 @@ export class ComparePageComponent implements AfterViewInit {
       this.grid = newGrid
       this.nbCards = this.collectionService.nbCards
     })
+    this.adaptCardGrid()
   }
 
   ngAfterViewInit(): void {
@@ -55,6 +56,7 @@ export class ComparePageComponent implements AfterViewInit {
         this.cdkViewport?.scrollToIndex(this.collectionService.selectedCardIndex - 1)
       }, 0)
     }
+    this.adaptCardGrid()
   }
 
   @HostListener('window:resize', ['$event.target.innerWidth'])

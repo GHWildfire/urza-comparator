@@ -10,10 +10,10 @@ export const orderOptionDirections = {
 }
 
 export const orderOptions = [
-    { value: 'price-' + orderOptionDirections.desc, display: 'By price (desc.)' },
-    { value: 'price-' + orderOptionDirections.asc, display: 'By price (asc.)' },
     { value: 'number-' + orderOptionDirections.asc, display: 'By number' },
     { value: 'name-' + orderOptionDirections.asc, display: 'By name' },
+    { value: 'price-' + orderOptionDirections.desc, display: 'By price (desc.)' },
+    { value: 'price-' + orderOptionDirections.asc, display: 'By price (asc.)' },
     { value: 'convertedManaCost-' + orderOptionDirections.desc, display: 'By mana cost (desc.)' },
     { value: 'convertedManaCost-' + orderOptionDirections.asc, display: 'By mana cost (asc.)' },
     { value: 'type-' + orderOptionDirections.desc, display: 'By type (desc.)' },

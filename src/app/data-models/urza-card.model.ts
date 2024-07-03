@@ -32,6 +32,7 @@ export class UrzaCard {
 
     backCard?: UrzaCard
     facingUp: boolean = true
+    linked: boolean = false
     scryfallData?: ScryfallCard
 
     constructor(headers: string[], values: string[]) {
@@ -108,25 +109,25 @@ export class UrzaCard {
     }
 
     get priceTag() {
-      let result = "No price found"
-  
-      const prices = this.scryfallData?.prices
-      if (!prices) {
+        let result = "No price found"
+
+        const prices = this.scryfallData?.prices
+        if (!prices) {
+            return result
+        }
+    
+        const euro = prices.eur
+        const eurofoil = prices.eur_foil
+    
+        if (euro === null && eurofoil === null) {
+            return result
+        }
+    
+        result = ""
+        if (euro !== null) result = "€" + euro
+        if (euro !== null && eurofoil !== null) result += " / "
+        if (eurofoil !== null) result += "€" + eurofoil
+    
         return result
-      }
-  
-      const euro = prices.eur
-      const eurofoil = prices.eur_foil
-  
-      if (euro === null && eurofoil === null) {
-        return result
-      }
-  
-      result = ""
-      if (euro !== null) result = "€" + euro
-      if (euro !== null && eurofoil !== null) result += " / "
-      if (eurofoil !== null) result += "€" + eurofoil
-  
-      return result
     }
 }

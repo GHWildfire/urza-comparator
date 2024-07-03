@@ -1,34 +1,42 @@
 <div class="card-container" (click)="open()" #rotatable>
-    @if (this.card().imageUri && this.card().imageUri !== "loading") {
-        <div class="mtg-card p-0">
-            <div class="quantity-border">
-                <div class="quantity-number">
-                    {{ card().count }}
-                </div>
-                @if (card().foilCount > 0) {
-                    <div class="quantity-number-foil">
-                        {{ card().foilCount }}<i class="bi bi-brightness-high quantity-number-foil-image" style="font-size: 9px;"></i>
-                    </div>
-                }
-            </div>
-            <p class="price-tag">{{ 
-                this.card().priceTag 
-            }}</p>
-            <img class="card-image" [src]="this.card().imageUri">
-            @if(this.card().hasMultipleFaces) {
-                <button (click)="swap($event)" id="swap-face-button" class="btn btn-primary">
-                    <i id="swap-icon" class="bi bi-arrow-left-right"></i>
-                </button>
-            }
-        </div>
-    } @else {
-        <div class="mtg-card p-0">
+    <div class="mtg-card p-0">
+
+        @if (this.card().imageUri === "loading") {
+            <!-- Back of the card when image missing -->
             <img [class] src="Back.png" class="back-image">
     
-            @if (this.card().imageUri === "loading") {
+            <!-- Loading spinner when data pending -->
+            @if (!this.card().linked) {
                 <div class="spinner-background"></div>
                 <div class="spinner spinner-border text-light" role="status"></div>
             }
+        } @else {
+            <!-- Card image -->
+            <img class="card-image" [src]="this.card().imageUri">
+        }
+
+        <!-- Border and quantities -->
+        <div class="quantity-border">
+            <div class="quantity-number">
+                {{ card().count }}
+            </div>
+            @if (card().foilCount > 0) {
+                <div class="quantity-number-foil">
+                    {{ card().foilCount }}<i class="bi bi-brightness-high quantity-number-foil-image" style="font-size: 9px;"></i>
+                </div>
+            }
         </div>
-    }
+
+        <!-- Price tag -->
+        <p class="price-tag">{{ 
+            this.card().priceTag 
+        }}</p>
+
+        <!-- Button to swap faces on two-sided cards -->
+        @if(this.card().hasMultipleFaces) {
+            <button (click)="swap($event)" id="swap-face-button" class="btn btn-primary">
+                <i id="swap-icon" class="bi bi-arrow-left-right"></i>
+            </button>
+        }
+    </div>
 </div>

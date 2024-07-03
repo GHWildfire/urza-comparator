@@ -11,7 +11,13 @@
         <div class="body row">
             <div id="image-col" class="col-xl-4">
                 <div id="image-container">
-                    @if (transferedCard.imageUri && transferedCard.imageUri !== "loading") {
+                    @if (transferedCard.imageUri === "loading") {
+                        <img [class] src="Back.png" class="card-image">
+                        @if (!transferedCard.linked) {
+                            <div class="spinner-background"></div>
+                            <div class="spinner spinner-border text-light" role="status"></div>
+                        }
+                    } @else {
                         <img class="card-image" [src]="transferedCard.imageUri">
                     }
                     @if (this.transferedCard.hasMultipleFaces) {

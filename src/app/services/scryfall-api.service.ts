@@ -104,6 +104,7 @@ export class ScryfallAPIService {
             for (let i = startIndex; i < endIndex; i++) {
                 const card = collection.cards[i]
                 card.scryfallData = scryfallCardMap[card.scryfallId]
+                card.linked = true
             }
         }
     
