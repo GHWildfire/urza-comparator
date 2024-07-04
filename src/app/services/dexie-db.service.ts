@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core'
 import Dexie from 'dexie'
 import { Collection } from '../data-models/collection.model'
-import { ScryfallCollection } from '../data-models/scryfall-models/scryfall-collection.model'
+import { Scryfall } from '../data-models/scryfall-models/scryfall.model'
 
 @Injectable({
   providedIn: 'root'
 })
 export class DexieDBService extends Dexie {
   collections: Dexie.Table<Collection, number>
-  scryfalls: Dexie.Table<ScryfallCollection, number>
+  scryfalls: Dexie.Table<Scryfall, number>
 
   private isSaving: boolean = false
 
@@ -31,17 +31,17 @@ export class DexieDBService extends Dexie {
 
     this.isSaving = true
     try {
-        await this.transaction('rw', this.collections, async () => {
-            await this.collections.clear()
-            await this.collections.put(collection1, 0)
-            await this.collections.put(collection2, 1)
-        })
+      await this.transaction('rw', this.collections, async () => {
+        await this.collections.clear()
+        await this.collections.put(collection1, 0)
+        await this.collections.put(collection2, 1)
+      })
     } finally {
-        this.isSaving = false
+      this.isSaving = false
     }
   }
 
-  async saveScryfall(scryfall: ScryfallCollection) {
+  async saveScryfall(scryfall: Scryfall) {
     if (!scryfall) {
       return
     }

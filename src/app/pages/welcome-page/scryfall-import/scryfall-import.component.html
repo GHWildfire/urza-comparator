@@ -1,8 +1,0 @@
-<div [ngClass]="scryfallCollection ? 'loaded' : 'loading'" class="scryfall-container">
-    @if (scryfallCollection) {
-        Cards data fetched from Scryfall ({{ scryfallCollection.cards.length | number }} cards)
-    } @else {
-        Importing cards data from Scryfall
-        <div class="spinner spinner-border spinner-border-sm" role="status"></div>
-    }
-</div>
