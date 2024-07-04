@@ -48,6 +48,7 @@ export class ScryfallAPIService {
 
     loadScryfall() {
         this.getScryfall().subscribe((scryfall) => {
+            console.log(scryfall)
             this.scryfall = scryfall
             this.scryfallLoaded.emit(this.scryfall)
         })
@@ -56,16 +57,47 @@ export class ScryfallAPIService {
     // Get scryfall data by calling all required requests
     getScryfall(): Observable<Scryfall> {
         return forkJoin({
-          cards: this.getCards(),
-          sets: this.getSets()
+            cards: this.getCards(),
+            sets: this.getSets(),
+            cardTypes: this.getCatalog("card-types"),
+            superTypes: this.getCatalog("supertypes"),
+            artifactTypes: this.getCatalog("artifact-types"),
+            battleTypes: this.getCatalog("battle-types"),
+            creatureTypes: this.getCatalog("creature-types"),
+            enchantmentTypes: this.getCatalog("enchantment-types"),
+            landTypes: this.getCatalog("land-types"),
+            planeswalkerTypes: this.getCatalog("planeswalker-types"),
+            spellTypes: this.getCatalog("spell-types"),
+            artists: this.getCatalog("artist-names")
         }).pipe(
-          map(results => {
-            return new Scryfall(new Date().getTime(), results.cards, results.sets)
-          }),
-          catchError((error: any) => {
-            console.error('An error occurred while loading Scryfall data:', error)
-            return throwError(() => new Error('Something went wrong please try again later.'))
-          })
+            map(results => {
+                return new Scryfall(
+                    new Date().getTime(), 
+                    results.cards, 
+                    results.sets, 
+                    results.cardTypes, 
+                    results.superTypes, 
+                    results.artifactTypes, 
+                    results.battleTypes, 
+                    results.creatureTypes, 
+                    results.enchantmentTypes, 
+                    results.landTypes, 
+                    results.planeswalkerTypes, 
+                    results.spellTypes, 
+                    results.artists
+                )
+            }),
+            catchError((error: any) => {
+                console.error('An error occurred while loading Scryfall data:', error)
+                return throwError(() => new Error('Something went wrong please try again later.'))
+            })
+        )
+    }
+
+    // Get a catalog of ressources [example: card-types]
+    getCatalog(catalogUri: string): Observable<string[]> {
+        return this.http.get<any>(this.scryFallURL + "/catalog/" + catalogUri).pipe(
+            map(responseData => ScryfallCatalog.fromJSON(responseData).data ?? [])
         )
     }
 
@@ -107,13 +139,6 @@ export class ScryfallAPIService {
                 // TODO Affichage d'erreurs
                 return of(undefined)
             })
-        )
-    }
-
-    // Get a catalog of ressources [example: card-types]
-    getCatalog(catalogUri: string): Observable<string[]> {
-        return this.http.get<any>(this.scryFallURL + "/catalog/" + catalogUri).pipe(
-            map(responseData => ScryfallCatalog.fromJSON(responseData).data ?? [])
         )
     }
     
