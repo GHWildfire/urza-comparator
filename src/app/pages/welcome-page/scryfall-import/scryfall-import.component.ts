@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { ScryfallAPIService } from '../../../services/scryfall-api.service'
-import { ScryfallCollection } from '../../../data-models/scryfall-collection.model'
+import { ScryfallCollection } from '../../../data-models/scryfall-models/scryfall-collection.model'
 import { CommonModule  } from '@angular/common'
 
 @Component({

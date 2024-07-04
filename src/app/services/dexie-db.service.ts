@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import Dexie from 'dexie'
 import { Collection } from '../data-models/collection.model'
-import { ScryfallCollection } from '../data-models/scryfall-collection.model'
+import { ScryfallCollection } from '../data-models/scryfall-models/scryfall-collection.model'
 
 @Injectable({
   providedIn: 'root'

@@ -1,4 +1,4 @@
-import { ScryfallCard } from "./scryfall-collection.model"
+import { ScryfallCard } from "./scryfall-models/scryfall-card-models/scryfall-card.model"
 
 export class UrzaCard {
     name: string = ""
@@ -81,29 +81,29 @@ export class UrzaCard {
     }
 
     get averagePrice(): string {
-        return this.scryfallData?.prices && this.scryfallData?.prices.eur ? "€" + this.scryfallData?.prices.eur : "No price found"
+        return this.scryfallData?.prices && this.scryfallData?.prices.usd ? "$" + this.scryfallData?.prices.usd : "No price found"
     }
     
     get averagePriceFoil(): string {
-        return this.scryfallData?.prices && this.scryfallData?.prices.eur_foil 
-            ? "€" + this.scryfallData?.prices.eur_foil 
+        return this.scryfallData?.prices && this.scryfallData?.prices.usd_foil 
+            ? "€" + this.scryfallData?.prices.usd_foil 
             : this.averagePrice
     }
 
     get orderingPrice(): number {
         if (!this.scryfallData?.prices) return 0
-        if (this.scryfallData?.prices.eur) return +this.scryfallData?.prices.eur
-        if (!this.scryfallData?.prices.eur && this.scryfallData?.prices.eur_foil && this.foilCount > 0) return +this.scryfallData?.prices.eur_foil
+        if (this.scryfallData?.prices.usd) return +this.scryfallData?.prices.usd
+        if (!this.scryfallData?.prices.usd && this.scryfallData?.prices.usd_foil && this.foilCount > 0) return +this.scryfallData?.prices.usd_foil
         return 0
     }
     
     get collectionValue(): string {
         let total = 0
-        if (this.scryfallData?.prices && this.scryfallData?.prices.eur) {
-            total += (this.count - this.foilCount) * +this.scryfallData?.prices.eur
+        if (this.scryfallData?.prices && this.scryfallData?.prices.usd) {
+            total += (this.count - this.foilCount) * +this.scryfallData?.prices.usd
         }
-        if (this.scryfallData?.prices && this.scryfallData?.prices.eur_foil) {
-            total += this.foilCount * +this.scryfallData?.prices.eur_foil
+        if (this.scryfallData?.prices && this.scryfallData?.prices.usd_foil) {
+            total += this.foilCount * +this.scryfallData?.prices.usd_foil
         }
         return "€" + total
     }
@@ -116,17 +116,17 @@ export class UrzaCard {
             return result
         }
     
-        const euro = prices.eur
-        const eurofoil = prices.eur_foil
+        const usd = prices.usd
+        const usdFoil = prices.usd_foil
     
-        if (euro === null && eurofoil === null) {
+        if (usd === null && usdFoil === null) {
             return result
         }
     
         result = ""
-        if (euro !== null) result = "€" + euro
-        if (euro !== null && eurofoil !== null) result += " / "
-        if (eurofoil !== null) result += "€" + eurofoil
+        if (usd !== null) result = "$" + usd
+        if (usd !== null && usdFoil !== null) result += " / "
+        if (usdFoil !== null) result += "$" + usdFoil
     
         return result
     }

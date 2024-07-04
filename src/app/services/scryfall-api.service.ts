@@ -1,17 +1,18 @@
 import { HttpClient } from "@angular/common/http"
 import { EventEmitter, Injectable } from "@angular/core"
 import { Collection } from "../data-models/collection.model"
-import { ScryfallBulk, ScryfallBulkData } from "../data-models/scryfall-bulk.model"
+import { ScryfallBulk } from "../data-models/scryfall-models/scryfall-bulk.model"
 import { Observable, map, switchMap } from "rxjs"
-import { ScryfallCard, ScryfallCollection, createScryfallCard } from "../data-models/scryfall-collection.model"
 import { DexieDBService } from "./dexie-db.service"
+import { ScryfallCollection } from "../data-models/scryfall-models/scryfall-collection.model"
+import { ScryfallCard } from "../data-models/scryfall-models/scryfall-card-models/scryfall-card.model"
 
 @Injectable({ providedIn: 'root' })
 export class ScryfallAPIService {
     private scryFallURL: string = "https://api.scryfall.com"
     private scryfallBulkDataType: string = "default_cards"
     private scryfallCollection?: ScryfallCollection
-    private scryfallMinRefreshFrequency: number = 1000 * 60 * 10 // 10 minutes
+    private scryfallMinRefreshFrequency: number = 0//1000 * 60 * 10 // 10 minutes
     private linkingBatchSize: number = 20
 
     scryfallLoaded = new EventEmitter<ScryfallCollection>()
@@ -44,50 +45,35 @@ export class ScryfallAPIService {
     }
 
     loadScryfallCollection() {
-        this.getScryfallCollection().subscribe((collection: ScryfallCollection) => {
+        this.getScryfallCards().subscribe((collection: ScryfallCollection) => {
             this.scryfallCollection = collection
             this.scryfallLoaded.emit(collection)
         })
     }
-
-    getScryfallCollection(): Observable<ScryfallCollection> {
-        return this.getBulkData().pipe(
-            switchMap((bulk: ScryfallBulk) => {
-                const downloadUri = bulk.getDownloadUri(this.scryfallBulkDataType)
-                return this.http.get<any>(downloadUri).pipe(
-                    map(responseData => {
-                        const cards = responseData.map((cardData: any) => createScryfallCard(cardData))
-                        const scryfall = new ScryfallCollection(cards, new Date().getTime())
-                        this.db.saveScryfall(scryfall)
-                        return scryfall
-                    })
-                )
-            })
-        )
-    }
    
+    // Bulk data containg all types of global collections
     getBulkData(): Observable<ScryfallBulk> {
         return this.http.get<any>(this.scryFallURL + "/bulk-data").pipe(
-            map(responseData => {
-                const datas: ScryfallBulkData[] = responseData.data.map((bulkData: any) => new ScryfallBulkData(
-                    bulkData.object,
-                    bulkData.id, 
-                    bulkData.type,
-                    bulkData.updated_at,
-                    bulkData.uri,
-                    bulkData.name,
-                    bulkData.description,
-                    bulkData.size,
-                    bulkData.download_uri,
-                    bulkData.content_type,
-                    bulkData.content_encoding
-                ))
-                    
-                return new ScryfallBulk(responseData.object, responseData.has_more, datas)
-            })
-        )
+            map(responseData => ScryfallBulk.fromJSON(responseData))
+        );
     }
 
+    // Get all cards defined by the scryfallBulkDataType selected
+    getScryfallCards(): Observable<ScryfallCollection> {
+        return this.getBulkData().pipe(
+            switchMap((bulk: ScryfallBulk) => {
+                const downloadUri = bulk.getDownloadUri(this.scryfallBulkDataType);
+                return this.http.get<any>(downloadUri).pipe(
+                    map(responseData => {
+                        const scryfall = ScryfallCollection.fromJSON(responseData);
+                        this.db.saveScryfall(scryfall);
+                        return scryfall;
+                    })
+                );
+            })
+        );
+    }
+    
     async linkScryfallData(collection: Collection, isLeft: boolean) {
         if (!this.scryfallCollection || collection.cardsLinked) {
             return
