@@ -8,6 +8,7 @@ import { ScryfallCatalog } from "../data-models/scryfall-models/scryfall-catalog
 import { Scryfall } from "../data-models/scryfall-models/scryfall.model"
 import { ScryfallSet } from "../data-models/scryfall-models/scryfall-set.model"
 import { ScryfallBulkData } from "../data-models/scryfall-models/scryfall-bulk-data.model"
+import { ScryfallSymbol } from "../data-models/scryfall-models/scryfall-symbol"
 
 @Injectable({ providedIn: 'root' })
 export class ScryfallAPIService {
@@ -59,6 +60,7 @@ export class ScryfallAPIService {
         return forkJoin({
             cards: this.getCards(),
             sets: this.getSets(),
+            symbols: this.getSymbols(),
             cardTypes: this.getCatalog("card-types"),
             superTypes: this.getCatalog("supertypes"),
             artifactTypes: this.getCatalog("artifact-types"),
@@ -75,6 +77,7 @@ export class ScryfallAPIService {
                     new Date().getTime(), 
                     results.cards, 
                     results.sets, 
+                    results.symbols, 
                     results.cardTypes, 
                     results.superTypes, 
                     results.artifactTypes, 
@@ -91,6 +94,13 @@ export class ScryfallAPIService {
                 console.error('An error occurred while loading Scryfall data:', error)
                 return throwError(() => new Error('Something went wrong please try again later.'))
             })
+        )
+    }
+
+    // Get all symbols [example: {W} -> white symbol image]
+    getSymbols(): Observable<ScryfallSymbol[]> {
+        return this.http.get<any>(this.scryFallURL + "/symbology").pipe(
+            map(responseData => responseData.data.map((symbolJson: any) => ScryfallSymbol.fromJSON(symbolJson)))
         )
     }
 
