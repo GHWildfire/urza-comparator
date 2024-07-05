@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog'
 import { CollectionsService } from '../../services/collections.service'
 import { UrzaCard } from '../../data-models/urza-card.model'
-import { compareOptions, orderOptions, colors } from "./compare-page.constants"
+import { compareOptions, orderOptions } from "./compare-page.constants"
 import { FiltersComponent } from './filters/filters.component'
 
 @Component({
@@ -48,6 +48,7 @@ export class ComparePageComponent implements AfterViewInit {
       this.nbCards = this.collectionService.nbCards
     })
     this.adaptCardGrid()
+    this.openFilters()
   }
 
   ngAfterViewInit(): void {
@@ -72,7 +73,9 @@ export class ComparePageComponent implements AfterViewInit {
   }
 
   openFilters() {
-    this.dialogRef.open(FiltersComponent)
+    this.dialogRef.open(FiltersComponent, {
+      panelClass: 'custom-dialog'
+    })
   }
 
   onNameFilterChange() {

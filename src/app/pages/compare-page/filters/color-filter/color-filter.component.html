@@ -2,30 +2,58 @@
     <p class="mb-2 fw-bold">{{ title() }}</p>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" [id]="'whiteCheckbox' + contains()" [(ngModel)]="colorFilter.white" (change)="update()">
-        <label class="form-check-label" [htmlFor]="'whiteCheckbox' + contains()">White</label>
+        <label class="form-check-label" [htmlFor]="'whiteCheckbox' + contains()">
+            @if (getColorImg('{W}') === "") { White } 
+            @else { <img class="symbol" [src]="getColorImg('{W}')" > }
+        </label>
+        
     </div>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" [id]="'blueCheckbox' + contains()" [(ngModel)]="colorFilter.blue" (change)="update()">
-        <label class="form-check-label" [htmlFor]="'blueCheckbox' + contains()">Blue</label>
+        <label class="form-check-label" [htmlFor]="'blueCheckbox' + contains()">
+            @if (getColorImg('{W}') === "") { Blue } 
+            @else { <img class="symbol" [src]="getColorImg('{U}')" > }
+        </label>
     </div>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" [id]="'blackCheckbox' + contains()" [(ngModel)]="colorFilter.black" (change)="update()">
-        <label class="form-check-label" [htmlFor]="'blackCheckbox' + contains()">Black</label>
+        <label class="form-check-label" [htmlFor]="'blackCheckbox' + contains()">
+            @if (getColorImg('{W}') === "") { Black } 
+            @else { <img class="symbol" [src]="getColorImg('{B}')" > }
+        </label>
     </div>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" [id]="'redCheckbox' + contains()" [(ngModel)]="colorFilter.red" (change)="update()">
-        <label class="form-check-label" [htmlFor]="'redCheckbox' + contains()">Red</label>
+        <label class="form-check-label" [htmlFor]="'redCheckbox' + contains()">
+            @if (getColorImg('{W}') === "") { Red } 
+            @else { <img class="symbol" [src]="getColorImg('{R}')" > }
+        </label>
     </div>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" [id]="'greenCheckbox' + contains()" [(ngModel)]="colorFilter.green" (change)="update()">
-        <label class="form-check-label" [htmlFor]="'greenCheckbox' + contains()">Green</label>
+        <label class="form-check-label" [htmlFor]="'greenCheckbox' + contains()">
+            @if (getColorImg('{W}') === "") { Green } 
+            @else { <img class="symbol" [src]="getColorImg('{G}')" > }
+        </label>
     </div>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" [id]="'multicolorCheckbox' + contains()" [(ngModel)]="colorFilter.multicolor" (change)="update()">
-        <label class="form-check-label" [htmlFor]="'multicolorCheckbox' + contains()">Multicolor</label>
+        <label class="form-check-label" [htmlFor]="'multicolorCheckbox' + contains()">
+            @if (getColorImg('{W}') === "") { Multicolor } 
+            @else { <img class="symbol" [src]="getColorImg('{R/G}')" > }</label>
     </div>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" [id]="'colorlessCheckbox' + contains()" [(ngModel)]="colorFilter.colorless" (change)="update()">
-        <label class="form-check-label" [htmlFor]="'colorlessCheckbox' + contains()">Colorless</label>
+        <label class="form-check-label" [htmlFor]="'colorlessCheckbox' + contains()">
+            @if (getColorImg('{W}') === "") { Coloress } 
+            @else { <img class="symbol" [src]="getColorImg('{C}')" > }
+        </label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" [id]="'compleatedCheckbox' + contains()" [(ngModel)]="colorFilter.colorless" (change)="update()">
+        <label class="form-check-label" [htmlFor]="'compleatedCheckbox' + contains()">
+            @if (getColorImg('{W}') === "") { Compleated } 
+            @else { <img class="symbol" [src]="getColorImg('{P}')" > }
+        </label>
     </div>
 </div>

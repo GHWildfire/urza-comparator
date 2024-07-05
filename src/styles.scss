@@ -57,3 +57,26 @@ body {
 @media only screen and (min-width: 1200px) {
     
 }
+
+button {
+    color: white !important;
+}
+
+// -------- Overide rules from cdk MatDialogs --------
+
+.mat-dialog-container {
+  border-radius: 0px !important;
+}
+
+.cdk-overlay-pane.mat-mdc-dialog-panel {
+    max-width: 1200px !important;
+}
+
+.custom-dialog {
+    height: 80%;
+    width: 90%;
+}
+
+.custom-dialog .mat-mdc-dialog-surface {
+    border-radius: 10px !important;
+}

@@ -1,62 +1,63 @@
 <div id="container">
-    <div class="main m-0 p-0">
+  <div class="main m-0 p-0">
 
-        @if (grid.length === 0) {
-          <div class="empty-parent text-center">
-            <i class="bi bi-info-circle-fill empty" style="font-size: 4rem;"></i>
-            <p class="empty-description">No card found</p>
-          </div>
-        }
-      
-        <!-- Header -->
-        <div id="header" class="row px-3">
-          <div class="col my-auto">
-            <input 
-              type="text" 
-              id="nameFilter" 
-              autocomplete="off" 
-              [(ngModel)]="name"
-              (input)="onNameFilterChange()"
-              placeholder="Name..." 
-              class="form-control form-control-sm"
-            >
-          </div>
-          @if (screenWidth > 860) {
-            <div class="col my-auto">
-              <select [(ngModel)]="orderOptionSelected" (ngModelChange)="onOrderOptionsChange($event)" id="orderSelect" class="form-select form-select-sm" aria-label="Default select example">
-                @for (option of orderOptions; track $index) {
-                  <option [value]="option.value">{{ option.display }}</option>
-                }
-              </select>
-            </div>
-            <div class="col my-auto">
-              <select [(ngModel)]="compareOptionSelected" (ngModelChange)="onCompareOptionsChange($event)" id="compareSelect" class="form-select form-select-sm" aria-label="Default select example">
-                @for (option of compareOptions; track $index) {
-                  <option [value]="option.value">{{ option.display }}</option>
-                }
-              </select>
-            </div>
-            <div class="col my-auto">
-              <button id="filters-button" class="btn btn-primary" (click)="openFilters()">Advanced filters</button>
-            </div>
-          }
-          <div class="col text-end fw-bold my-auto">
-            {{ nbCards + " cards found" }}
-          </div>
-        </div>
-        
-        <!-- Cards -->
-        <div class="viewport-container">
-          <cdk-virtual-scroll-viewport #cdkViewport [itemSize]="244" class="viewport">
-            <div *cdkVirtualFor="let row of grid; let rowIndex = index;" class="row">
-              <div class="row card-row">
-                @for (card of row; track $index) {
-                  <app-card [card]="card" [index]="rowIndex" class="mtg-card" />
-                }
-              </div>
-            </div>
-          </cdk-virtual-scroll-viewport>
-        </div>
-      
+    <!-- Empty result -->
+    @if (grid.length === 0) {
+      <div class="empty-parent text-center">
+        <i class="bi bi-info-circle-fill empty" style="font-size: 4rem;"></i>
+        <p class="empty-description">No card found</p>
       </div>
+    }
+  
+    <!-- Header -->
+    <div id="header" class="row px-3">
+      <div class="col my-auto">
+        <input 
+          type="text" 
+          id="nameFilter" 
+          autocomplete="off" 
+          [(ngModel)]="name"
+          (input)="onNameFilterChange()"
+          placeholder="Name..." 
+          class="form-control form-control-sm"
+        >
+      </div>
+      @if (screenWidth > 860) {
+        <div class="col my-auto">
+          <select [(ngModel)]="orderOptionSelected" (ngModelChange)="onOrderOptionsChange($event)" id="orderSelect" class="form-select form-select-sm" aria-label="Default select example">
+            @for (option of orderOptions; track $index) {
+              <option [value]="option.value">{{ option.display }}</option>
+            }
+          </select>
+        </div>
+        <div class="col my-auto">
+          <select [(ngModel)]="compareOptionSelected" (ngModelChange)="onCompareOptionsChange($event)" id="compareSelect" class="form-select form-select-sm" aria-label="Default select example">
+            @for (option of compareOptions; track $index) {
+              <option [value]="option.value">{{ option.display }}</option>
+            }
+          </select>
+        </div>
+        <div class="col my-auto">
+          <button id="filters-button" class="btn btn-primary" (click)="openFilters()">Advanced filters</button>
+        </div>
+      }
+      <div class="col text-end fw-bold my-auto">
+        {{ nbCards + " cards found" }}
+      </div>
+    </div>
+    
+    <!-- Cards -->
+    <div class="viewport-container">
+      <cdk-virtual-scroll-viewport #cdkViewport [itemSize]="244" class="viewport">
+        <div *cdkVirtualFor="let row of grid; let rowIndex = index;" class="row">
+          <div class="row card-row">
+            @for (card of row; track $index) {
+              <app-card [card]="card" [index]="rowIndex" class="mtg-card" />
+            }
+          </div>
+        </div>
+      </cdk-virtual-scroll-viewport>
+    </div>
+  
+  </div>
 </div>

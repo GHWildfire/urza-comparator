@@ -14,9 +14,9 @@ import { ScryfallSymbol } from "../data-models/scryfall-models/scryfall-symbol"
 export class ScryfallAPIService {
     private scryFallURL: string = "https://api.scryfall.com"
     private scryfallBulkDataType: string = "default_cards"
-    private scryfall?: Scryfall
-    private scryfallMinRefreshFrequency: number = 0//1000 * 60 * 10 // 10 minutes
+    private scryfallMinRefreshFrequency: number = 1000 * 60 * 10 // 10 minutes
     private linkingBatchSize: number = 20
+    scryfall?: Scryfall
 
     scryfallLoaded = new EventEmitter<Scryfall>()
     collectionLinking = new EventEmitter<{ progress: number, isLeft: boolean }>()
@@ -38,12 +38,15 @@ export class ScryfallAPIService {
             const currentTime = new Date().getTime()
             if (currentTime - scryfall.timestamp > this.scryfallMinRefreshFrequency) {
                 this.loadScryfall()
+                console.log("Loaded completely new")
             } else {
                 this.scryfall = scryfall
+                console.log("Loaded from DB")
                 this.scryfallLoaded.emit(this.scryfall)
             }
         } else {
             this.loadScryfall()
+            console.log("Loaded completely new becauseno DB")
         }
     }
 
@@ -51,6 +54,7 @@ export class ScryfallAPIService {
         this.getScryfall().subscribe((scryfall) => {
             console.log(scryfall)
             this.scryfall = scryfall
+            this.db.saveScryfall(this.scryfall)
             this.scryfallLoaded.emit(this.scryfall)
         })
     }

@@ -1,4 +1,21 @@
 #main {
-    padding: 20px;
+    padding: 0px;
+    height: 100%;
     background-color: rgb(235, 235, 235);
+}
+
+#title-block {
+    height: 60px;
+}
+
+#content-block {
+    height: calc(100% - 130px);
+}
+
+#actions-block {
+    height: 60px;
+}
+
+#close-button {
+    margin-right: 10px;
 }
