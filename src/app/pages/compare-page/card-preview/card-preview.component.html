@@ -10,6 +10,11 @@
                 <div class="spinner-background"></div>
                 <div class="spinner spinner-border text-light" role="status"></div>
             }
+
+            <!-- Card name if image missing -->
+            <div id="card-name">
+                {{ this.card().name }}
+            </div>
         } @else {
             <!-- Card image -->
             <img class="card-image" [src]="this.card().imageUri">

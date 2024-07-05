@@ -34,10 +34,28 @@
 
 .spinner {
     position: absolute;
-    width: 50px;
+    width: 30px;
+    height: 30px;
+    bottom: 40px;
+    left: calc(50% - 15px);
+}
+
+#card-name {
+    background-color: rgba(0, 0, 0, 0.767);
+    color: white;
     height: 50px;
+    width: 98%;
+    left: 1%;
+    position: absolute;
     top: calc(50% - 25px);
-    left: calc(50% - 25px);
+    display: flex;
+    justify-content: center;
+    font-size: small;
+    align-items: center;
+    text-align: center; 
+    overflow: hidden;
+    color: white;
+    padding: 20px;
 }
 
 .price-tag {
