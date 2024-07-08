@@ -4,13 +4,14 @@ import { ColorFilter } from './color-filter.model'
 import { CollectionsService } from '../../../../services/collections.service'
 import { ScryfallAPIService } from '../../../../services/scryfall-api.service'
 import { Scryfall } from '../../../../data-models/scryfall-models/scryfall.model'
+import { CommonModule } from "@angular/common"
 
 @Component({
   selector: 'app-color-filter',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './color-filter.component.html',
-  styleUrl: './color-filter.component.css'
+  styleUrl: './color-filter.component.scss'
 })
 export class ColorFilterComponent implements OnInit {
   identifier = input.required<string>()
@@ -32,13 +33,18 @@ export class ColorFilterComponent implements OnInit {
     }
   }
 
-  update() {
-    this.collectionService.updateColors(this.colorFilter, this.identifier())
+  updateColor(color: keyof ColorFilter) {
+    this.colorFilter[color] = !this.colorFilter[color]
+    this.update()
   }
 
   reset() {
     this.colorFilter = new ColorFilter
     this.update()
+  }
+
+  update() {
+    this.collectionService.updateColors(this.colorFilter, this.identifier())
   }
 
   getColorImg(symbolText: string) {

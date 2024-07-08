@@ -9,7 +9,7 @@ import { MatDialogModule } from '@angular/material/dialog'
     selector: 'app-filters',
     standalone: true,
     templateUrl: './filters.component.html',
-    styleUrl: './filters.component.css',
+    styleUrl: './filters.component.scss',
     imports: [ColorFilterComponent, FormsModule, RarityFilterComponent, MatDialogModule ]
 })
 export class FiltersComponent {
@@ -18,7 +18,7 @@ export class FiltersComponent {
   @ViewChildren(ColorFilterComponent) colorFilters!: QueryList<ColorFilterComponent>
   @ViewChild(RarityFilterComponent) rarityFilter!: RarityFilterComponent
 
-  constructor(private collectionService: CollectionsService) {}
+  constructor(public collectionService: CollectionsService) {}
   
   resetAllFilters() {
     this.name = ""
@@ -29,6 +29,5 @@ export class FiltersComponent {
     })
 
     this.rarityFilter.reset()
-
   }
 }

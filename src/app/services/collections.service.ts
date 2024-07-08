@@ -264,6 +264,7 @@ export class CollectionsService {
             if (card.manaCost.includes("G")) count++
             if ((include && count < 2) || (!include && count >= 2)) return false
         }
+        if (filter.compleated && !checkColor("P", include)) return false
 
         return true
     }

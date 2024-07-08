@@ -1,3 +1,5 @@
+@import "../../../../variables.scss";
+
 #main {
     padding: 0px;
     height: 100%;
@@ -18,4 +20,10 @@
 
 #close-button {
     margin-right: 10px;
+}
+
+#cards-remaining {
+    position: absolute;
+    left: 40px;
+    font-weight: bold;
 }

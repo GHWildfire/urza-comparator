@@ -6,4 +6,5 @@ export class ColorFilter {
     green: boolean = false
     multicolor: boolean = false
     colorless: boolean = false
+    compleated: boolean = false
 }

@@ -20,6 +20,7 @@
     
     <!-- Dialog actions -->
     <mat-dialog-actions id="actions-block" align="end">
+        <label id="cards-remaining">{{ this.collectionService.nbCards }} cards found</label>
         <button id="close-button" class="btn btn-primary" mat-button mat-dialog-close>Close</button>
         <button class="btn btn-primary" (click)="resetAllFilters()">Reset All</button>
     </mat-dialog-actions>

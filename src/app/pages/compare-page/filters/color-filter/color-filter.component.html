@@ -1,59 +1,43 @@
 <div class="p-2">
     <p class="mb-2 fw-bold">{{ title() }}</p>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" [id]="'whiteCheckbox ' + identifier()" [(ngModel)]="colorFilter.white" (change)="update()">
-        <label class="form-check-label" [htmlFor]="'whiteCheckbox ' + identifier()">
-            @if (getColorImg('{W}') === "") { White } 
-            @else { <img class="symbol" [src]="getColorImg('{W}')" > }
-        </label>
-        
+
+    <div class="form-check form-check-inline" [class.checked]="colorFilter.white" (click)="updateColor('white')">
+        <img class="symbol" [src]="getColorImg('{W}')" >
+        <label class="symbol-description">White</label>
     </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" [id]="'blueCheckbox ' + identifier()" [(ngModel)]="colorFilter.blue" (change)="update()">
-        <label class="form-check-label" [htmlFor]="'blueCheckbox ' + identifier()">
-            @if (getColorImg('{W}') === "") { Blue } 
-            @else { <img class="symbol" [src]="getColorImg('{U}')" > }
-        </label>
+
+    <div class="form-check form-check-inline" [class.checked]="colorFilter.blue" (click)="updateColor('blue')">
+        <img class="symbol" [src]="getColorImg('{U}')" >
+        <label class="symbol-description">Blue</label>
     </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" [id]="'blackCheckbox ' + identifier()" [(ngModel)]="colorFilter.black" (change)="update()">
-        <label class="form-check-label" [htmlFor]="'blackCheckbox ' + identifier()">
-            @if (getColorImg('{W}') === "") { Black } 
-            @else { <img class="symbol" [src]="getColorImg('{B}')" > }
-        </label>
+
+    <div class="form-check form-check-inline" [class.checked]="colorFilter.black" (click)="updateColor('black')">
+        <img class="symbol" [src]="getColorImg('{B}')" >
+        <label class="symbol-description">Black</label>
     </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" [id]="'redCheckbox ' + identifier()" [(ngModel)]="colorFilter.red" (change)="update()">
-        <label class="form-check-label" [htmlFor]="'redCheckbox ' + identifier()">
-            @if (getColorImg('{W}') === "") { Red } 
-            @else { <img class="symbol" [src]="getColorImg('{R}')" > }
-        </label>
+
+    <div class="form-check form-check-inline" [class.checked]="colorFilter.red" (click)="updateColor('red')">
+        <img class="symbol" [src]="getColorImg('{R}')" >
+        <label class="symbol-description">Red</label>
     </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" [id]="'greenCheckbox ' + identifier()" [(ngModel)]="colorFilter.green" (change)="update()">
-        <label class="form-check-label" [htmlFor]="'greenCheckbox ' + identifier()">
-            @if (getColorImg('{W}') === "") { Green } 
-            @else { <img class="symbol" [src]="getColorImg('{G}')" > }
-        </label>
+
+    <div class="form-check form-check-inline" [class.checked]="colorFilter.green" (click)="updateColor('green')">
+        <img class="symbol" [src]="getColorImg('{G}')" >
+        <label class="symbol-description">Green</label>
     </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" [id]="'multicolorCheckbox ' + identifier()" [(ngModel)]="colorFilter.multicolor" (change)="update()">
-        <label class="form-check-label" [htmlFor]="'multicolorCheckbox ' + identifier()">
-            @if (getColorImg('{W}') === "") { Multicolor } 
-            @else { <img class="symbol" [src]="getColorImg('{R/G}')" > }</label>
+
+    <div class="form-check form-check-inline" [class.checked]="colorFilter.multicolor" (click)="updateColor('multicolor')">
+        <img class="symbol" [src]="getColorImg('{R/G}')" >
+        <label class="symbol-description">Multicolors</label>
     </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" [id]="'colorlessCheckbox ' + identifier()" [(ngModel)]="colorFilter.colorless" (change)="update()">
-        <label class="form-check-label" [htmlFor]="'colorlessCheckbox ' + identifier()">
-            @if (getColorImg('{W}') === "") { Coloress } 
-            @else { <img class="symbol" [src]="getColorImg('{C}')" > }
-        </label>
+
+    <div class="form-check form-check-inline" [class.checked]="colorFilter.colorless" (click)="updateColor('colorless')">
+        <img class="symbol" [src]="getColorImg('{C}')" >
+        <label class="symbol-description">Colorless</label>
     </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" [id]="'compleatedCheckbox ' + identifier()" [(ngModel)]="colorFilter.colorless" (change)="update()">
-        <label class="form-check-label" [htmlFor]="'compleatedCheckbox ' + identifier()">
-            @if (getColorImg('{W}') === "") { Compleated } 
-            @else { <img class="symbol" [src]="getColorImg('{P}')" > }
-        </label>
+
+    <div class="form-check form-check-inline" [class.checked]="colorFilter.compleated" (click)="updateColor('compleated')">
+        <img class="symbol" [src]="getColorImg('{P}')" >
+        <label class="symbol-description">Compleated</label>
     </div>
 </div>

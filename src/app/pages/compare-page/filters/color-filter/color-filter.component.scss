@@ -1,0 +1,45 @@
+@import "../../../../../variables.scss";
+
+.form-check {
+    width: 70px;
+    height: 70px;
+    position: relative;
+    margin-right: 4px;
+}
+
+.form-check:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.form-check::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: solid 2px transparent;
+    pointer-events: none;
+}
+
+.form-check.checked::before {
+    border-color: $primary;
+}
+
+.symbol {
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    top: 8px;
+    left: calc(50% - 18px);
+}
+
+.symbol-description {
+    position: absolute;
+    width: 100%;
+    bottom: 5px;
+    text-align: center;
+    left: 0;
+    font-size: smaller;
+}
