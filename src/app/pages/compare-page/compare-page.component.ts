@@ -47,8 +47,11 @@ export class ComparePageComponent implements AfterViewInit {
       this.grid = newGrid
       this.nbCards = this.collectionService.nbCards
     })
+    this.name = this.collectionService.nameFilter
+    this.compareOptionSelected = this.collectionService.compareOptionSelected
+    this.orderOptionSelected = this.collectionService.orderOptionSelected
     this.adaptCardGrid()
-    //this.openFilters()
+    this.openFilters()
   }
 
   ngAfterViewInit(): void {

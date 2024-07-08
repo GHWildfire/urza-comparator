@@ -12,8 +12,8 @@ import { Scryfall } from '../../../../data-models/scryfall-models/scryfall.model
   templateUrl: './color-filter.component.html',
   styleUrl: './color-filter.component.css'
 })
-export class ColorFilterComponent {
-  contains = input.required<boolean>()
+export class ColorFilterComponent implements OnInit {
+  identifier = input.required<string>()
   title = input.required<string>()
   colorFilter: ColorFilter = new ColorFilter
   scryfall?: Scryfall
@@ -24,8 +24,16 @@ export class ColorFilterComponent {
     private scryfallService: ScryfallAPIService
   ) {}
 
+  ngOnInit(): void {
+    if (this.identifier() === "color-include") {
+      this.colorFilter = this.collectionService.colorFilter
+    } else if (this.identifier() === "color-exclude") {
+      this.colorFilter = this.collectionService.colorUnfilter
+    }
+  }
+
   update() {
-    this.collectionService.updateColors(this.colorFilter, this.contains())
+    this.collectionService.updateColors(this.colorFilter, this.identifier())
   }
 
   reset() {

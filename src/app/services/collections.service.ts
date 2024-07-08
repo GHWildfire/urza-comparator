@@ -105,10 +105,10 @@ export class CollectionsService {
 
     // -------- Advanced filters --------
 
-    updateColors(colorFilter: ColorFilter, contains: boolean) {
-        if (contains) {
+    updateColors(colorFilter: ColorFilter, identifier: string) {
+        if (identifier === "color-include") {
             this.colorFilter = colorFilter
-        } else {
+        } else if (identifier === "color-exclude") {
             this.colorUnfilter = colorFilter
         }
         this.adaptCardGrid()
