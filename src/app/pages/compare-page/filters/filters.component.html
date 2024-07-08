@@ -13,8 +13,6 @@
     
             <app-rarity-filter class="p-0" />
     
-            
-    
         </div>
     </mat-dialog-content>
     
@@ -22,6 +20,6 @@
     <mat-dialog-actions id="actions-block" align="end">
         <label id="cards-remaining">{{ this.collectionService.nbCards }} cards found</label>
         <button id="close-button" class="btn btn-primary" mat-button mat-dialog-close>Close</button>
-        <button class="btn btn-primary" (click)="resetAllFilters()">Reset All</button>
+        <button class="btn btn-primary" (click)="resetAllFilters()">Reset</button>
     </mat-dialog-actions>
 </div>

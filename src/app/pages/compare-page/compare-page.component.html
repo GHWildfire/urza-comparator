@@ -45,7 +45,16 @@
         {{ nbCards + " cards found" }}
       </div>
     </div>
-    
+
+    <!-- Floating filters button -->
+    @if(screenWidth <= 860) {
+      <div class="col my-auto">
+        <button id="floating-filters-button" class="btn btn-primary" (click)="openFilters()">
+          <i class="bi bi-filter swap-arrow" style="font-size: 2rem;"></i>
+        </button>
+      </div>
+    }
+
     <!-- Cards -->
     <div class="viewport-container">
       <cdk-virtual-scroll-viewport #cdkViewport [itemSize]="244" class="viewport">
