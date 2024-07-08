@@ -1,23 +1,28 @@
 <div class="p-2">
-    <p class="mb-2 fw-bold">Hide rarities</p>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="commonCheckbox" [(ngModel)]="rarityFilter.common" (change)="update()">
-        <label class="form-check-label" for="commonCheckbox">Common</label>
+    <p class="mb-2 fw-bold">Rarities</p>
+
+    <div class="form-check form-check-inline" [class.checked]="rarityFilter.common" (click)="updateRarity('common')">
+        <span class="symbol common" style="background-color: black;"></span>
+        <label class="symbol-description">Common</label>
     </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="uncommonCheckbox" [(ngModel)]="rarityFilter.uncommon" (change)="update()">
-        <label class="form-check-label" for="uncommonCheckbox">Uncommon</label>
+
+    <div class="form-check form-check-inline" [class.checked]="rarityFilter.uncommon" (click)="updateRarity('uncommon')">
+        <span class="symbol uncommon" style="background-color: rgb(121, 121, 121);"></span>
+        <label class="symbol-description">Uncommon</label>
     </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="rareCheckbox" [(ngModel)]="rarityFilter.rare" (change)="update()">
-        <label class="form-check-label" for="rareCheckbox">Rare</label>
+
+    <div class="form-check form-check-inline" [class.checked]="rarityFilter.rare" (click)="updateRarity('rare')">
+        <span class="symbol rare" style="background-color: rgb(255, 217, 0);"></span>
+        <label class="symbol-description">Rare</label>
     </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="mythicCheckbox" [(ngModel)]="rarityFilter.mythic" (change)="update()">
-        <label class="form-check-label" for="mythicCheckbox">Mythic</label>
+
+    <div class="form-check form-check-inline" [class.checked]="rarityFilter.mythic" (click)="updateRarity('mythic')">
+        <span class="symbol mythic" style="background-color: rgb(255, 123, 0);"></span>
+        <label class="symbol-description">Mythic</label>
     </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="specialCheckbox" [(ngModel)]="rarityFilter.special" (change)="update()">
-        <label class="form-check-label" for="specialCheckbox">Special</label>
+
+    <div class="form-check form-check-inline" [class.checked]="rarityFilter.special" (click)="updateRarity('special')">
+        <span class="symbol special" style="background-color: rgb(191, 0, 197);"></span>
+        <label class="symbol-description">Special</label>
     </div>
 </div>

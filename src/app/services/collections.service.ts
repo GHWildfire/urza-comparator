@@ -7,6 +7,7 @@ import { RarityFilter } from "../pages/compare-page/filters/rarity-filter/rarity
 import { DexieDBService } from "./dexie-db.service"
 import { ScryfallAPIService } from "./scryfall-api.service"
 import { CSVService } from "./csv.service"
+import { filter } from "rxjs"
 
 @Injectable({ providedIn: 'root' })
 export class CollectionsService {
@@ -214,10 +215,16 @@ export class CollectionsService {
     // -------- Filtering helpers --------
 
     private filterCards(cards: UrzaCard[]): UrzaCard[] {
+
+        let rarityFilterOff = true
+        for (const [_, value] of Object.entries(this.rarityFilter)) {
+            rarityFilterOff = rarityFilterOff && !value
+        }
+
         return cards.filter(card => {
           return card.name.toLowerCase().includes(this.nameFilter.toLowerCase())
             && card.count >= this.compareOptionSelected
-            && this.filterRarity(card)
+            && (rarityFilterOff ? true : this.filterRarity(card) )
             && this.filterColor(this.colorFilter, card, true) 
             && this.filterColor(this.colorUnfilter, card, false)
         })
@@ -230,11 +237,11 @@ export class CollectionsService {
 
         for (const [key, value] of Object.entries(this.rarityFilter)) {
             if (key.toLowerCase() == card.rarity.toLowerCase() && value) {
-                return false
+                return true
             }
         }
         
-        return true
+        return false
     }
 
     private filterColor(filter: ColorFilter, card: UrzaCard, include: boolean): boolean {

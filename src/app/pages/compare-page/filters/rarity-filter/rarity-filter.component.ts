@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { RarityFilter } from './rarity-filter.model'
 import { FormsModule } from '@angular/forms'
 import { CollectionsService } from '../../../../services/collections.service'
@@ -8,12 +8,16 @@ import { CollectionsService } from '../../../../services/collections.service'
   standalone: true,
   imports: [FormsModule],
   templateUrl: './rarity-filter.component.html',
-  styleUrl: './rarity-filter.component.css'
+  styleUrl: './rarity-filter.component.scss'
 })
-export class RarityFilterComponent {
+export class RarityFilterComponent implements OnInit {
   rarityFilter: RarityFilter = new RarityFilter
 
   constructor(private collectionService: CollectionsService) {}
+
+  ngOnInit(): void {
+    this.rarityFilter = this.collectionService.rarityFilter
+  }
 
   update() {
     this.collectionService.updateRarities(this.rarityFilter)
@@ -21,6 +25,11 @@ export class RarityFilterComponent {
 
   reset() {
     this.rarityFilter = new RarityFilter
+    this.update()
+  }
+
+  updateRarity(rarity: keyof RarityFilter) {
+    this.rarityFilter[rarity] = !this.rarityFilter[rarity]
     this.update()
   }
 }
