@@ -6,12 +6,16 @@
         <div class="collection col">
             <app-collection-details [isLeft]="false" />
         </div>
-        <button id="swap" class="btn btn-primary" (click)="swap()">
-            @if (rightToLeft) {
-                <i class="bi bi-arrow-bar-left swap-arrow" style="font-size: 1rem;"></i>
-            } @else {
-                <i class="bi bi-arrow-bar-right swap-arrow" style="font-size: 1rem;"></i>
-            }
-        </button>
+
+        @if (isComparePage) {
+            <button id="swap" class="btn btn-primary" (click)="swap()">
+                @if (rightToLeft) {
+                    <i class="bi bi-arrow-bar-left swap-arrow" style="font-size: 1rem;"></i>
+                } @else {
+                    <i class="bi bi-arrow-bar-right swap-arrow" style="font-size: 1rem;"></i>
+                }
+            </button>
+        }
+
     </div>
 </div>

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { CollectionsService } from '../services/collections.service'
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -18,14 +19,6 @@ export class NavbarComponent {
 
   home() {
     this.router.navigate(["/"])
-  }
-
-  compare() {
-    this.router.navigate(["/compare"])
-  }
-
-  graphs() {
-    this.router.navigate(["/graphs"])
   }
 
   get displayLinks() {

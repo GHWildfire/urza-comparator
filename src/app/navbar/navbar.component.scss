@@ -7,3 +7,11 @@
 .hover {
     cursor: pointer;
 }
+
+.nav-item {
+    margin-left: 10px;
+}
+
+.nav-link.active {
+    color: $primary;
+}
