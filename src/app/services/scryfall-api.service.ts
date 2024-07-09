@@ -38,7 +38,7 @@ export class ScryfallAPIService {
             const currentTime = new Date().getTime()
             if (currentTime - scryfall.timestamp > this.scryfallMinRefreshFrequency) {
                 this.loadScryfall()
-                console.log("Loaded completely new")
+                console.log("Loading completely new")
             } else {
                 this.scryfall = scryfall
                 console.log("Loaded from DB")
@@ -46,13 +46,12 @@ export class ScryfallAPIService {
             }
         } else {
             this.loadScryfall()
-            console.log("Loaded completely new becauseno DB")
+            console.log("Loading completely new because no DB")
         }
     }
 
     loadScryfall() {
         this.getScryfall().subscribe((scryfall) => {
-            console.log(scryfall)
             this.scryfall = scryfall
             this.db.saveScryfall(this.scryfall)
             this.scryfallLoaded.emit(this.scryfall)

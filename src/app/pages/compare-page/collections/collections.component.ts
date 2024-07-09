@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core'
 import { CollectionDetailsComponent } from './collection-details/collection-details.component'
 import { CollectionsService } from '../../../services/collections.service'
 import { NavigationEnd, Router } from '@angular/router'
-import { filter } from 'rxjs'
 
 @Component({
     selector: 'app-collections',

@@ -1,1 +1,41 @@
-<p>sets-page works!</p>
+<div id="container">
+    <div class="main m-0 p-0">
+  
+      <!-- Empty result -->
+      <!--@if (grid.length === 0) {
+        <div class="empty-parent text-center">
+          <i class="bi bi-info-circle-fill empty" style="font-size: 4rem;"></i>
+          <p class="empty-description">No card found</p>
+        </div>
+      }-->
+    
+      <!-- Header -->
+      <div id="header" class="row px-3">
+        <div class="col my-auto">
+          <input 
+            type="text" 
+            id="nameFilter" 
+            autocomplete="off" 
+            placeholder="Name..." 
+            class="form-control form-control-sm"
+          >
+        </div>
+
+        <div class="col text-end fw-bold my-auto">
+          {{ setsPageService.getSets().length + " sets found" }}
+        </div>
+      </div>
+  
+      <!-- Cards -->
+      <div class="viewport-container">
+        <cdk-virtual-scroll-viewport #cdkViewport [itemSize]="24" class="viewport">
+          <div *cdkVirtualFor="let set of setsPageService.getSets(); let rowIndex = index;" class="row">
+            <div class="row set-row">
+              <app-sets-page-row class="mtg-set" [pair]="rowIndex % 2 == 0" [set]="set" />
+            </div>
+          </div>
+        </cdk-virtual-scroll-viewport>
+      </div>
+    
+    </div>
+  </div>

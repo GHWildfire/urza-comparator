@@ -1,4 +1,5 @@
 export class ScryfallSet {
+
     constructor(
         public object?: string,
         public id?: string,
@@ -12,10 +13,14 @@ export class ScryfallSet {
         public released_at?: string,
         public set_type?: string,
         public card_count?: string,
+        public parent_set_code?: string,
         public digital?: string,
         public nonfoil_only?: string,
         public foil_only?: string,
-        public icon_svg_uri?: string
+        public block_code?: string,
+        public block?: string,
+        public icon_svg_uri?: string,
+        public parentLayer?: number
     ) {}
 
     static fromJSON(json: any): ScryfallSet {
@@ -32,10 +37,14 @@ export class ScryfallSet {
             json?.released_at,
             json?.set_type,
             json?.card_count,
+            json?.parent_set_code,
             json?.digital,
             json?.nonfoil_only,
             json?.foil_only,
-            json?.icon_svg_uri
+            json?.block_code,
+            json?.block,
+            json?.icon_svg_uri,
+            0
         )
     }
 }

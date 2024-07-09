@@ -1,0 +1,12 @@
+<div id="container" [class.pair]="pair()">
+    @for (layer of generateLayerArray(); track $index) {
+        @if ($index + 1 === generateLayerArray().length) {
+            <i id="set-arrow" class="bi bi-arrow-return-right"></i>
+        } @else {
+            <label class="spacer"></label>
+        }
+    }
+    <img id="set-image" [src]="set().icon_svg_uri">
+    <label id="set-name">{{ set().name }}</label>
+    <label id="set-code">{{ set().code?.toUpperCase() }}</label>
+</div>

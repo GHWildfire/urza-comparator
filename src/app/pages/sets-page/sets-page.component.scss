@@ -30,27 +30,24 @@
 }
 
 .row {
-    height: 234px;
+    height: 32px;
     display: flex;
     justify-content: center;
 }
 
-.card-row {
+.set-row {
     height: 100%;
-    width: auto;
+    width: 100%;
+    max-width: 1400px;
     margin: 0px -10px;
 }
 
-.mtg-card {
-    width: 170px;
-    height: 234px;
-    padding: 5px;
-    transition: all .1s ease-in-out;
+.mtg-set {
+    
 }
 
-.mtg-card:hover {
+.mtg-set:hover {
     cursor: pointer;
-    transform: scale(1.03);
 }
 
 .empty-parent {
@@ -74,23 +71,4 @@
     width: 100%;
     height: 50px;
     top: calc(50% + 30px);
-}
-
-#filters-button {
-    color: $font;
-}
-
-#floating-filters-button {
-    position: absolute;
-    height: 60px;
-    width: 60px;
-    border-radius: 30px;
-    bottom: 20px;
-    left: 20px;
-    z-index: 2;
-    border: solid 2px white;
-}
-
-.filters {
-    height: 1000px;
 }
