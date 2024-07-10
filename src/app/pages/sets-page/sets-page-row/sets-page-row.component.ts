@@ -16,4 +16,12 @@ export class SetsPageRowComponent {
     const layer = this.set().parentLayer
     return layer ? Array.from({ length: layer }, (_, i) => i) : []
   }
+
+  getProgress(completed: number, total: string | undefined): number {
+    if (!total || isNaN(Number(total)) || Number(total) === 0) {
+      return 0
+    }
+    const totalNum = Number(total)
+    return (completed / totalNum) * 100
+  }
 }
