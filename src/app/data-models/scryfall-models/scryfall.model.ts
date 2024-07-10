@@ -19,4 +19,35 @@ export class Scryfall {
         public spellTypes: string[],
         public artists: string[]
     ) {}
+
+    static fromObject(obj: any): Scryfall {
+        if (obj.cards) {
+            obj.cards.forEach((card: any) => {
+                if (card.name === "Backup Agent // Backup Agent") {
+                    console.log(card)
+                }
+            })
+        }
+        /*if (card && card.name === "Backup Agent // Backup Agent") {
+            console.log(card)
+        }*/
+        const cards = obj.cards ? obj.cards.map((card: any) => ScryfallCard.fromObject(card)) : []
+        const sets = obj.sets ? obj.sets.map((set: any) => ScryfallSet.fromObject(set)) : []
+        return new Scryfall(
+            obj.timestamp,
+            cards,
+            sets,
+            obj.symbols,
+            obj.cardTypes,
+            obj.superTypes,
+            obj.artifactTypes,
+            obj.battleTypes,
+            obj.creatureTypes,
+            obj.enchantmentTypes,
+            obj.landTypes,
+            obj.planeswalkerTypes,
+            obj.spellTypes,
+            obj.artists
+        );
+    }
 }

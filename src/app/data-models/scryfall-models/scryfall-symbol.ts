@@ -17,7 +17,7 @@ export class ScryfallSymbol {
         public gatherer_alternates?: string[]
     ) {}
 
-    static fromJSON(json: any): ScryfallSymbol {
+    static fromObject(json: any): ScryfallSymbol {
         return new ScryfallSymbol(
             json?.object,
             json?.symbol,

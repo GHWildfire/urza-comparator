@@ -8,7 +8,7 @@ export class ScryfallCardPrices {
         public tix?: string,
     ) {}
 
-    static fromJSON(json: any): ScryfallCardPrices {
+    static fromObject(json: any): ScryfallCardPrices {
         return new ScryfallCardPrices(
             json?.eur,
             json?.eur_foil,

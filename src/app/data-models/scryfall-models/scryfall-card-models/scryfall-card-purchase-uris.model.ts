@@ -5,7 +5,7 @@ export class ScryfallCardPurchaseUris {
         public cardhoarder?: string,
     ) {}
 
-    static fromJSON(json: any): ScryfallCardPurchaseUris {
+    static fromObject(json: any): ScryfallCardPurchaseUris {
         return new ScryfallCardPurchaseUris(
             json?.tcgplayer,
             json?.cardmarket,

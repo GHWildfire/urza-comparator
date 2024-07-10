@@ -24,7 +24,7 @@ export class ScryfallCardLegalities {
         public predh?: boolean,
     ) {}
 
-    static fromJSON(json: any): ScryfallCardLegalities {
+    static fromObject(json: any): ScryfallCardLegalities {
         return new ScryfallCardLegalities(
             json?.standard,
             json?.future,

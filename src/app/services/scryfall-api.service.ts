@@ -34,7 +34,7 @@ export class ScryfallAPIService {
     async initScryfall() {
         const scryfalls = await this.db.scryfalls.toArray()
         if (scryfalls.length == 1) {
-            const scryfall = scryfalls[0]
+            const scryfall = Scryfall.fromObject(scryfalls[0])
             const currentTime = new Date().getTime()
             if (currentTime - scryfall.timestamp > this.scryfallMinRefreshFrequency) {
                 this.loadScryfall()
@@ -103,21 +103,21 @@ export class ScryfallAPIService {
     // Get all symbols [example: {W} -> white symbol image]
     getSymbols(): Observable<ScryfallSymbol[]> {
         return this.http.get<any>(this.scryFallURL + "/symbology").pipe(
-            map(responseData => responseData.data.map((symbolJson: any) => ScryfallSymbol.fromJSON(symbolJson)))
+            map(responseData => responseData.data.map((symbolJson: any) => ScryfallSymbol.fromObject(symbolJson)))
         )
     }
 
     // Get a catalog of ressources [example: card-types]
     getCatalog(catalogUri: string): Observable<string[]> {
         return this.http.get<any>(this.scryFallURL + "/catalog/" + catalogUri).pipe(
-            map(responseData => ScryfallCatalog.fromJSON(responseData).data ?? [])
+            map(responseData => ScryfallCatalog.fromObject(responseData).data ?? [])
         )
     }
 
     // Get all sets [example: Commander Master Set]
     getSets(): Observable<ScryfallSet[]> {
         return this.http.get<any>(this.scryFallURL + "/sets").pipe(
-            map(responseData => responseData.data.map((setJson: any) => ScryfallSet.fromJSON(setJson)))
+            map(responseData => responseData.data.map((setJson: any) => ScryfallSet.fromObject(setJson)))
         )
     }
 
@@ -130,9 +130,7 @@ export class ScryfallAPIService {
                 }
                 return this.http.get<any>(bulkData?.download_uri!).pipe(
                     map(responseData => {
-                        const cards = responseData.map((card: any) => ScryfallCard.fromJSON(card))
-                        //this.db.saveScryfall(scryfall)
-                        return cards
+                        return responseData.map((card: any) => ScryfallCard.fromObject(card))
                     })
                 )
             })
@@ -143,7 +141,7 @@ export class ScryfallAPIService {
     getBulkData(): Observable<ScryfallBulkData | undefined> {
         return this.http.get<any>(this.scryFallURL + "/bulk-data").pipe(
             map(responseData => {
-                const bulkDatas = responseData.data.map((bulkDataJson: any) => ScryfallBulkData.fromJSON(bulkDataJson))
+                const bulkDatas = responseData.data.map((bulkDataJson: any) => ScryfallBulkData.fromObject(bulkDataJson))
                 const bulkData = bulkDatas.find((bulkData: any) => bulkData.type === this.scryfallBulkDataType)
                 if (!bulkData) throw new Error('No bulk data found for the type: ' + this.scryfallBulkDataType)
                 return bulkData
@@ -160,18 +158,46 @@ export class ScryfallAPIService {
             return
         }
     
-        // Dictionary for rapid access
+        // Dictionaries for rapid access
         const scryfallCardMap: { [id: string]: ScryfallCard } = {}
         for (const card of this.scryfall.cards) {
             scryfallCardMap[card.id] = card
+        }
+
+        const setsMap: { [id: string]: ScryfallSet } = {}
+        for (const set of this.scryfall.sets) {
+            if (set.code) {
+                setsMap[set.code.toLowerCase()] = set
+            }
+
+            // Reset set cards links
+            if (set && isLeft) {
+                set.leftCollectionSubset = []
+            } else if (set && !isLeft) {
+                set.rightCollectionSubset = []
+            }
         }
     
         // Link batches process
         const linkCardBatch = async (startIndex: number, endIndex: number) => {
             for (let i = startIndex; i < endIndex; i++) {
+
+                // Link scryfall Data in Urza cards
                 const card = collection.cards[i]
-                card.scryfallData = scryfallCardMap[card.scryfallId]
+                const scryfallData = scryfallCardMap[card.scryfallId]
+                
+                card.scryfallData = scryfallData
                 card.linked = true
+
+                // Link cards to sets
+                if (card.setCode) {
+                    const set = setsMap[card.setCode.toLowerCase()]
+                    if (set && isLeft) {
+                        set.leftCollectionSubset.push(card)
+                    } else if (set && !isLeft) {
+                        set.rightCollectionSubset.push(card)
+                    }
+                }
             }
         }
     
@@ -183,7 +209,10 @@ export class ScryfallAPIService {
             this.collectionLinking.emit({ progress: endIndex, isLeft: isLeft })
             await new Promise(f => setTimeout(f, 0))
         }
-    
+
+        // Save new scryfall state
+        this.db.saveScryfall(this.scryfall)
+     
         // Linking finished signals
         collection.cardsLinked = true
         this.collectionLinking.emit({ progress: totalCards, isLeft: isLeft })

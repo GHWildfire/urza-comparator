@@ -13,7 +13,7 @@ export class ScryfallBulkData {
         public content_encoding?: string,
     ) {}
 
-    static fromJSON(json: any): ScryfallBulkData {
+    static fromObject(json: any): ScryfallBulkData {
         return new ScryfallBulkData(
             json?.object,
             json?.id,

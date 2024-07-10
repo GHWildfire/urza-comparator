@@ -6,7 +6,7 @@ export class ScryfallCardRelatedUris {
         public edhrec?: string,
     ) {}
 
-    static fromJSON(json: any): ScryfallCardRelatedUris {
+    static fromObject(json: any): ScryfallCardRelatedUris {
         return new ScryfallCardRelatedUris(
             json?.gatherer,
             json?.tcgplayer_infinite_articles,

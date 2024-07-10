@@ -73,13 +73,13 @@ export class ScryfallCard {
         public faces: ScryfallCardImageUris[],
     ) {}
 
-    static fromJSON(json: any): ScryfallCard {
-        const images = ScryfallCardImageUris.fromJSON(json.image_uris)
-        const legalities = ScryfallCardLegalities.fromJSON(json.legalities)
-        const prices = ScryfallCardPrices.fromJSON(json.prices)
-        const relatedUris = ScryfallCardRelatedUris.fromJSON(json.related_uris)
-        const purchaseUris = ScryfallCardPurchaseUris.fromJSON(json.purchase_uris)
-        const faces = json.card_faces ? json.card_faces.map((faceData: any) => ScryfallCardImageUris.fromJSON(faceData.image_uris)) : []
+    static fromObject(json: any): ScryfallCard {
+        const images = ScryfallCardImageUris.fromObject(json.image_uris)
+        const legalities = ScryfallCardLegalities.fromObject(json.legalities)
+        const prices = ScryfallCardPrices.fromObject(json.prices)
+        const relatedUris = ScryfallCardRelatedUris.fromObject(json.related_uris)
+        const purchaseUris = ScryfallCardPurchaseUris.fromObject(json.purchase_uris)
+        const faces = json.card_faces ? json.card_faces.map((faceData: any) => ScryfallCardImageUris.fromObject(faceData.image_uris)) : []
 
         return new ScryfallCard(
             json?.object,

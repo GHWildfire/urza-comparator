@@ -29,6 +29,7 @@ export class SetsPageService {
         const computeParentLayer = (set: ScryfallSet, depth: number = 0): number => {
             if (!set.parent_set_code) return depth
             const parentSet = setsMap.get(set.parent_set_code)
+            set.parent_set = parentSet
             if (!parentSet) return depth
             
             return computeParentLayer(parentSet, depth + 1)
@@ -76,7 +77,9 @@ export class SetsPageService {
     }
 
     private filterSets(sets: ScryfallSet[]): ScryfallSet[] {
-        return sets
+        return sets.filter((set) => {
+            return set.leftCollectionSubset.length > 0 || set.rightCollectionSubset.length > 0
+        })
     }
 
     private orderSets(sets: ScryfallSet[]): ScryfallSet[] {

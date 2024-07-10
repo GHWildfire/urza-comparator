@@ -8,7 +8,7 @@ export class ScryfallCardImageUris {
         public border_crop?: string,
     ) {}
 
-    static fromJSON(json: any): ScryfallCardImageUris {
+    static fromObject(json: any): ScryfallCardImageUris {
         return new ScryfallCardImageUris(
             json?.small,
             json?.normal,

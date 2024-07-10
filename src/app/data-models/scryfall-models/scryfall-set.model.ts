@@ -1,6 +1,10 @@
+import { UrzaCard } from "../urza-card.model"
+
 export class ScryfallSet {
 
     constructor(
+        public leftCollectionSubset: UrzaCard[],
+        public rightCollectionSubset: UrzaCard[],
         public object?: string,
         public id?: string,
         public code?: string,
@@ -20,31 +24,44 @@ export class ScryfallSet {
         public block_code?: string,
         public block?: string,
         public icon_svg_uri?: string,
-        public parentLayer?: number
+        public parentLayer?: number,
+        public parent_set?: ScryfallSet,
     ) {}
 
-    static fromJSON(json: any): ScryfallSet {
+    containsCards(set: ScryfallSet): boolean {
+        //const parentcontains = set.parent_set_code ? 
+        return (set.leftCollectionSubset.length > 0 || set.rightCollectionSubset.length > 0)
+    }
+
+    static fromObject(obj: any): ScryfallSet {
+        const leftCollection = obj.leftCollectionSubset ? obj.leftCollectionSubset.map((card: any) => UrzaCard.fromObject(card)) : []
+        const rightCollection = obj.rightCollectionSubset ? obj.rightCollectionSubset.map((card: any) => UrzaCard.fromObject(card)) : []
+        const parent = obj.parent ? ScryfallSet.fromObject(obj.parent) : undefined
+
         return new ScryfallSet(
-            json?.object,
-            json?.id,
-            json?.code,
-            json?.mtgo_code,
-            json?.arena_code,
-            json?.name,
-            json?.uri,
-            json?.scryfall_uri,
-            json?.search_uri,
-            json?.released_at,
-            json?.set_type,
-            json?.card_count,
-            json?.parent_set_code,
-            json?.digital,
-            json?.nonfoil_only,
-            json?.foil_only,
-            json?.block_code,
-            json?.block,
-            json?.icon_svg_uri,
-            0
+            leftCollection,
+            rightCollection,
+            obj?.object,
+            obj?.id,
+            obj?.code,
+            obj?.mtgo_code,
+            obj?.arena_code,
+            obj?.name,
+            obj?.uri,
+            obj?.scryfall_uri,
+            obj?.search_uri,
+            obj?.released_at,
+            obj?.set_type,
+            obj?.card_count,
+            obj?.parent_set_code,
+            obj?.digital,
+            obj?.nonfoil_only,
+            obj?.foil_only,
+            obj?.block_code,
+            obj?.block,
+            obj?.icon_svg_uri,
+            0,
+            parent
         )
     }
 }

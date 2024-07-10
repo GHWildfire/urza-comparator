@@ -6,7 +6,7 @@ export class ScryfallCatalog {
         public data?: string[]
     ) {}
 
-    static fromJSON(json: any): ScryfallCatalog {
+    static fromObject(json: any): ScryfallCatalog {
         return new ScryfallCatalog(
             json?.object,
             json?.uri,
