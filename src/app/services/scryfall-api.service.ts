@@ -16,7 +16,11 @@ export class ScryfallAPIService {
     private scryfallBulkDataType: string = "default_cards"
     private scryfallMinRefreshFrequency: number = 1000 * 60 * 10 // 10 minutes
     private linkingBatchSize: number = 20
+    private leftLinked: boolean = false
+    private rightLinked: boolean = false
+
     scryfall?: Scryfall
+    scryfallReady: boolean = false
 
     scryfallLoaded = new EventEmitter<Scryfall>()
     collectionLinking = new EventEmitter<{ progress: number, isLeft: boolean }>()
@@ -32,6 +36,7 @@ export class ScryfallAPIService {
     }
 
     async initScryfall() {
+        this.scryfallReady = false
         const scryfalls = await this.db.scryfalls.toArray()
         if (scryfalls.length == 1) {
             const scryfall = Scryfall.fromObject(scryfalls[0])
@@ -48,6 +53,7 @@ export class ScryfallAPIService {
             this.loadScryfall()
             console.log("Loading completely new because no DB")
         }
+        this.scryfallReady = true
     }
 
     loadScryfall() {
@@ -157,6 +163,8 @@ export class ScryfallAPIService {
         if (!this.scryfall || !this.scryfall.cards || collection.cardsLinked) {
             return
         }
+        this.scryfallReady = false
+        isLeft ? this.leftLinked = false : this.rightLinked = false
     
         // Dictionaries for rapid access
         const scryfallCardMap: { [id: string]: ScryfallCard } = {}
@@ -209,13 +217,17 @@ export class ScryfallAPIService {
             this.collectionLinking.emit({ progress: endIndex, isLeft: isLeft })
             await new Promise(f => setTimeout(f, 0))
         }
-
-        // Save new scryfall state
-        this.db.saveScryfall(this.scryfall)
      
         // Linking finished signals
+        this.scryfallReady = true
         collection.cardsLinked = true
         this.collectionLinking.emit({ progress: totalCards, isLeft: isLeft })
         this.collectionLinked.emit({ collection: collection, isLeft: isLeft })
+
+        // Save new scryfall state
+        isLeft ? this.leftLinked = true : this.rightLinked = true
+        if (this.leftLinked && this.rightLinked) {
+            this.db.saveScryfall(this.scryfall)
+        }
     }
 }

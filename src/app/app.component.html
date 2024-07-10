@@ -1,9 +1,20 @@
 <div class="app-content">
+
     <app-navbar />
+
     @if (currentRoute() !== "/") {
         <app-collections id="collections" />
+
+        @if (!scryfallService.scryfallReady) {
+            <div id="scryfall-loader">
+                <h3 id="title">Loading Scryfall data...</h3>
+                <div id="spinner" class="spinner spinner-border text-primary" role="status"></div>
+            </div>
+        }
     }
+
     <div id="router-render">
         <router-outlet></router-outlet>
     </div>
+
 </div>
