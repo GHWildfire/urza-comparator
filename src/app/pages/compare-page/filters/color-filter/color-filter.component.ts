@@ -57,6 +57,7 @@ export class ColorFilterComponent implements OnInit {
 
   reset() {
     this.colorFilter = new ColorFilter
+    this.oppositeFilter = new ColorFilter
     this.updateColor()
   }
 
