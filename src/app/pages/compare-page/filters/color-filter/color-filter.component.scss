@@ -27,6 +27,11 @@
     border-color: $primary;
 }
 
+.form-check.disabled {
+    opacity: 0.5;
+    box-shadow: none;
+}
+
 .symbol {
     width: 36px;
     height: 36px;

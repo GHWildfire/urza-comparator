@@ -1,0 +1,21 @@
+<div id="container">
+    <div id="title-container">
+        <label id="title">{{ title() }}</label>
+        @if (selectedOptions.length > 0) {
+            <button id="clear-button" class="btn btn-danger" (click)="reset()">
+                <i class="bi bi-x" style="font-size: 1rem;"></i>
+            </button>
+        }
+    </div>
+    <select id="select" class="form-select" (change)="addSelectedOption($event)">
+        <option [value]="-1" disabled selected>Select a set</option>
+        @for (option of options(); track $index) {
+            <option [value]="$index">{{ option.name }}</option>
+        }
+    </select>
+    <div id="tags">
+        @for (selectedOption of selectedOptions; track $index) {
+            <app-tag [option]="selectedOption" (delete)="optionDeleted($event)" />
+        }
+    </div>
+</div>

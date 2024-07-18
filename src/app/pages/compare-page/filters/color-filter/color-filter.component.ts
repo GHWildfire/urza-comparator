@@ -1,6 +1,6 @@
 import { Component, input, OnInit } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { ColorFilter } from './color-filter.model'
+import { ColorFilter } from '../../../../data-models/filter-models/color-filter.model'
 import { CollectionsService } from '../../../../services/collections.service'
 import { ScryfallAPIService } from '../../../../services/scryfall-api.service'
 import { Scryfall } from '../../../../data-models/scryfall-models/scryfall.model'
@@ -17,6 +17,7 @@ export class ColorFilterComponent implements OnInit {
   identifier = input.required<string>()
   title = input.required<string>()
   colorFilter: ColorFilter = new ColorFilter
+  oppositeFilter: ColorFilter = new ColorFilter
   scryfall?: Scryfall
   src: any
 
@@ -28,9 +29,26 @@ export class ColorFilterComponent implements OnInit {
   ngOnInit(): void {
     if (this.identifier() === "color-include") {
       this.colorFilter = this.collectionService.colorFilter
+      this.oppositeFilter = this.collectionService.colorUnfilter
     } else if (this.identifier() === "color-exclude") {
       this.colorFilter = this.collectionService.colorUnfilter
+      this.oppositeFilter = this.collectionService.colorFilter
     }
+
+    this.collectionService.colorFilterUpdated.subscribe((event) => {
+      if (event.filterId !== this.identifier()) {
+        this.oppositeFilter = event.filter
+      }
+    })
+  }
+
+  get colorlessCheck(): boolean {
+    return !this.oppositeFilter.colorless
+      && !this.colorFilter.white
+      && !this.colorFilter.blue
+      && !this.colorFilter.black
+      && !this.colorFilter.red
+      && !this.colorFilter.green
   }
 
   updateColor(color: keyof ColorFilter) {

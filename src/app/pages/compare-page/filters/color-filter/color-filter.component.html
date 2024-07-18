@@ -1,42 +1,82 @@
 <div class="p-2">
     <p class="mb-2 fw-bold">{{ title() }}</p>
 
-    <div class="form-check form-check-inline" [class.checked]="colorFilter.white" (click)="updateColor('white')">
+    <!-- White Filter -->
+    <div class="form-check form-check-inline" 
+        (click)="!oppositeFilter.white && updateColor('white')" 
+        [class.checked]="colorFilter.white"
+        [class.disabled]="oppositeFilter.white"
+    >
         <img class="symbol" [src]="getColorImg('{W}')" >
         <label class="symbol-description">White</label>
     </div>
 
-    <div class="form-check form-check-inline" [class.checked]="colorFilter.blue" (click)="updateColor('blue')">
+    <!-- Blue Filter -->
+    <div class="form-check form-check-inline" 
+        (click)="!oppositeFilter.blue && updateColor('blue')"
+        [class.checked]="colorFilter.blue"
+        [class.disabled]="oppositeFilter.blue"
+    >
         <img class="symbol" [src]="getColorImg('{U}')" >
         <label class="symbol-description">Blue</label>
     </div>
 
-    <div class="form-check form-check-inline" [class.checked]="colorFilter.black" (click)="updateColor('black')">
+    <!-- Black Filter -->
+    <div class="form-check form-check-inline" 
+        (click)="!oppositeFilter.black && updateColor('black')"
+        [class.checked]="colorFilter.black"
+        [class.disabled]="oppositeFilter.black"
+    >
         <img class="symbol" [src]="getColorImg('{B}')" >
         <label class="symbol-description">Black</label>
     </div>
 
-    <div class="form-check form-check-inline" [class.checked]="colorFilter.red" (click)="updateColor('red')">
+    <!-- Red Filter -->
+    <div class="form-check form-check-inline" 
+        (click)="!oppositeFilter.red && updateColor('red')"
+        [class.checked]="colorFilter.red"
+        [class.disabled]="oppositeFilter.red"
+    >
         <img class="symbol" [src]="getColorImg('{R}')" >
         <label class="symbol-description">Red</label>
     </div>
 
-    <div class="form-check form-check-inline" [class.checked]="colorFilter.green" (click)="updateColor('green')">
+    <!-- Green Filter -->
+    <div class="form-check form-check-inline" 
+        (click)="!oppositeFilter.green && updateColor('green')"
+        [class.checked]="colorFilter.green"
+        [class.disabled]="oppositeFilter.green" 
+    >
         <img class="symbol" [src]="getColorImg('{G}')" >
         <label class="symbol-description">Green</label>
     </div>
 
-    <div class="form-check form-check-inline" [class.checked]="colorFilter.multicolor" (click)="updateColor('multicolor')">
+    <!-- Multicolor Filter -->
+    <div class="form-check form-check-inline" 
+        (click)="!oppositeFilter.multicolor && updateColor('multicolor')"
+        [class.checked]="colorFilter.multicolor" 
+        [class.disabled]="oppositeFilter.multicolor" 
+    >
         <img class="symbol" [src]="getColorImg('{R/G}')" >
         <label class="symbol-description">Multicolors</label>
     </div>
 
-    <div class="form-check form-check-inline" [class.checked]="colorFilter.colorless" (click)="updateColor('colorless')">
+    <!-- Colorless Filter -->
+    <div class="form-check form-check-inline" 
+        (click)="colorlessCheck && updateColor('colorless')"
+        [class.checked]="colorFilter.colorless"
+        [class.disabled]="!colorlessCheck" 
+    >
         <img class="symbol" [src]="getColorImg('{C}')" >
         <label class="symbol-description">Colorless</label>
     </div>
 
-    <div class="form-check form-check-inline" [class.checked]="colorFilter.compleated" (click)="updateColor('compleated')">
+    <!-- Compleated Filter -->
+    <div class="form-check form-check-inline" 
+        (click)="!oppositeFilter.compleated && updateColor('compleated')"
+        [class.checked]="colorFilter.compleated"
+        [class.disabled]="oppositeFilter.compleated" 
+    >
         <img class="symbol" [src]="getColorImg('{P}')" >
         <label class="symbol-description">Compleated</label>
     </div>

@@ -5,15 +5,19 @@
 
     <!-- Dialog content -->
     <mat-dialog-content id="content-block" class="mat-typography p-3">
-        <div class="row m-0">
-
-            <app-color-filter class="p-0 mb-2" title="Mana cost contains" identifier="color-include" />
-    
-            <app-color-filter class="p-0 mb-2" title="Mana cost doesn't contain" identifier="color-exclude" />
-    
-            <app-rarity-filter class="p-0" />
-    
-        </div>
+        @if (scryfall) {
+            <div class="row m-0">
+                <app-color-filter class="p-0 mb-2" title="Mana cost contains" identifier="color-include" />
+                <app-color-filter class="p-0 mb-2" title="Mana cost doesn't contain" identifier="color-exclude" />
+                <app-rarity-filter class="p-0" />
+                <app-tag-input title="Sets" [options]="sets" [initSelectedOptions]="this.collectionService.filters.sets" (selectionChanged)="updateSets($event)" />
+            </div>
+        } @else {
+            <div id="scryfall-loader">
+                <h3 id="title">Loading Scryfall data...</h3>
+                <div id="spinner" class="spinner spinner-border text-primary" role="status"></div>
+            </div>
+        }
     </mat-dialog-content>
     
     <!-- Dialog actions -->

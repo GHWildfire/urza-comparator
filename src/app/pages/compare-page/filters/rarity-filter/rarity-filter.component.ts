@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { RarityFilter } from './rarity-filter.model'
+import { RarityFilter } from '../../../../data-models/filter-models/rarity-filter.model'
 import { FormsModule } from '@angular/forms'
 import { CollectionsService } from '../../../../services/collections.service'
 

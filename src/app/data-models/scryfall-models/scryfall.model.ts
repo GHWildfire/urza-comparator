@@ -23,6 +23,7 @@ export class Scryfall {
     static fromObject(obj: any): Scryfall {
         const cards = obj.cards ? obj.cards.map((card: any) => ScryfallCard.fromObject(card)) : []
         const sets = obj.sets ? obj.sets.map((set: any) => ScryfallSet.fromObject(set)) : []
+        
         return new Scryfall(
             obj.timestamp,
             cards,
