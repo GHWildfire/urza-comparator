@@ -24,10 +24,21 @@
                 <app-rarity-filter class="p-0" 
                     (raritiesChanged)="updateRarities($event)" 
                 />
-                <app-tag-input title="Sets" 
+                <app-tag-input 
+                    title="Sets" 
+                    description="Select a set"
                     [options]="sets" 
                     [initSelectedOptions]="this.collectionService.filters.sets" 
+                    [containsObjects]="true"
                     (selectionChanged)="updateSets($event)" 
+                />
+                <app-tag-input 
+                    title="Artists" 
+                    description="Select an artist"
+                    [options]="artists" 
+                    [initSelectedOptions]="this.collectionService.filters.artists" 
+                    [containsObjects]="false"
+                    (selectionChanged)="updateArtists($event)" 
                 />
             </div>
         } @else {

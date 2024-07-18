@@ -10,20 +10,26 @@ import { TagComponent } from "./tag/tag.component"
 })
 export class TagInputComponent implements OnInit {
   title = input.required<string>()
+  description = input.required<string>()
   options = input.required<any[]>()
+  containsObjects = input.required<boolean>()
   selectionChanged = output<any[]>()
   initSelectedOptions = input.required<any[]>()
 
   selectedOptions: string[] = []
 
   ngOnInit(): void {
-    this.selectedOptions = this.initSelectedOptions().map((option) => option.name)
+    if (this.containsObjects()) {
+      this.selectedOptions = this.initSelectedOptions().map((option) => option.name)
+    } else {
+      this.selectedOptions = this.initSelectedOptions()
+    }
   }
 
   addSelectedOption(event: any) {
     const selectedOption: any = this.options()[event.target.value]
-    if (selectedOption && !this.selectedOptions.includes(selectedOption.name)) {
-      this.selectedOptions.push(selectedOption.name);
+    if (selectedOption && !this.selectedOptions.includes(this.containsObjects() ? selectedOption.name : selectedOption)) {
+      this.selectedOptions.push(this.containsObjects() ? selectedOption.name : selectedOption);
     }
     event.target.value = -1;
     this.updateSelection()
@@ -43,7 +49,9 @@ export class TagInputComponent implements OnInit {
   }
 
   updateSelection() {
-    const selection = this.options().filter((option) => this.selectedOptions.includes(option.name))
+    const selection = this.options().filter((option) => 
+      this.selectedOptions.includes(this.containsObjects() ? option.name : option)
+    )
     this.selectionChanged.emit(selection)
   }
 }

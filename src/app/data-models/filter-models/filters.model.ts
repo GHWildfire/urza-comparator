@@ -7,4 +7,5 @@ export class Filters {
     colorFilter: ColorFilter = new ColorFilter
     colorUnfilter: ColorFilter = new ColorFilter
     sets: ScryfallSet[] = []
+    artists: string[] = []
 }

@@ -8,9 +8,9 @@
         }
     </div>
     <select id="select" class="form-select" (change)="addSelectedOption($event)">
-        <option [value]="-1" disabled selected>Select a set</option>
+        <option [value]="-1" disabled selected>{{ description() }}</option>
         @for (option of options(); track $index) {
-            <option [value]="$index">{{ option.name }}</option>
+            <option [value]="$index">{{ containsObjects() ? option.name : option }}</option>
         }
     </select>
     <div id="tags">

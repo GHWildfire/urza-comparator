@@ -204,7 +204,6 @@ export class CollectionsService {
     // -------- Filtering helpers --------
 
     private filterCards(cards: UrzaCard[]): UrzaCard[] {
-
         let rarityFilterOff = true
         for (const [_, value] of Object.entries(this.filters.rarityFilter)) {
             rarityFilterOff = rarityFilterOff && !value
@@ -217,7 +216,21 @@ export class CollectionsService {
             && this.filterColor(this.filters.colorFilter, card, true) 
             && this.filterColor(this.filters.colorUnfilter, card, false)
             && this.filterSets(card)
+            && this.filterArtists(card)
         })
+    }
+
+    private filterArtists(card: UrzaCard): boolean {
+        if (card.author === undefined) return false
+        if (this.filters.artists.length === 0) return true
+
+        let result = false
+        this.filters.artists.forEach((artist) => {
+            if (artist.toLowerCase() === card.author.toLowerCase()) {
+                result = true
+            }
+        })
+        return result
     }
 
     private filterSets(card: UrzaCard): boolean {

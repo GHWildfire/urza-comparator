@@ -27,7 +27,7 @@ export class FiltersComponent implements OnInit {
 
   @ViewChildren(ColorFilterComponent) colorFilters!: QueryList<ColorFilterComponent>
   @ViewChild(RarityFilterComponent) rarityFilter!: RarityFilterComponent
-  @ViewChild(TagInputComponent) tagInputs!: TagInputComponent
+  @ViewChildren(TagInputComponent) tagInputs!: QueryList<TagInputComponent>
 
   constructor(
     public collectionService: CollectionsService,
@@ -44,12 +44,15 @@ export class FiltersComponent implements OnInit {
   }
 
   get sets() {
-    if (!this.scryfall) {
-      return []
-    }
-
+    if (!this.scryfall) return []
     return this.scryfall.sets.sort((setA, setB) => setA.name?.localeCompare(setB.name!) ?? 0)
   }
+
+  get artists() {
+    if (!this.scryfall) return []
+    return this.scryfall.artists.sort((artistA, artistB) => artistA?.localeCompare(artistB!) ?? 0)
+  }
+
 
   updateRarities(rarityFilter: RarityFilter) {
     this.filters.rarityFilter = rarityFilter
@@ -71,6 +74,11 @@ export class FiltersComponent implements OnInit {
     this.updateFilters()
   }
 
+  updateArtists(artists: string[]) {
+    this.filters.artists = artists
+    this.updateFilters()
+  }
+
   updateFilters() {
     this.collectionService.updateFilters(this.filters)
   }
@@ -85,6 +93,8 @@ export class FiltersComponent implements OnInit {
       colorFilter.reset()
     })
     this.rarityFilter.reset()
-    this.tagInputs.reset()
+    this.tagInputs.forEach((tagInput) => {
+      tagInput.reset()
+    })
   }
 }
