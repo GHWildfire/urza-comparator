@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from '@angular/core'
+import { Component, input, OnInit, output } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { ColorFilter } from '../../../../data-models/filter-models/color-filter.model'
 import { CollectionsService } from '../../../../services/collections.service'
@@ -16,6 +16,10 @@ import { CommonModule } from "@angular/common"
 export class ColorFilterComponent implements OnInit {
   identifier = input.required<string>()
   title = input.required<string>()
+  initialColorFilter = input.required<ColorFilter>()
+  initialOppositeColorFilter = input.required<ColorFilter>()
+  colorsChanged = output<ColorFilter>()
+
   colorFilter: ColorFilter = new ColorFilter
   oppositeFilter: ColorFilter = new ColorFilter
   scryfall?: Scryfall
@@ -27,19 +31,14 @@ export class ColorFilterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.identifier() === "color-include") {
-      this.colorFilter = this.collectionService.colorFilter
-      this.oppositeFilter = this.collectionService.colorUnfilter
-    } else if (this.identifier() === "color-exclude") {
-      this.colorFilter = this.collectionService.colorUnfilter
-      this.oppositeFilter = this.collectionService.colorFilter
-    }
-
     this.collectionService.colorFilterUpdated.subscribe((event) => {
       if (event.filterId !== this.identifier()) {
         this.oppositeFilter = event.filter
       }
     })
+
+    this.colorFilter = this.initialColorFilter()
+    this.oppositeFilter = this.initialOppositeColorFilter()
   }
 
   get colorlessCheck(): boolean {
@@ -51,18 +50,18 @@ export class ColorFilterComponent implements OnInit {
       && !this.colorFilter.green
   }
 
-  updateColor(color: keyof ColorFilter) {
+  changeColor(color: keyof ColorFilter) {
     this.colorFilter[color] = !this.colorFilter[color]
-    this.update()
+    this.updateColor()
   }
 
   reset() {
     this.colorFilter = new ColorFilter
-    this.update()
+    this.updateColor()
   }
 
-  update() {
-    this.collectionService.updateColors(this.colorFilter, this.identifier())
+  updateColor() {
+    this.colorsChanged.emit(this.colorFilter)
   }
 
   getColorImg(symbolText: string) {

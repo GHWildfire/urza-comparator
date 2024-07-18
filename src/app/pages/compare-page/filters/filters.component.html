@@ -7,10 +7,28 @@
     <mat-dialog-content id="content-block" class="mat-typography p-3">
         @if (scryfall) {
             <div class="row m-0">
-                <app-color-filter class="p-0 mb-2" title="Mana cost contains" identifier="color-include" />
-                <app-color-filter class="p-0 mb-2" title="Mana cost doesn't contain" identifier="color-exclude" />
-                <app-rarity-filter class="p-0" />
-                <app-tag-input title="Sets" [options]="sets" [initSelectedOptions]="this.collectionService.filters.sets" (selectionChanged)="updateSets($event)" />
+                <app-color-filter class="p-0 mb-2" 
+                    title="Mana cost contains" 
+                    identifier="color-include"
+                    [initialColorFilter]="this.collectionService.filters.colorFilter"
+                    [initialOppositeColorFilter]="this.collectionService.filters.colorUnfilter"
+                    (colorsChanged)="updateColors($event)" 
+                />
+                <app-color-filter class="p-0 mb-2" 
+                    title="Mana cost doesn't contain" 
+                    identifier="color-exclude"
+                    [initialColorFilter]="this.collectionService.filters.colorUnfilter"
+                    [initialOppositeColorFilter]="this.collectionService.filters.colorFilter"
+                    (colorsChanged)="updateReverseColors($event)" 
+                />
+                <app-rarity-filter class="p-0" 
+                    (raritiesChanged)="updateRarities($event)" 
+                />
+                <app-tag-input title="Sets" 
+                    [options]="sets" 
+                    [initSelectedOptions]="this.collectionService.filters.sets" 
+                    (selectionChanged)="updateSets($event)" 
+                />
             </div>
         } @else {
             <div id="scryfall-loader">

@@ -3,7 +3,7 @@
 
     <!-- White Filter -->
     <div class="form-check form-check-inline" 
-        (click)="!oppositeFilter.white && updateColor('white')" 
+        (click)="!oppositeFilter.white && changeColor('white')" 
         [class.checked]="colorFilter.white"
         [class.disabled]="oppositeFilter.white"
     >
@@ -13,7 +13,7 @@
 
     <!-- Blue Filter -->
     <div class="form-check form-check-inline" 
-        (click)="!oppositeFilter.blue && updateColor('blue')"
+        (click)="!oppositeFilter.blue && changeColor('blue')"
         [class.checked]="colorFilter.blue"
         [class.disabled]="oppositeFilter.blue"
     >
@@ -23,7 +23,7 @@
 
     <!-- Black Filter -->
     <div class="form-check form-check-inline" 
-        (click)="!oppositeFilter.black && updateColor('black')"
+        (click)="!oppositeFilter.black && changeColor('black')"
         [class.checked]="colorFilter.black"
         [class.disabled]="oppositeFilter.black"
     >
@@ -33,7 +33,7 @@
 
     <!-- Red Filter -->
     <div class="form-check form-check-inline" 
-        (click)="!oppositeFilter.red && updateColor('red')"
+        (click)="!oppositeFilter.red && changeColor('red')"
         [class.checked]="colorFilter.red"
         [class.disabled]="oppositeFilter.red"
     >
@@ -43,7 +43,7 @@
 
     <!-- Green Filter -->
     <div class="form-check form-check-inline" 
-        (click)="!oppositeFilter.green && updateColor('green')"
+        (click)="!oppositeFilter.green && changeColor('green')"
         [class.checked]="colorFilter.green"
         [class.disabled]="oppositeFilter.green" 
     >
@@ -53,7 +53,7 @@
 
     <!-- Multicolor Filter -->
     <div class="form-check form-check-inline" 
-        (click)="!oppositeFilter.multicolor && updateColor('multicolor')"
+        (click)="!oppositeFilter.multicolor && changeColor('multicolor')"
         [class.checked]="colorFilter.multicolor" 
         [class.disabled]="oppositeFilter.multicolor" 
     >
@@ -63,7 +63,7 @@
 
     <!-- Colorless Filter -->
     <div class="form-check form-check-inline" 
-        (click)="colorlessCheck && updateColor('colorless')"
+        (click)="colorlessCheck && changeColor('colorless')"
         [class.checked]="colorFilter.colorless"
         [class.disabled]="!colorlessCheck" 
     >
@@ -73,7 +73,7 @@
 
     <!-- Compleated Filter -->
     <div class="form-check form-check-inline" 
-        (click)="!oppositeFilter.compleated && updateColor('compleated')"
+        (click)="!oppositeFilter.compleated && changeColor('compleated')"
         [class.checked]="colorFilter.compleated"
         [class.disabled]="oppositeFilter.compleated" 
     >

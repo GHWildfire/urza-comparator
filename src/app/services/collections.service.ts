@@ -2,13 +2,11 @@ import { EventEmitter, Injectable } from "@angular/core"
 import { UrzaCard } from "../data-models/urza-card.model"
 import { Collection } from "../data-models/collection.model"
 import { compareOptions, orderOptions, colors, orderOptionDirections } from "../pages/compare-page/compare-page.constants"
-import { ColorFilter } from "../data-models/filter-models/color-filter.model"
-import { RarityFilter } from "../data-models/filter-models/rarity-filter.model"
 import { DexieDBService } from "./dexie-db.service"
 import { ScryfallAPIService } from "./scryfall-api.service"
 import { CSVService } from "./csv.service"
 import { Filters } from "../data-models/filter-models/filters.model"
-import { filter } from "rxjs"
+import { ColorFilter } from "../data-models/filter-models/color-filter.model"
 
 @Injectable({ providedIn: 'root' })
 export class CollectionsService {
@@ -32,9 +30,6 @@ export class CollectionsService {
     
     // Filters
     filters: Filters = new Filters
-    colorFilter: ColorFilter = new ColorFilter
-    colorUnfilter: ColorFilter = new ColorFilter
-    rarityFilter: RarityFilter = new RarityFilter
 
     // Header parameters
     nameFilter: string = ""
@@ -111,22 +106,6 @@ export class CollectionsService {
 
     updateFilters(filters: Filters) {
         this.filters = filters
-        this.adaptCardGrid()
-    }
-
-    updateColors(colorFilter: ColorFilter, identifier: string) {
-        if (identifier === "color-include") {
-            this.colorFilter = colorFilter
-            this.colorFilterUpdated.emit({ filter: this.colorFilter, filterId: identifier })
-        } else if (identifier === "color-exclude") {
-            this.colorUnfilter = colorFilter
-        }
-        this.colorFilterUpdated.emit({ filter: colorFilter, filterId: identifier })
-        this.adaptCardGrid()
-    }
-
-    updateRarities(rarityFilter: RarityFilter) {
-        this.rarityFilter = rarityFilter
         this.adaptCardGrid()
     }
 
@@ -227,7 +206,7 @@ export class CollectionsService {
     private filterCards(cards: UrzaCard[]): UrzaCard[] {
 
         let rarityFilterOff = true
-        for (const [_, value] of Object.entries(this.rarityFilter)) {
+        for (const [_, value] of Object.entries(this.filters.rarityFilter)) {
             rarityFilterOff = rarityFilterOff && !value
         }
 
@@ -235,8 +214,8 @@ export class CollectionsService {
           return card.name.toLowerCase().includes(this.nameFilter.toLowerCase())
             && card.count >= this.compareOptionSelected
             && (rarityFilterOff ? true : this.filterRarity(card) )
-            && this.filterColor(this.colorFilter, card, true) 
-            && this.filterColor(this.colorUnfilter, card, false)
+            && this.filterColor(this.filters.colorFilter, card, true) 
+            && this.filterColor(this.filters.colorUnfilter, card, false)
             && this.filterSets(card)
         })
     }
@@ -257,7 +236,7 @@ export class CollectionsService {
     private filterRarity(card: UrzaCard): boolean {
         if (card.rarity === undefined) return false
 
-        for (const [key, value] of Object.entries(this.rarityFilter)) {
+        for (const [key, value] of Object.entries(this.filters.rarityFilter)) {
             if (key.toLowerCase() == card.rarity.toLowerCase() && value) {
                 return true
             }

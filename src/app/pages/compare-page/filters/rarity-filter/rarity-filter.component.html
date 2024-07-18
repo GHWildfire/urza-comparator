@@ -1,27 +1,27 @@
 <div class="p-2">
     <p class="mb-2 fw-bold">Rarities</p>
 
-    <div class="form-check form-check-inline" [class.checked]="rarityFilter.common" (click)="updateRarity('common')">
+    <div class="form-check form-check-inline" [class.checked]="rarityFilter.common" (click)="changeRarity('common')">
         <span class="symbol common" style="background-color: black;"></span>
         <label class="symbol-description">Common</label>
     </div>
 
-    <div class="form-check form-check-inline" [class.checked]="rarityFilter.uncommon" (click)="updateRarity('uncommon')">
+    <div class="form-check form-check-inline" [class.checked]="rarityFilter.uncommon" (click)="changeRarity('uncommon')">
         <span class="symbol uncommon" style="background-color: rgb(121, 121, 121);"></span>
         <label class="symbol-description">Uncommon</label>
     </div>
 
-    <div class="form-check form-check-inline" [class.checked]="rarityFilter.rare" (click)="updateRarity('rare')">
+    <div class="form-check form-check-inline" [class.checked]="rarityFilter.rare" (click)="changeRarity('rare')">
         <span class="symbol rare" style="background-color: rgb(255, 217, 0);"></span>
         <label class="symbol-description">Rare</label>
     </div>
 
-    <div class="form-check form-check-inline" [class.checked]="rarityFilter.mythic" (click)="updateRarity('mythic')">
+    <div class="form-check form-check-inline" [class.checked]="rarityFilter.mythic" (click)="changeRarity('mythic')">
         <span class="symbol mythic" style="background-color: rgb(255, 123, 0);"></span>
         <label class="symbol-description">Mythic</label>
     </div>
 
-    <div class="form-check form-check-inline" [class.checked]="rarityFilter.special" (click)="updateRarity('special')">
+    <div class="form-check form-check-inline" [class.checked]="rarityFilter.special" (click)="changeRarity('special')">
         <span class="symbol special" style="background-color: rgb(191, 0, 197);"></span>
         <label class="symbol-description">Special</label>
     </div>

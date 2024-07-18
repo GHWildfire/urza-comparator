@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, output } from '@angular/core'
 import { RarityFilter } from '../../../../data-models/filter-models/rarity-filter.model'
 import { FormsModule } from '@angular/forms'
 import { CollectionsService } from '../../../../services/collections.service'
@@ -12,24 +12,25 @@ import { CollectionsService } from '../../../../services/collections.service'
 })
 export class RarityFilterComponent implements OnInit {
   rarityFilter: RarityFilter = new RarityFilter
+  raritiesChanged = output<RarityFilter>()
 
   constructor(private collectionService: CollectionsService) {}
 
   ngOnInit(): void {
-    this.rarityFilter = this.collectionService.rarityFilter
-  }
-
-  update() {
-    this.collectionService.updateRarities(this.rarityFilter)
+    this.rarityFilter = this.collectionService.filters.rarityFilter
   }
 
   reset() {
     this.rarityFilter = new RarityFilter
-    this.update()
+    this.updateRarity()
   }
 
-  updateRarity(rarity: keyof RarityFilter) {
+  changeRarity(rarity: keyof RarityFilter) {
     this.rarityFilter[rarity] = !this.rarityFilter[rarity]
-    this.update()
+    this.updateRarity()
+  }
+
+  updateRarity() {
+    this.raritiesChanged.emit(this.rarityFilter)
   }
 }
