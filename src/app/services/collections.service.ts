@@ -217,7 +217,35 @@ export class CollectionsService {
             && this.filterColor(this.filters.colorUnfilter, card, false)
             && this.filterSets(card)
             && this.filterArtists(card)
+            && this.filterTypes(card)
+            && this.filterSupertypes(card)
         })
+    }
+
+    private filterSupertypes(card: UrzaCard): boolean {
+        if (card.type === undefined) return false
+        if (this.filters.supertypes.length === 0) return true
+
+        let result = false
+        this.filters.supertypes.forEach((supertype) => {
+            if (card.type.toLowerCase().includes(supertype.toLowerCase())) {
+                result = true
+            }
+        })
+        return result
+    }
+
+    private filterTypes(card: UrzaCard): boolean {
+        if (card.type === undefined) return false
+        if (this.filters.types.length === 0) return true
+
+        let result = false
+        this.filters.types.forEach((type) => {
+            if (card.type.toLowerCase().includes(type.toLowerCase())) {
+                result = true
+            }
+        })
+        return result
     }
 
     private filterArtists(card: UrzaCard): boolean {

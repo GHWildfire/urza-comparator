@@ -86,7 +86,7 @@ export class UrzaCard {
     
     get averagePriceFoil(): string {
         return this.scryfallData?.prices && this.scryfallData?.prices.usd_foil 
-            ? "€" + this.scryfallData?.prices.usd_foil 
+            ? "$" + this.scryfallData?.prices.usd_foil 
             : this.averagePrice
     }
 
@@ -105,7 +105,7 @@ export class UrzaCard {
         if (this.scryfallData?.prices && this.scryfallData?.prices.usd_foil) {
             total += this.foilCount * +this.scryfallData?.prices.usd_foil
         }
-        return "€" + total
+        return "$" + total
     }
 
     get priceTag() {

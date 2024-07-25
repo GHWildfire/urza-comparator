@@ -53,6 +53,15 @@ export class FiltersComponent implements OnInit {
     return this.scryfall.artists.sort((artistA, artistB) => artistA?.localeCompare(artistB!) ?? 0)
   }
 
+  get types() {
+    if (!this.scryfall) return []
+    return this.scryfall.cardTypes.sort((typeA, typeB) => typeA?.localeCompare(typeB!) ?? 0)
+  }
+
+  get supertypes() {
+    if (!this.scryfall) return []
+    return this.scryfall.superTypes.sort((typeA, typeB) => typeA?.localeCompare(typeB!) ?? 0)
+  }
 
   updateRarities(rarityFilter: RarityFilter) {
     this.filters.rarityFilter = rarityFilter
@@ -76,6 +85,16 @@ export class FiltersComponent implements OnInit {
 
   updateArtists(artists: string[]) {
     this.filters.artists = artists
+    this.updateFilters()
+  }
+
+  updateTypes(types: string[]) {
+    this.filters.types = types
+    this.updateFilters()
+  }
+
+  updateSupertypes(supertypes: string[]) {
+    this.filters.supertypes = supertypes
     this.updateFilters()
   }
 

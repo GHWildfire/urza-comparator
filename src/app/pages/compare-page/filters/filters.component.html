@@ -7,39 +7,59 @@
     <mat-dialog-content id="content-block" class="mat-typography p-3">
         @if (scryfall) {
             <div class="row m-0">
-                <app-color-filter class="p-0 mb-2" 
-                    title="Mana cost contains" 
-                    identifier="color-include"
-                    [initialColorFilter]="this.collectionService.filters.colorFilter"
-                    [initialOppositeColorFilter]="this.collectionService.filters.colorUnfilter"
-                    (colorsChanged)="updateColors($event)" 
-                />
-                <app-color-filter class="p-0 mb-2" 
-                    title="Mana cost doesn't contain" 
-                    identifier="color-exclude"
-                    [initialColorFilter]="this.collectionService.filters.colorUnfilter"
-                    [initialOppositeColorFilter]="this.collectionService.filters.colorFilter"
-                    (colorsChanged)="updateReverseColors($event)" 
-                />
-                <app-rarity-filter class="p-0" 
-                    (raritiesChanged)="updateRarities($event)" 
-                />
-                <app-tag-input 
-                    title="Sets" 
-                    description="Select a set"
-                    [options]="sets" 
-                    [initSelectedOptions]="this.collectionService.filters.sets" 
-                    [containsObjects]="true"
-                    (selectionChanged)="updateSets($event)" 
-                />
-                <app-tag-input 
-                    title="Artists" 
-                    description="Select an artist"
-                    [options]="artists" 
-                    [initSelectedOptions]="this.collectionService.filters.artists" 
-                    [containsObjects]="false"
-                    (selectionChanged)="updateArtists($event)" 
-                />
+                <div class="col-lg-5">
+                    <app-tag-input 
+                        title="Sets" 
+                        description="Select a set"
+                        [options]="sets" 
+                        [initSelectedOptions]="this.collectionService.filters.sets" 
+                        [containsObjects]="true"
+                        (selectionChanged)="updateSets($event)" 
+                    />
+                    <app-tag-input 
+                        title="Artists" 
+                        description="Select an artist"
+                        [options]="artists" 
+                        [initSelectedOptions]="this.collectionService.filters.artists" 
+                        [containsObjects]="false"
+                        (selectionChanged)="updateArtists($event)" 
+                    />
+                    <app-tag-input 
+                        title="Types" 
+                        description="Select a card type"
+                        [options]="types" 
+                        [initSelectedOptions]="this.collectionService.filters.types" 
+                        [containsObjects]="false"
+                        (selectionChanged)="updateTypes($event)" 
+                    />
+                    <app-tag-input 
+                        title="Supertypes" 
+                        description="Select a card supertype"
+                        [options]="supertypes" 
+                        [initSelectedOptions]="this.collectionService.filters.supertypes" 
+                        [containsObjects]="false"
+                        (selectionChanged)="updateSupertypes($event)" 
+                    />
+                </div>
+                <div class="col-lg-7">
+                    <app-color-filter class="p-0 mb-2" 
+                        title="Mana cost contains" 
+                        identifier="color-include"
+                        [initialColorFilter]="this.collectionService.filters.colorFilter"
+                        [initialOppositeColorFilter]="this.collectionService.filters.colorUnfilter"
+                        (colorsChanged)="updateColors($event)" 
+                    />
+                    <app-color-filter class="p-0 mb-2" 
+                        title="Mana cost doesn't contain" 
+                        identifier="color-exclude"
+                        [initialColorFilter]="this.collectionService.filters.colorUnfilter"
+                        [initialOppositeColorFilter]="this.collectionService.filters.colorFilter"
+                        (colorsChanged)="updateReverseColors($event)" 
+                    />
+                    <app-rarity-filter class="p-0" 
+                        (raritiesChanged)="updateRarities($event)" 
+                    />
+                </div>
             </div>
         } @else {
             <div id="scryfall-loader">

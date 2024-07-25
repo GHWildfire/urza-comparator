@@ -8,4 +8,6 @@ export class Filters {
     colorUnfilter: ColorFilter = new ColorFilter
     sets: ScryfallSet[] = []
     artists: string[] = []
+    types: string[] = []
+    supertypes: string[] = []
 }
