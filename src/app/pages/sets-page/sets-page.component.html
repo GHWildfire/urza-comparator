@@ -22,14 +22,14 @@
         </div>
 
         <div class="col text-end fw-bold my-auto">
-          {{ setsPageService.getSets().length + " sets found" }}
+          {{ sets.length + " sets found" }}
         </div>
       </div>
   
       <!-- Sets -->
       <div class="viewport-container">
         <cdk-virtual-scroll-viewport #cdkViewport [itemSize]="24" class="viewport">
-          <div *cdkVirtualFor="let set of setsPageService.getSets(); let rowIndex = index;" class="row">
+          <div *cdkVirtualFor="let set of sets; let rowIndex = index;" class="row">
             <div class="row set-row">
               <app-sets-page-row class="mtg-set" [pair]="rowIndex % 2 == 0" [set]="set" />
             </div>

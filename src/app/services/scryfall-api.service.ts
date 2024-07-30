@@ -14,7 +14,7 @@ import { ScryfallSymbol } from "../data-models/scryfall-models/scryfall-symbol"
 export class ScryfallAPIService {
     private scryFallURL: string = "https://api.scryfall.com"
     private scryfallBulkDataType: string = "default_cards"
-    private scryfallMinRefreshFrequency: number = 1000 * 60 * 10 // 10 minutes
+    private scryfallMinRefreshFrequency: number = 1000 * 60 * 60 * 12 // 12 hours refresh
     private linkingBatchSize: number = 20
     private leftLinked: boolean = false
     private rightLinked: boolean = false
@@ -25,6 +25,7 @@ export class ScryfallAPIService {
     scryfallLoaded = new EventEmitter<Scryfall>()
     collectionLinking = new EventEmitter<{ progress: number, isLeft: boolean }>()
     collectionLinked = new EventEmitter<{ collection: Collection, isLeft: boolean }>()
+    scryfallLinked = new EventEmitter<void>()
 
     cards: ScryfallCard[] = []
 
@@ -48,12 +49,12 @@ export class ScryfallAPIService {
                 this.scryfall = scryfall
                 console.log("Loaded from DB")
                 this.scryfallLoaded.emit(this.scryfall)
+                this.scryfallReady = true
             }
         } else {
             this.loadScryfall()
             console.log("Loading completely new because no DB")
         }
-        this.scryfallReady = true
     }
 
     loadScryfall() {
@@ -160,9 +161,10 @@ export class ScryfallAPIService {
     }
     
     async linkScryfallData(collection: Collection, isLeft: boolean) {
-        if (!this.scryfall || !this.scryfall.cards || collection.cardsLinked) {
+        if (!this.scryfall || !this.scryfall.cards) {
             return
         }
+
         this.scryfallReady = false
         isLeft ? this.leftLinked = false : this.rightLinked = false
     
@@ -219,7 +221,6 @@ export class ScryfallAPIService {
         }
      
         // Linking finished signals
-        this.scryfallReady = true
         collection.cardsLinked = true
         this.collectionLinking.emit({ progress: totalCards, isLeft: isLeft })
         this.collectionLinked.emit({ collection: collection, isLeft: isLeft })
@@ -228,6 +229,8 @@ export class ScryfallAPIService {
         isLeft ? this.leftLinked = true : this.rightLinked = true
         if (this.leftLinked && this.rightLinked) {
             this.db.saveScryfall(this.scryfall)
+            this.scryfallLinked.emit()
+            this.scryfallReady = true
         }
     }
 }

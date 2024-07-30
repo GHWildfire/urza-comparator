@@ -1,29 +1,22 @@
-import { Injectable, OnInit } from "@angular/core";
-import { ScryfallAPIService } from "../../services/scryfall-api.service";
-import { Scryfall } from "../../data-models/scryfall-models/scryfall.model";
-import { ScryfallSet } from "../../data-models/scryfall-models/scryfall-set.model";
+import { Injectable } from "@angular/core"
+import { ScryfallSet } from "../../data-models/scryfall-models/scryfall-set.model"
+import { ScryfallAPIService } from "../../services/scryfall-api.service"
 
 @Injectable({ providedIn: 'root' })
 export class SetsPageService {
-    scryfall?: Scryfall
 
-    constructor(private scryfallService: ScryfallAPIService) {
-        this.scryfallService.scryfallLoaded.subscribe((scryfall) => {
-            this.scryfall = scryfall
-        })
+    constructor(private scryfallService: ScryfallAPIService) {}
 
-        this.scryfall = this.scryfallService.scryfall
-    }
-
-    getSets() {
+    getSets(): ScryfallSet[] {
         // Stop if scryfall not loaded yet
-        if (!this.scryfall) {
+        let scryfall = this.scryfallService.scryfall
+        if (!scryfall) {
             return []
         }
 
         // Initialize parent layer for all sets
         const setsMap = new Map<string, ScryfallSet>()
-        this.scryfall.sets.forEach(set => setsMap.set(set.code ?? '', set))
+        scryfall.sets.forEach(set => setsMap.set(set.code ?? '', set))
     
         // Recusrive function to compute parent layer
         const computeParentLayer = (set: ScryfallSet, depth: number = 0): number => {
@@ -36,12 +29,12 @@ export class SetsPageService {
         }
     
         // Compute parent layer for each set
-        this.scryfall.sets.forEach(set => {
+        scryfall.sets.forEach(set => {
             set.parentLayer = computeParentLayer(set)
         })
     
         // Create a map of parent sets
-        let sets = this.orderSets(this.filterSets(this.scryfall.sets))
+        let sets = this.orderSets(this.filterSets(scryfall.sets))
         const parentMap = new Map<string, ScryfallSet[]>()
         sets.forEach(set => {
             if (set.parent_set_code) {
