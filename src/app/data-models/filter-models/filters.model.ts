@@ -9,5 +9,12 @@ export class Filters {
     sets: ScryfallSet[] = []
     artists: string[] = []
     types: string[] = []
-    supertypes: string[] = []
+    superTypes: string[] = []
+    artifactTypes: string[] = []
+    spellTypes: string[] = []
+    creatureTypes: string[] = []
+    enchantmentTypes: string[] = []
+    landTypes: string[] = []
+    planeswalkerTypes: string[] = []
+    battleTypes: string[] = []
 }

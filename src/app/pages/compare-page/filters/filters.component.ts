@@ -58,9 +58,44 @@ export class FiltersComponent implements OnInit {
     return this.scryfall.cardTypes.sort((typeA, typeB) => typeA?.localeCompare(typeB!) ?? 0)
   }
 
-  get supertypes() {
+  get superTypes() {
     if (!this.scryfall) return []
     return this.scryfall.superTypes.sort((typeA, typeB) => typeA?.localeCompare(typeB!) ?? 0)
+  }
+
+  get artifactTypes() {
+    if (!this.scryfall) return []
+    return this.scryfall.artifactTypes.sort((typeA, typeB) => typeA?.localeCompare(typeB!) ?? 0)
+  }
+
+  get spellTypes() {
+    if (!this.scryfall) return []
+    return this.scryfall.spellTypes.sort((typeA, typeB) => typeA?.localeCompare(typeB!) ?? 0)
+  }
+
+  get creatureTypes() {
+    if (!this.scryfall) return []
+    return this.scryfall.creatureTypes.sort((typeA, typeB) => typeA?.localeCompare(typeB!) ?? 0)
+  }
+
+  get enchantmentTypes() {
+    if (!this.scryfall) return []
+    return this.scryfall.enchantmentTypes.sort((typeA, typeB) => typeA?.localeCompare(typeB!) ?? 0)
+  }
+
+  get landTypes() {
+    if (!this.scryfall) return []
+    return this.scryfall.landTypes.sort((typeA, typeB) => typeA?.localeCompare(typeB!) ?? 0)
+  }
+
+  get planeswalkerTypes() {
+    if (!this.scryfall) return []
+    return this.scryfall.planeswalkerTypes.sort((typeA, typeB) => typeA?.localeCompare(typeB!) ?? 0)
+  }
+
+  get battleTypes() {
+    if (!this.scryfall) return []
+    return this.scryfall.battleTypes.sort((typeA, typeB) => typeA?.localeCompare(typeB!) ?? 0)
   }
 
   updateRarities(rarityFilter: RarityFilter) {
@@ -93,8 +128,43 @@ export class FiltersComponent implements OnInit {
     this.updateFilters()
   }
 
-  updateSupertypes(supertypes: string[]) {
-    this.filters.supertypes = supertypes
+  updateSupertypes(superTypes: string[]) {
+    this.filters.superTypes = superTypes
+    this.updateFilters()
+  }
+
+  updateArtifactTypes(artifactTypes: string[]) {
+    this.filters.artifactTypes = artifactTypes
+    this.updateFilters()
+  }
+
+  updateSpellTypes(spellTypes: string[]) {
+    this.filters.spellTypes = spellTypes
+    this.updateFilters()
+  }
+
+  updateCreatureTypes(creatureTypes: string[]) {
+    this.filters.creatureTypes = creatureTypes
+    this.updateFilters()
+  }
+
+  updateEnchantmentTypes(enchantmentTypes: string[]) {
+    this.filters.enchantmentTypes = enchantmentTypes
+    this.updateFilters()
+  }
+
+  updateLandTypes(landTypes: string[]) {
+    this.filters.landTypes = landTypes
+    this.updateFilters()
+  }
+
+  updatePlaneswalkerTypes(planeswalkerTypes: string[]) {
+    this.filters.planeswalkerTypes = planeswalkerTypes
+    this.updateFilters()
+  }
+
+  updateBattleTypes(battleTypes: string[]) {
+    this.filters.battleTypes = battleTypes
     this.updateFilters()
   }
 

@@ -33,12 +33,68 @@
                         (selectionChanged)="updateTypes($event)" 
                     />
                     <app-tag-input 
-                        title="Supertypes" 
-                        description="Select a card supertype"
-                        [options]="supertypes" 
-                        [initSelectedOptions]="this.collectionService.filters.supertypes" 
+                        title="Super types" 
+                        description="Select a card super type"
+                        [options]="superTypes" 
+                        [initSelectedOptions]="this.collectionService.filters.superTypes" 
                         [containsObjects]="false"
                         (selectionChanged)="updateSupertypes($event)" 
+                    />
+                    <app-tag-input 
+                        title="Artifact types" 
+                        description="Select an artifact type"
+                        [options]="artifactTypes" 
+                        [initSelectedOptions]="this.collectionService.filters.artifactTypes" 
+                        [containsObjects]="false"
+                        (selectionChanged)="updateArtifactTypes($event)" 
+                    />
+                    <app-tag-input 
+                        title="Spell types" 
+                        description="Select a spell type"
+                        [options]="spellTypes" 
+                        [initSelectedOptions]="this.collectionService.filters.spellTypes" 
+                        [containsObjects]="false"
+                        (selectionChanged)="updateSpellTypes($event)" 
+                    />
+                    <app-tag-input 
+                        title="Creature types" 
+                        description="Select a creature type"
+                        [options]="creatureTypes" 
+                        [initSelectedOptions]="this.collectionService.filters.creatureTypes" 
+                        [containsObjects]="false"
+                        (selectionChanged)="updateCreatureTypes($event)" 
+                    />
+                    <app-tag-input 
+                        title="Enchantment types" 
+                        description="Select an enchantment type"
+                        [options]="enchantmentTypes" 
+                        [initSelectedOptions]="this.collectionService.filters.enchantmentTypes" 
+                        [containsObjects]="false"
+                        (selectionChanged)="updateEnchantmentTypes($event)" 
+                    />
+                    <app-tag-input 
+                        title="Land types" 
+                        description="Select a land type"
+                        [options]="landTypes" 
+                        [initSelectedOptions]="this.collectionService.filters.landTypes" 
+                        [containsObjects]="false"
+                        (selectionChanged)="updateLandTypes($event)" 
+                    />
+                    <app-tag-input 
+                        title="Planeswalker types" 
+                        description="Select a planeswalker type"
+                        [options]="planeswalkerTypes" 
+                        [initSelectedOptions]="this.collectionService.filters.planeswalkerTypes" 
+                        [containsObjects]="false"
+                        (selectionChanged)="updatePlaneswalkerTypes($event)" 
+                    />
+                    <app-tag-input 
+                        title="Battle types" 
+                        description="Select a battle type"
+                        [options]="battleTypes" 
+                        [initSelectedOptions]="this.collectionService.filters.battleTypes" 
+                        [containsObjects]="false"
+                        (selectionChanged)="updateBattleTypes($event)" 
                     />
                 </div>
                 <div class="col-lg-7">
