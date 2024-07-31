@@ -11,6 +11,8 @@ import { CardRowComponent } from "./card-row/card-row.component"
     imports: [CardRowComponent]
 })
 export class CardDetailsComponent implements OnInit {
+  cards: UrzaCard[] = []
+  index: number = -1
   transferedCard?: UrzaCard
   frontCard?: UrzaCard
   backCard?: UrzaCard
@@ -18,8 +20,10 @@ export class CardDetailsComponent implements OnInit {
   constructor(private location: Location) {}
 
   ngOnInit(): void {
-    this.transferedCard = UrzaCard.fromObject(history.state.card)
-    if (this.transferedCard) {
+    this.cards = history.state.cards
+    this.index = history.state.index
+    if (this.cards.length > 0 && this.index >= 0) {
+      this.transferedCard = UrzaCard.fromObject(this.cards[this.index])
       this.frontCard = UrzaCard.fromObject(this.transferedCard)
       this.backCard = UrzaCard.fromObject(this.transferedCard.backCard)
     }

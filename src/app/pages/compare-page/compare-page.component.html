@@ -42,7 +42,7 @@
         </div>
       }
       <div class="col text-end fw-bold my-auto">
-        {{ nbCards + " cards found" }}
+        {{ cards.length + " cards found" }}
       </div>
     </div>
 
@@ -61,7 +61,15 @@
         <div *cdkVirtualFor="let row of grid; let rowIndex = index;" class="row" [style.height]="zoomedHeight">
           <div class="row card-row">
             @for (card of row; track $index) {
-              <app-card [card]="card" [index]="rowIndex" class="mtg-card" [style.width]="zoomedWidth" [style.height]="zoomedHeight" />
+              <app-card 
+                [cards]="cards" 
+                [card]="card"
+                [rowIndex]="rowIndex" 
+                [arrayIndex]="row.length * rowIndex + $index" 
+                [style.width]="zoomedWidth" 
+                [style.height]="zoomedHeight" 
+                class="mtg-card" 
+              />
             }
           </div>
         </div>

@@ -38,7 +38,7 @@ export class CollectionsService {
     orderOptionSelected: string = orderOptions[0].value
 
     // Events
-    gridUpdated = new EventEmitter<UrzaCard[][]>()
+    gridUpdated = new EventEmitter<{ grid: UrzaCard[][], cards: UrzaCard[] }>()
     collectionsReady = new EventEmitter<boolean>()
     colorFilterUpdated = new EventEmitter<{ filter: ColorFilter, filterId: string }>()
 
@@ -176,7 +176,7 @@ export class CollectionsService {
         }
 
         this.nbCards = index
-        this.gridUpdated.emit(grid)
+        this.gridUpdated.emit({ grid: grid, cards: filteredCards })
     }
 
     // -------- Welcome page --------

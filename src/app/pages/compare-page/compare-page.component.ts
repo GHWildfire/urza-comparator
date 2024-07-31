@@ -23,7 +23,6 @@ export class ComparePageComponent implements AfterViewInit {
   // Parameters
   compareOptionSelected = compareOptions[0].value
   orderOptionSelected = orderOptions[0].value
-  nbCards = this.collectionService.nbCards
   name: string = ""
   screenWidth: number = 0
   cardZoom: number = 1
@@ -32,6 +31,7 @@ export class ComparePageComponent implements AfterViewInit {
 
   // Grid
   grid: UrzaCard[][] = []
+  cards: UrzaCard[] = []
 
   @ViewChild('cdkViewport') cdkViewport: CdkVirtualScrollViewport | undefined
 
@@ -46,16 +46,15 @@ export class ComparePageComponent implements AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.collectionService.gridUpdated.subscribe(newGrid => {
-      this.grid = newGrid
-      this.nbCards = this.collectionService.nbCards
+    this.collectionService.gridUpdated.subscribe(result => {
+      this.grid = result.grid
+      this.cards = result.cards
     })
     this.name = this.collectionService.nameFilter
     this.compareOptionSelected = this.collectionService.compareOptionSelected
     this.orderOptionSelected = this.collectionService.orderOptionSelected
     this.cardZoom = this.collectionService.cardZoom
     this.adaptCardGrid()
-    //this.openFilters()
   }
 
   ngAfterViewInit(): void {
