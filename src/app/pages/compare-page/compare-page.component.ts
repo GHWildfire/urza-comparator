@@ -26,6 +26,9 @@ export class ComparePageComponent implements AfterViewInit {
   nbCards = this.collectionService.nbCards
   name: string = ""
   screenWidth: number = 0
+  cardZoom: number = 1
+  baseWidth: number = 170
+  baseHeight: number = 234
 
   // Grid
   grid: UrzaCard[][] = []
@@ -68,11 +71,30 @@ export class ComparePageComponent implements AfterViewInit {
     this.adaptCardGrid()
   }
 
+  get zoomedWidth(): string {
+    return `${this.baseWidth * (this.smallScreen ? 1 : this.cardZoom)}px`
+  }
+
+  get zoomedHeight(): string {
+    return `${this.baseHeight * (this.smallScreen ? 1 : this.cardZoom)}px`
+  }
+
+  get itemSize(): number {
+    return (this.baseHeight + 10) * (this.smallScreen ? 1 : this.cardZoom)
+  }
+
+  get smallScreen(): boolean {
+    return this.screenWidth <= 860
+  }
+
   adaptCardGrid() {
     this.screenWidth = this.cdkViewport?.elementRef !== undefined ? this.cdkViewport?.elementRef.nativeElement.offsetWidth : 0
     this.collectionService.adaptViewportSize(this.screenWidth)
-    this.collectionService.adaptCardGrid()
     this.ref.detectChanges()
+  }
+
+  adaptCardZoom() {
+    this.collectionService.adaptCardZoom((this.smallScreen ? 1 : this.cardZoom))
   }
 
   openFilters() {

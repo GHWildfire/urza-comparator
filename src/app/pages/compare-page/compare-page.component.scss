@@ -30,7 +30,6 @@
 }
 
 .row {
-    height: 234px;
     display: flex;
     justify-content: center;
 }
@@ -42,8 +41,6 @@
 }
 
 .mtg-card {
-    width: 170px;
-    height: 234px;
     padding: 5px;
     transition: all .1s ease-in-out;
 }
@@ -93,4 +90,15 @@
 
 .filters {
     height: 1000px;
+}
+
+#card-slider {
+    height: 44px;
+    width: 800px;
+    background-color: rgba(0, 0, 0, 0.692);
+    position: absolute;
+    bottom: 20px;
+    left: calc(50% - 400px);
+    padding: 10px 20px 10px 20px;
+    border-radius: 22px;
 }

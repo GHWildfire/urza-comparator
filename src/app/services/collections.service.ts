@@ -24,6 +24,7 @@ export class CollectionsService {
     rightToLeft: boolean = true
     cardWidth: number = 170
     cardSpacing: number = 10
+    cardZoom: number = 1
     nbCards: number = 0
     viewportSize: number = 0
     selectedCardIndex: number = 0
@@ -144,6 +145,12 @@ export class CollectionsService {
 
     adaptViewportSize(viewportSize: number) {
         this.viewportSize = viewportSize
+        this.adaptCardGrid()
+    }
+
+    adaptCardZoom(cardZoom: number) {
+        this.cardZoom = cardZoom
+        this.adaptCardGrid()
     }
 
     adaptCardGrid() {
@@ -151,7 +158,7 @@ export class CollectionsService {
         let gridRow: UrzaCard[] = []
         let index = 0
         
-        let columns = Math.floor(this.viewportSize / (this.cardWidth + this.cardSpacing))
+        let columns = Math.floor(this.viewportSize / (this.cardZoom * this.cardWidth + this.cardSpacing))
         let orderedCards: UrzaCard[] = this.sortCards(this.collection.cards)
         let filteredCards = this.filterCards(orderedCards)
 
