@@ -1,5 +1,5 @@
-import { Component, input } from '@angular/core';
-import { ScryfallSet } from '../../../data-models/scryfall-models/scryfall-set.model';
+import { Component, input } from '@angular/core'
+import { ScryfallSet } from '../../../data-models/scryfall-models/scryfall-set.model'
 
 @Component({
   selector: 'app-sets-page-row',

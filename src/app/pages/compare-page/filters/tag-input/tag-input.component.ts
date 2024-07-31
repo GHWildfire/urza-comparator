@@ -29,9 +29,9 @@ export class TagInputComponent implements OnInit {
   addSelectedOption(event: any) {
     const selectedOption: any = this.options()[event.target.value]
     if (selectedOption && !this.selectedOptions.includes(this.containsObjects() ? selectedOption.name : selectedOption)) {
-      this.selectedOptions.push(this.containsObjects() ? selectedOption.name : selectedOption);
+      this.selectedOptions.push(this.containsObjects() ? selectedOption.name : selectedOption)
     }
-    event.target.value = -1;
+    event.target.value = -1
     this.updateSelection()
   }
 

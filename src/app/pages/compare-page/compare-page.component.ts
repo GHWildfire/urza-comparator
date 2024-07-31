@@ -53,6 +53,7 @@ export class ComparePageComponent implements AfterViewInit {
     this.name = this.collectionService.nameFilter
     this.compareOptionSelected = this.collectionService.compareOptionSelected
     this.orderOptionSelected = this.collectionService.orderOptionSelected
+    this.cardZoom = this.collectionService.cardZoom
     this.adaptCardGrid()
     //this.openFilters()
   }

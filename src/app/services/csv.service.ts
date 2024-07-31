@@ -36,9 +36,9 @@ export class CSVService {
                     cardMap[scryfallId] = card
                     cardMap[scryfallId].backCard = previousCard
                     
-                    const index = cards.findIndex(c => c.scryfallId === scryfallId);
+                    const index = cards.findIndex(c => c.scryfallId === scryfallId)
                     if (index !== -1) {
-                        cards[index] = card;
+                        cards[index] = card
                     }
                 } else {
                     cardMap[scryfallId].backCard = card
@@ -53,7 +53,7 @@ export class CSVService {
                 this.csvLoading.emit({
                     progress: Math.round(100 * i / csvCollection.lines.length),
                     isLeft: csvCollection.isLeft
-                });
+                })
                 await new Promise(f => setTimeout(f, 0))
             }
         }

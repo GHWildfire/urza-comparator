@@ -8,7 +8,7 @@ import { ScryfallAPIService } from '../../../services/scryfall-api.service'
 import { Scryfall } from '../../../data-models/scryfall-models/scryfall.model'
 import { ScryfallSet } from '../../../data-models/scryfall-models/scryfall-set.model'
 import { TagComponent } from './tag-input/tag/tag.component'
-import { TagInputComponent } from "./tag-input/tag-input.component";
+import { TagInputComponent } from "./tag-input/tag-input.component"
 import { Filters } from '../../../data-models/filter-models/filters.model'
 import { RarityFilter } from '../../../data-models/filter-models/rarity-filter.model'
 import { ColorFilter } from '../../../data-models/filter-models/color-filter.model'

@@ -1,6 +1,6 @@
-import { ScryfallCard } from "./scryfall-card-models/scryfall-card.model";
-import { ScryfallSet } from "./scryfall-set.model";
-import { ScryfallSymbol } from "./scryfall-symbol";
+import { ScryfallCard } from "./scryfall-card-models/scryfall-card.model"
+import { ScryfallSet } from "./scryfall-set.model"
+import { ScryfallSymbol } from "./scryfall-symbol"
 
 export class Scryfall {
     constructor(
@@ -39,6 +39,6 @@ export class Scryfall {
             obj.planeswalkerTypes,
             obj.spellTypes,
             obj.artists
-        );
+        )
     }
 }
