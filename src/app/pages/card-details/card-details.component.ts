@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, HostListener, OnInit } from '@angular/core'
 import { UrzaCard } from '../../data-models/urza-card.model'
 import { Location } from '@angular/common'
 import { CardRowComponent } from "./card-row/card-row.component"
@@ -19,10 +19,30 @@ export class CardDetailsComponent implements OnInit {
 
   constructor(private location: Location) {}
 
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    switch (event.key) {
+      case 'ArrowLeft':
+        this.index = Math.max(this.index - 1, 0)
+        this.assignCard()
+        break;
+      case 'ArrowRight':
+        this.index = Math.min(this.index + 1, this.cards.length)
+        this.assignCard()
+        break;
+      default:
+        break;
+    }
+  }
+
   ngOnInit(): void {
     this.cards = history.state.cards
     this.index = history.state.index
-    if (this.cards.length > 0 && this.index >= 0) {
+    this.assignCard()
+  }
+
+  assignCard() {
+    if (this.cards.length > 0 && this.index >= 0 && this.index < this.cards.length) {
       this.transferedCard = UrzaCard.fromObject(this.cards[this.index])
       this.frontCard = UrzaCard.fromObject(this.transferedCard)
       this.backCard = UrzaCard.fromObject(this.transferedCard.backCard)
@@ -37,6 +57,15 @@ export class CardDetailsComponent implements OnInit {
     if (this.transferedCard) {
       this.transferedCard.facingUp = !this.transferedCard.facingUp
     }
+  }
+
+  onMouseWheel(event: WheelEvent): void {
+    if (event.deltaY < 0) {
+      this.index = Math.max(this.index - 1, 0)
+    } else  {
+      this.index = Math.min(this.index + 1, this.cards.length)
+    }
+    this.assignCard()
   }
 
   get selectedCard() {
